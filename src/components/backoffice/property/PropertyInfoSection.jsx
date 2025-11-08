@@ -25,11 +25,14 @@ const PropertyInfoSection = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/zones`;
+        // Add cache buster timestamp
+        const timestamp = Date.now();
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/zones?_t=${timestamp}`;
         const response = await fetch(apiUrl, {
           headers: {
             'x-api-key': process.env.NEXT_PUBLIC_API_KEY,
-          }
+          },
+          cache: 'no-store'
         });
         
         if (!response.ok) {
@@ -37,6 +40,7 @@ const PropertyInfoSection = () => {
         }
         
         const data = await response.json();
+        console.log('Zones fetched:', data);
         setZones(data.data || []);
         
         // If formData has zone_id, set the zone_id value in the form
@@ -45,7 +49,7 @@ const PropertyInfoSection = () => {
         }
       } catch (err) {
         console.error('Error fetching zones:', err);
-        setError(err.message);
+        setError(`Error loading zones: ${err.message}`);
       } finally {
         setIsLoading(false);
       }
@@ -66,17 +70,18 @@ const PropertyInfoSection = () => {
   };
 
   return (
-    <section className="form-section">
-      <div className="section-header">
-        <Image
-          src="/images/icons/iconproperty/property_information.svg"
-          alt={t('alt')}
-          width={24}
-          height={24}
-          className="section-icon"
-        />
-        <h2 className="section-title">{t('title')}</h2>
-      </div>
+    <>
+      <section className="form-section">
+        <div className="section-header">
+          <Image
+            src="/images/icons/iconproperty/property_information.svg"
+            alt={t('alt')}
+            width={24}
+            height={24}
+            className="section-icon"
+          />
+          <h2 className="section-title">{t('title')}</h2>
+        </div>
       
       <div className="form-row">
         <div className="form-group">
@@ -139,7 +144,7 @@ const PropertyInfoSection = () => {
       <div className="form-row">
         <div className="form-group">
           <label className="form-label">{t('labels.propertyDisplay')}</label>
-          <div className="radio-group">
+          <div className="radio-group d-flex gap-3 align-items-center">
             <div className="form-check">
               <input
                 type="radio"
@@ -149,7 +154,7 @@ const PropertyInfoSection = () => {
                 checked={watch('isFeatured') === false || watch('isFeatured') === 'false' || watch('isFeatured') === undefined || watch('isFeatured') === null}
                 {...register('isFeatured')}
               />
-              <label htmlFor="featured-no" className="form-check-label">
+              <label htmlFor="featured-no" className="form-check-label ms-2">
                 {t('options.normal')}
               </label>
             </div>
@@ -162,7 +167,7 @@ const PropertyInfoSection = () => {
                 checked={watch('isFeatured') === true || watch('isFeatured') === 'true'}
                 {...register('isFeatured')}
               />
-              <label htmlFor="featured-yes" className="form-check-label">
+              <label htmlFor="featured-yes" className="form-check-label ms-2">
                 {t('options.featured')}
               </label>
             </div>
@@ -172,7 +177,47 @@ const PropertyInfoSection = () => {
           </small>
         </div>
       </div>
-    </section>
+      </section>
+      
+      <style jsx>{`
+        .radio-group {
+          padding: 10px 0;
+        }
+        
+        .form-check {
+          display: flex;
+          align-items: center;
+          margin-bottom: 0;
+        }
+        
+        .form-check-input {
+          width: 20px;
+          height: 20px;
+          margin-top: 0;
+          cursor: pointer;
+        }
+        
+        .form-check-label {
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 0;
+        }
+        
+        .error-message {
+          color: #dc3545;
+          padding: 10px;
+          border: 1px solid #dc3545;
+          border-radius: 4px;
+          background-color: #f8d7da;
+        }
+        
+        .loading-spinner {
+          padding: 10px;
+          color: #0d6efd;
+        }
+      `}</style>
+    </>
   );
 };
 

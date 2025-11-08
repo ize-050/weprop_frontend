@@ -481,7 +481,7 @@ const PropertiesList = ({ searchParams }) => {
 
       console.log('Fetching properties with params:', params.toString())
 
-      const response = await fetch(`/api/properties?${params.toString()}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/properties?${params.toString()}`, {
         headers: {
           'x-api-key': 'dd-property-api-key-2025'
         }

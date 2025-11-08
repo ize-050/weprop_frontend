@@ -60,27 +60,6 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                 </div>
               )}
 
-              {/* Favorite Button */}
-              <button className="fav-btn tran3s" style={{
-                position: 'absolute',
-                top: '15px',
-                right: '15px',
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                backgroundColor: 'white',
-                border: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                zIndex: 2,
-                fontSize: '18px',
-                color: '#666'
-              }}>
-                <i className="fa-light fa-heart"></i>
-              </button>
-
               {/* Image Carousel */}
               <div id={`carousel${property.id}`} className="carousel slide" data-bs-ride="false">
                 {/* Additional Labels (HOT OFFER, NEW LISTING) */}

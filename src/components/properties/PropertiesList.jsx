@@ -429,11 +429,10 @@ const PropertiesList = ({ searchParams }) => {
     minPrice: urlSearchParams.get('minPrice') || '',
     maxPrice: urlSearchParams.get('maxPrice') || '',
     zoneId: urlSearchParams.get('zoneId') || '',
-    location: urlSearchParams.get('location') || '',
     listingType: typeParam === 'rent' ? 'RENT' : typeParam === 'sale' ? 'SALE' : '',
     bedrooms: urlSearchParams.get('bedrooms') || '',
     bathrooms: urlSearchParams.get('bathrooms') || '',
-    propertyQuota: urlSearchParams.get('quota') || urlSearchParams.get('propertyQuota') || ''
+    propertyQuota: urlSearchParams.get('propertyQuota') || ''
   })
 
   // Update filters when URL params change
@@ -443,18 +442,17 @@ const PropertiesList = ({ searchParams }) => {
       minPrice: urlSearchParams.get('minPrice') || '',
       maxPrice: urlSearchParams.get('maxPrice') || '',
       zoneId: urlSearchParams.get('zoneId') || '',
-      location: urlSearchParams.get('location') || '',
       listingType: typeParam === 'rent' ? 'RENT' : typeParam === 'sale' ? 'SALE' : '',
       bedrooms: urlSearchParams.get('bedrooms') || '',
       bathrooms: urlSearchParams.get('bathrooms') || '',
-      propertyQuota: urlSearchParams.get('quota') || urlSearchParams.get('propertyQuota') || ''
+      propertyQuota: urlSearchParams.get('propertyQuota') || ''
     }
     setFilters(newFilters)
   }, [urlSearchParams, typeParam])
 
   useEffect(() => {
     fetchProperties()
-  }, [currentPage, filters.propertyType, filters.minPrice, filters.maxPrice, filters.zoneId, filters.location, filters.listingType, filters.bedrooms, filters.bathrooms, filters.propertyQuota])
+  }, [currentPage, filters.propertyType, filters.minPrice, filters.maxPrice, filters.zoneId, filters.listingType, filters.bedrooms, filters.bathrooms, filters.propertyQuota])
 
   const fetchProperties = async () => {
     try {
@@ -468,7 +466,6 @@ const PropertiesList = ({ searchParams }) => {
       if (filters.minPrice) params.append('minPrice', filters.minPrice)
       if (filters.maxPrice) params.append('maxPrice', filters.maxPrice)
       if (filters.zoneId) params.append('zoneId', filters.zoneId)
-      if (filters.location) params.append('location', filters.location)
       if (filters.listingType) params.append('listingType', filters.listingType)
       if (filters.bedrooms) params.append('bedrooms', filters.bedrooms)
       if (filters.bathrooms) params.append('bathrooms', filters.bathrooms)
@@ -611,6 +608,24 @@ const PropertiesList = ({ searchParams }) => {
             <div>
               Showing <span className="color-dark fw-500">{currentPage * itemsPerPage + 1}–{Math.min((currentPage + 1) * itemsPerPage, totalCount)}</span> of{' '}
               <span className="color-dark fw-500">{totalCount}</span> results
+            </div>
+            <div className="d-flex align-items-center xs-mt-20">
+              <div className="short-filter d-flex align-items-center">
+                <div className="fs-16 me-2">Sort by:</div>
+                <select
+                  className="nice-select"
+                  style={{
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '8px',
+                    padding: '8px 16px',
+                    fontSize: '14px'
+                  }}
+                >
+                  <option value="newest">Newest</option>
+                  <option value="price_low">Price Low</option>
+                  <option value="price_high">Price High</option>
+                </select>
+              </div>
             </div>
           </div>
 

@@ -1,0 +1,31 @@
+/* Custom Header Styles - Reduce Height Only */
+
+/* Main Header Container - ลดความสูงเท่านั้น */
+.theme-main-menu .inner-content {
+  padding: 8px 0;
+}
+
+.theme-main-menu .top-header {
+  padding: 8px 0;
+}
+
+/* Sticky Header - ลดความสูงเมื่อ scroll */
+.theme-main-menu.fixed .inner-content {
+  padding: 6px 0;
+}
+
+.theme-main-menu.fixed .top-header {
+  padding: 6px 0;
+}
+
+/* Header Hover and Active Colors */
+.theme-main-menu .navbar-nav .nav-link:hover,
+.theme-main-menu .navbar-nav .nav-link.active {
+  color: #910000 !important;
+}
+
+.theme-main-menu .btn-ten:hover,
+.theme-main-menu .btn-two:hover {
+  background-color: #910000 !important;
+  border-color: #910000 !important;
+}

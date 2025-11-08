@@ -1,0 +1,179 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
+import { useFormContext } from 'react-hook-form';
+import usePropertyFormStore from '@/store/propertyFormStore';
+import Image from 'next/image';
+
+const PropertyInfoSection = () => {
+  const t = useTranslations('backoffice.propertyInfo');
+  const { formData } = usePropertyFormStore();
+  const { register, formState: { errors }, setValue, watch } = useFormContext();
+  const [zones, setZones] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
+  // CSS class for error styling
+  const getInputClassName = (fieldName) => {
+    return errors[fieldName] ? 'is-invalid' : '';
+  };
+
+  // Fetch zones from API
+  useEffect(() => {
+    const fetchZones = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/zones`;
+        const response = await fetch(apiUrl, {
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_API_KEY,
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch zones');
+        }
+        
+        const data = await response.json();
+        setZones(data.data || []);
+        
+        // If formData has zone_id, set the zone_id value in the form
+        if (formData.zone_id) {
+          setValue('zone_id', formData.zone_id);
+        }
+      } catch (err) {
+        console.error('Error fetching zones:', err);
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchZones();
+  }, [formData.zone_id, setValue]);
+
+  // Handle zone selection change to update both visible area name and hidden zone_id
+  const handleZoneChange = (e) => {
+    const zoneId = e.target.value;
+    const selectedZone = zones.find(zone => zone.id === parseInt(zoneId));
+    
+    if (selectedZone) {
+      setValue('area', selectedZone.name);
+      setValue('zone_id', selectedZone.id);
+    }
+  };
+
+  return (
+    <section className="form-section">
+      <div className="section-header">
+        <Image
+          src="/images/icons/iconproperty/property_information.svg"
+          alt={t('alt')}
+          width={24}
+          height={24}
+          className="section-icon"
+        />
+        <h2 className="section-title">{t('title')}</h2>
+      </div>
+      
+      <div className="form-row">
+        <div className="form-group">
+          <label htmlFor="projectName">{t('labels.projectName')}</label>
+          <input
+            type="text"
+            id="projectName"
+            className={`form-control ${errors.projectName ? 'is-invalid' : ''}`}
+            defaultValue={formData.projectName}
+            placeholder={t('placeholders.projectName')}
+            {...register('projectName', { required: t('validation.projectNameRequired') })}
+          />
+          {errors.projectName && (
+            <div className="invalid-feedback">{errors.projectName.message}</div>
+          )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="zone_id">{t('labels.area')}</label>
+          {isLoading ? (
+            <div className="loading-spinner">{t('loadingZones')}</div>
+          ) : error ? (
+            <div className="error-message">{t('errorLoadingZones', { error })}</div>
+          ) : (
+            <>
+              <select
+                id="zone_id"
+                className={`form-control custom-select ${errors.zone_id || errors.area ? 'is-invalid' : ''}`}
+                defaultValue={formData.zone_id || ''}
+                {...register('zone_id', { required: t('validation.areaRequired') })}
+                onChange={handleZoneChange}
+              >
+                <option value="" disabled>{t('placeholders.selectArea')}</option>
+                {zones.map((zone) => (
+                  <option key={zone.id} value={zone.id}>
+                    {zone.name}
+                  </option>
+                ))}
+              </select>
+              {/* Hidden field to store area name for backward compatibility */}
+              <input type="hidden" {...register('area', { required: t('validation.areaRequired') })} />
+            </>
+          )}
+          {(errors.zone_id || errors.area) && (
+            <div className="invalid-feedback">{errors.zone_id?.message || errors.area?.message}</div>
+          )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="referenceId">{t('labels.referenceId')}</label>
+          <input
+            type="text"
+            id="referenceId"
+            className="form-control"
+            defaultValue={formData.referenceId}
+            placeholder={t('placeholders.referenceId')}
+            {...register('referenceId')}
+          />
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="form-group">
+          <label className="form-label">{t('labels.propertyDisplay')}</label>
+          <div className="radio-group">
+            <div className="form-check">
+              <input
+                type="radio"
+                id="featured-no"
+                className="form-check-input"
+                value="false"
+                checked={watch('isFeatured') === false || watch('isFeatured') === 'false' || watch('isFeatured') === undefined || watch('isFeatured') === null}
+                {...register('isFeatured')}
+              />
+              <label htmlFor="featured-no" className="form-check-label">
+                {t('options.normal')}
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                type="radio"
+                id="featured-yes"
+                className="form-check-input"
+                value="true"
+                checked={watch('isFeatured') === true || watch('isFeatured') === 'true'}
+                {...register('isFeatured')}
+              />
+              <label htmlFor="featured-yes" className="form-check-label">
+                {t('options.featured')}
+              </label>
+            </div>
+          </div>
+          <small className="form-text text-muted">
+            {t('notes.featured')}
+          </small>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default PropertyInfoSection;

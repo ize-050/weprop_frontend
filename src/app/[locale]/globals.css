@@ -1,0 +1,110 @@
+/* Global Font */
+body {
+  font-family: 'Gordita', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Gordita', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Loading Spinner */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: #eb6753;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+a {
+  text-decoration: none !important;
+}
+
+/* Filter Search - Force White Background */
+.filter-search-container select,
+.filter-search-container input {
+  background-color: transparent !important;
+}
+
+/* Filter Search Desktop - Add padding-left */
+@media (min-width: 992px) {
+  .filter-field:not(:first-child),
+  .filter-buttons {
+    padding-left: 10px !important;
+  }
+}
+
+/* Filter Search Responsive */
+@media (max-width: 991px) {
+  .filter-search-container {
+    flex-direction: column !important;
+    gap: 0 !important;
+    align-items: stretch !important;
+  }
+  
+  .filter-field,
+  .filter-buttons {
+    width: 100% !important;
+    flex: none !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid #ccc !important;
+    padding: 12px 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 !important;
+    position: relative;
+  }
+  
+  .filter-field:last-of-type {
+    border-bottom: 1px solid #ccc !important;
+  }
+  
+  .filter-field select,
+  .filter-field .nice-select {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .filter-buttons {
+    border-bottom: none !important;
+    padding: 15px 0 0 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    justify-content: space-between !important;
+    flex-direction: row !important;
+  }
+  
+  .filter-buttons button[type="submit"] {
+    flex: 1 !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 12px 20px !important;
+  }
+  
+  .filter-buttons button[type="button"] {
+    flex-shrink: 0 !important;
+    margin-right: 10px !important;
+  }
+}

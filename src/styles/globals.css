@@ -1,0 +1,23 @@
+/* Global Font Override - Montserrat for all text */
+body,
+html {
+  font-family: var(--font-montserrat), 'Montserrat', sans-serif;
+}
+
+/* Override all heading tags */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--font-montserrat), 'Montserrat', sans-serif;
+}
+
+/* Override all text elements */
+p, span, a, li, div, button, input, textarea, select, label {
+  font-family: var(--font-montserrat), 'Montserrat', sans-serif;
+}
+
+/* Override theme font variables */
+:root {
+  --body-font-family: var(--font-montserrat), 'Montserrat', sans-serif;
+  --title-font-family: var(--font-montserrat), 'Montserrat', sans-serif;
+  --font-gordita: var(--font-montserrat), 'Montserrat', sans-serif;
+}

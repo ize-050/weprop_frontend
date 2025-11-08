@@ -423,13 +423,13 @@ const PropertiesList = ({ searchParams }) => {
   const itemsPerPage = 9
 
   // Initialize filters from URL params
-  const typeParam = urlSearchParams.get('type')
+  const typeParam = urlSearchParams.get('type')?.toUpperCase() || ''
   const [filters, setFilters] = useState({
     propertyType: urlSearchParams.get('propertyType') || '',
     minPrice: urlSearchParams.get('minPrice') || '',
     maxPrice: urlSearchParams.get('maxPrice') || '',
     zoneId: urlSearchParams.get('zoneId') || '',
-    listingType: typeParam === 'rent' ? 'RENT' : typeParam === 'sale' ? 'SALE' : '',
+    listingType: typeParam,
     bedrooms: urlSearchParams.get('bedrooms') || '',
     bathrooms: urlSearchParams.get('bathrooms') || '',
     propertyQuota: urlSearchParams.get('propertyQuota') || ''
@@ -437,18 +437,19 @@ const PropertiesList = ({ searchParams }) => {
 
   // Update filters when URL params change
   useEffect(() => {
+    const newTypeParam = urlSearchParams.get('type')?.toUpperCase() || ''
     const newFilters = {
       propertyType: urlSearchParams.get('propertyType') || '',
       minPrice: urlSearchParams.get('minPrice') || '',
       maxPrice: urlSearchParams.get('maxPrice') || '',
       zoneId: urlSearchParams.get('zoneId') || '',
-      listingType: typeParam === 'rent' ? 'RENT' : typeParam === 'sale' ? 'SALE' : '',
+      listingType: newTypeParam,
       bedrooms: urlSearchParams.get('bedrooms') || '',
       bathrooms: urlSearchParams.get('bathrooms') || '',
       propertyQuota: urlSearchParams.get('propertyQuota') || ''
     }
     setFilters(newFilters)
-  }, [urlSearchParams, typeParam])
+  }, [urlSearchParams])
 
   useEffect(() => {
     fetchProperties()

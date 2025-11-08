@@ -610,24 +610,6 @@ const PropertiesList = ({ searchParams }) => {
               Showing <span className="color-dark fw-500">{currentPage * itemsPerPage + 1}–{Math.min((currentPage + 1) * itemsPerPage, totalCount)}</span> of{' '}
               <span className="color-dark fw-500">{totalCount}</span> results
             </div>
-            <div className="d-flex align-items-center xs-mt-20">
-              <div className="short-filter d-flex align-items-center">
-                <div className="fs-16 me-2">Sort by:</div>
-                <select
-                  className="nice-select"
-                  style={{
-                    border: '1px solid #e0e0e0',
-                    borderRadius: '8px',
-                    padding: '8px 16px',
-                    fontSize: '14px'
-                  }}
-                >
-                  <option value="newest">Newest</option>
-                  <option value="price_low">Price Low</option>
-                  <option value="price_high">Price High</option>
-                </select>
-              </div>
-            </div>
           </div>
 
           {/* Properties Grid */}

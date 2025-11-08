@@ -60,12 +60,23 @@ class LanguageApi {
       // Use different fetch methods for SSR and CSR
       if (options.serverSide) {
         // For SSR context
-        const response = await fetch(url, {
+        // Use either cache or next.revalidate, not both
+        const fetchOptions = {
           method: 'GET',
           headers,
-          cache: options.cache || 'force-cache',
-          next: options.next || { revalidate: 300 }, // Default cache for 5 minutes
-        });
+        };
+        
+        // If next.revalidate is specified, use it (preferred for Next.js)
+        if (options.next?.revalidate !== undefined) {
+          fetchOptions.next = options.next;
+        } else if (options.cache) {
+          fetchOptions.cache = options.cache;
+        } else {
+          // Default: use revalidate instead of force-cache
+          fetchOptions.next = { revalidate: 300 }; // 5 minutes
+        }
+        
+        const response = await fetch(url, fetchOptions);
         
         if (!response.ok) {
           throw new Error(`Error fetching UI strings: ${response.status}`);

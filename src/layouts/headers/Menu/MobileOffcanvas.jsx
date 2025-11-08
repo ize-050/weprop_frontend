@@ -13,7 +13,7 @@ const CurrencySwitcher = dynamic(() => import("@/components/common/CurrencySwitc
   ssr: false,
 })
 
-const MobileOffcanvas = ({ offCanvas, setOffCanvas }) => {
+const MobileOffcanvas = () => {
    const locale = useLocale()
    const t = useTranslations()
    const [navTitle, setNavTitle] = useState("")
@@ -41,22 +41,10 @@ const MobileOffcanvas = ({ offCanvas, setOffCanvas }) => {
    return (
       <>
          <div 
-            className={`offcanvas offcanvas-end sidebar-nav ${offCanvas ? "show" : ""}`} 
-            id="sideNav"
-            style={{
-               position: 'fixed',
-               top: 0,
-               right: 0,
-               width: '320px',
-               maxWidth: '85vw',
-               height: '100vh',
-               backgroundColor: '#fff',
-               zIndex: 1050,
-               transform: offCanvas ? 'translateX(0)' : 'translateX(100%)',
-               transition: 'transform 0.3s ease-in-out',
-               overflowY: 'auto',
-               boxShadow: offCanvas ? '-5px 0 15px rgba(0, 0, 0, 0.2)' : 'none'
-            }}
+            className="offcanvas offcanvas-start sidebar-nav" 
+            tabIndex={-1}
+            id="mobileOffcanvas"
+            aria-labelledby="mobileOffcanvasLabel"
          >
             <div className="offcanvas-header">
                <div className="logo order-lg-0">
@@ -64,7 +52,7 @@ const MobileOffcanvas = ({ offCanvas, setOffCanvas }) => {
                      <img src="/assets/images/logo/logoweare.png" alt="12 Real Estate" style={{ height: '40px' }} />
                   </Link>
                </div>
-               <button onClick={() => setOffCanvas(false)} type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+               <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
 
             <div className="wrapper mt-40">
@@ -109,7 +97,7 @@ const MobileOffcanvas = ({ offCanvas, setOffCanvas }) => {
                   </div>
 
                   {/* Contact Info */}
-                  <div className="address-block mt-40 pt-40" style={{ borderTop: '1px solid #e0e0e0' }}>
+                  {/* <div className="address-block mt-40 pt-40" style={{ borderTop: '1px solid #e0e0e0' }}>
                      <h5 className="mb-20" style={{ fontSize: '18px', fontWeight: '600' }}>
                         {t('contact-us')}
                      </h5>
@@ -129,10 +117,10 @@ const MobileOffcanvas = ({ offCanvas, setOffCanvas }) => {
                            info@12realestatepattaya.com
                         </Link>
                      </p>
-                  </div>
+                  </div> */}
 
                   {/* Social Icons */}
-                  <ul className="style-none d-flex flex-wrap w-100 justify-content-start align-items-center social-icon pt-30 mt-auto" style={{ gap: '15px' }}>
+                  {/* <ul className="style-none d-flex flex-wrap w-100 justify-content-start align-items-center social-icon pt-30 mt-auto" style={{ gap: '15px' }}>
                      <li>
                         <Link href="https://wa.me/66892530622" target="_blank" style={{
                            width: '40px',
@@ -193,26 +181,10 @@ const MobileOffcanvas = ({ offCanvas, setOffCanvas }) => {
                            <i className="bi bi-line"></i>
                         </Link>
                      </li>
-                  </ul>
+                  </ul> */}
                </div>
             </div>
          </div>
-         <div 
-            onClick={() => setOffCanvas(false)} 
-            className={`offcanvas-backdrop fade ${offCanvas ? "show" : ""}`}
-            style={{
-               position: 'fixed',
-               top: 0,
-               left: 0,
-               width: '100vw',
-               height: '100vh',
-               backgroundColor: 'rgba(0, 0, 0, 0.5)',
-               zIndex: 1040,
-               opacity: offCanvas ? 1 : 0,
-               visibility: offCanvas ? 'visible' : 'hidden',
-               transition: 'opacity 0.3s ease-in-out, visibility 0.3s ease-in-out'
-            }}
-         ></div>
       </>
    )
 }

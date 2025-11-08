@@ -1,40 +1,44 @@
 'use client'
 import Link from "next/link"
-import { useState } from "react"
 import { useLocale } from 'next-intl'
 import MobileOffcanvas from "./Menu/MobileOffcanvas"
 
 const MobileHeader = () => {
    const locale = useLocale()
-   const [offCanvas, setOffCanvas] = useState(false)
 
    return (
       <>
          <header className="header-nav nav-innerpage-style main-menu mobile-header">
             <nav className="posr">
                <div className="container-fluid">
-                  <div className="row align-items-center justify-content-between">
+                  <div className="row align-items-center">
                      {/* Logo */}
-                     <div className="col-6">
+                     <div className="col">
                         <div className="logos">
                            <Link className="header-logo" href={`/${locale !== 'th' ? locale + '/' : ''}`}>
                               <img 
                                  src="/assets/images/logo/logoweare.png" 
                                  alt="12 Real Estate" 
-                                 style={{ height: '45px' }}
+                                 style={{ height: '80px' }}
                               />
                            </Link>
                         </div>
                      </div>
 
-                     {/* Mobile Menu Button */}
-                     <div className="col-6 text-end">
+                     {/* Mobile Menu Button - ติดขวาสุด */}
+                     <div className="col-auto ms-auto">
                         <button 
-                           onClick={() => setOffCanvas(true)}
-                           className="btn p-0"
+                           className="navbar-toggler d-block d-lg-none" 
+                           type="button" 
+                           data-bs-toggle="offcanvas"
+                           data-bs-target="#mobileOffcanvas"
+                           aria-controls="mobileOffcanvas"
+                           aria-expanded="false"
+                           aria-label="Toggle navigation"
                            style={{
                               border: 'none',
-                              background: 'transparent'
+                              background: 'transparent',
+                              padding: 0
                            }}
                         >
                            <svg 
@@ -56,7 +60,7 @@ const MobileHeader = () => {
          </header>
 
          {/* Mobile Offcanvas Menu */}
-         <MobileOffcanvas offCanvas={offCanvas} setOffCanvas={setOffCanvas} />
+         <MobileOffcanvas />
       </>
    )
 }

@@ -22,24 +22,35 @@
   display: inline-block;
 }
 
-/* Offcanvas Sidebar */
+/* Offcanvas Sidebar - เลื่อนมาจากซ้าย */
 .offcanvas.sidebar-nav {
   width: 320px !important;
   max-width: 85vw !important;
   position: fixed !important;
   top: 0 !important;
-  right: 0 !important;
+  left: 0 !important;
   height: 100vh !important;
   background: #fff !important;
   z-index: 1050 !important;
-  transform: translateX(100%) !important;
+  transform: translateX(-100%) !important;
   transition: transform 0.3s ease-in-out !important;
   overflow-y: auto !important;
+  will-change: transform !important;
+  -webkit-overflow-scrolling: touch !important;
 }
 
 .offcanvas.sidebar-nav.show {
   transform: translateX(0) !important;
-  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Ensure offcanvas is below Fancybox */
+body.fancybox-active .offcanvas.sidebar-nav {
+  z-index: 1000 !important;
+}
+
+body.fancybox-active .offcanvas-backdrop {
+  z-index: 999 !important;
 }
 
 .offcanvas-header {

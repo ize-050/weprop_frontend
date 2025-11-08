@@ -49,8 +49,9 @@ const PropertyMediaGallery = ({ property }) => {
             <div className="col-lg-10">
                <div className="bg-white border-20 md-mb-20 shadow4 p-30">
                   <div className="position-relative z-1 overflow-hidden border-20">
-                     {/* Hidden Fancybox Gallery */}
-                     <div style={{ display: 'none' }}>
+                     {/* See all Photos Button with Fancybox */}
+                     <div className="img-fancy-btn border-10 fw-500 fs-16 color-dark">
+                        See all {images.length} Photos
                         <Fancybox
                            options={{
                               Carousel: {
@@ -59,52 +60,12 @@ const PropertyMediaGallery = ({ property }) => {
                            }}
                         >
                            {images.map((img, index) => (
-                              <a 
-                                 key={index} 
-                                 data-fancybox="property-gallery"
+                              <a key={index} className="d-block" data-fancybox="property-gallery"
                                  href={img}
                               ></a>
                            ))}
                         </Fancybox>
                      </div>
-
-                     {/* See all Photos Button */}
-                     <button
-                        type="button"
-                        className="img-fancy-btn"
-                        style={{ 
-                           cursor: 'pointer',
-                           position: 'absolute',
-                           top: '20px',
-                           right: '20px',
-                           zIndex: 10,
-                           backgroundColor: 'white',
-                           border: 'none',
-                           padding: '12px 24px',
-                           borderRadius: '8px',
-                           fontSize: '16px',
-                           fontWeight: '600',
-                           color: '#333',
-                           boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                           transition: 'all 0.3s ease'
-                        }}
-                        onMouseEnter={(e) => {
-                           e.currentTarget.style.backgroundColor = '#910000'
-                           e.currentTarget.style.color = 'white'
-                        }}
-                        onMouseLeave={(e) => {
-                           e.currentTarget.style.backgroundColor = 'white'
-                           e.currentTarget.style.color = '#333'
-                        }}
-                        onClick={() => {
-                           const firstLink = document.querySelector('a[data-fancybox="property-gallery"]')
-                           if (firstLink) {
-                              firstLink.click()
-                           }
-                        }}
-                     >
-                        See all {images.length} Photos
-                     </button>
 
                      {/* Main Swiper */}
                      <Swiper
@@ -184,6 +145,44 @@ const PropertyMediaGallery = ({ property }) => {
                      )}
                   </div>
                </div>
+               <style jsx global>{`
+                  .img-fancy-btn {
+                     position: absolute;
+                     right: 25px;
+                     top: 35px;
+                     background: #fff;
+                     line-height: 50px;
+                     padding: 0 25px;
+                     z-index: 2;
+                     cursor: pointer;
+                     transition: all 0.2s ease-in-out;
+                     border-radius: 10px;
+                     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                  }
+                  
+                  .img-fancy-btn:hover {
+                     background: #910000;
+                     color: #fff;
+                  }
+                  
+                  .img-fancy-btn a {
+                     position: absolute;
+                     top: 0;
+                     left: 0;
+                     width: 100%;
+                     height: 100%;
+                     opacity: 0;
+                     z-index: 1;
+                  }
+                  
+                  .img-fancy-btn a:first-of-type {
+                     opacity: 1;
+                     position: static;
+                     display: inline-block;
+                     width: 100%;
+                     height: 100%;
+                  }
+               `}</style>
             </div>
 
             {/* Thumbnails */}

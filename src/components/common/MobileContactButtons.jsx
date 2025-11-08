@@ -130,7 +130,7 @@ const MobileContactButtons = () => {
 
                     <div className="contact-avatar" onClick={toggleContactPanel} style={{ cursor: 'pointer' }}>
                         <img
-                            src="/images/staff/amy_1.jpg"
+                            src="/assets/images/aboutus/Kwang.png"
                             alt="Contact Agent"
                             width={50}
                             height={50}

@@ -1,10 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import dynamic from 'next/dynamic'
-
-const HeaderTwo = dynamic(() => import("@/layouts/headers/HeaderTwo"), { ssr: false })
-const MobileHeader = dynamic(() => import("@/layouts/headers/MobileHeader"), { ssr: false })
+import HeaderTwo from "@/layouts/headers/HeaderTwo"
+import MobileHeader from "@/layouts/headers/MobileHeader"
 
 export default function ResponsiveHeader() {
   const [isMobile, setIsMobile] = useState(false)

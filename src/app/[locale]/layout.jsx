@@ -28,6 +28,7 @@ import "../../styles/main.scss"; // Backoffice styles (admin pages only)
 import "../../styles/index.scss"; // Bootstrap + Fonts + Icons + React Toastify
 import "../../../public/assets/fonts/gordita/stylesheet.css"; // Gordita font
 import "../../styles/globals.css"; // Global font override - Montserrat
+import "../../styles/z-index-layers.css"; // Z-index management for libraries
 import "../../styles/mobile-header.css"; // Mobile header styles
 import "../../styles/header-custom.css"; // Custom header height
 import { Montserrat } from "next/font/google";

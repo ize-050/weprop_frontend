@@ -1,0 +1,87 @@
+/* Z-Index Layer Management */
+/* ป้องกัน conflict ระหว่าง libraries */
+
+/* Layer 1: Base Content (0-999) */
+/* Normal content, forms, etc. */
+
+/* Layer 2: Dropdowns & Popovers (1000-1999) */
+.dropdown-menu,
+.popover {
+  z-index: 1050 !important;
+}
+
+/* Mobile Menu */
+.offcanvas.sidebar-nav {
+  z-index: 1050 !important;
+}
+
+.offcanvas-backdrop {
+  z-index: 1040 !important;
+}
+
+/* Layer 3: Modals (2000-8999) */
+.modal {
+  z-index: 2000 !important;
+}
+
+.modal-backdrop {
+  z-index: 1999 !important;
+}
+
+/* Layer 4: Image Galleries (9000-9999) */
+
+/* PhotoSwipe - ถ้ามีใช้ */
+.pswp {
+  z-index: 9500 !important;
+}
+
+.pswp__bg {
+  z-index: 9500 !important;
+}
+
+.pswp__scroll-wrap {
+  z-index: 9501 !important;
+}
+
+/* Fancybox - ใช้อยู่ */
+.fancybox-custom,
+.fancybox__container {
+  z-index: 9999 !important;
+}
+
+.fancybox__backdrop {
+  z-index: 9998 !important;
+}
+
+/* Fancybox Navigation Buttons */
+.fancybox__nav .f-button {
+  z-index: 10000 !important;
+}
+
+/* Layer 5: Tooltips & Notifications (10000+) */
+.tooltip {
+  z-index: 10000 !important;
+}
+
+.toast,
+.notification {
+  z-index: 10001 !important;
+}
+
+/* Special: When Fancybox is active, lower other elements */
+body.fancybox-active .offcanvas.sidebar-nav {
+  z-index: 1000 !important;
+}
+
+body.fancybox-active .offcanvas-backdrop {
+  z-index: 999 !important;
+}
+
+/* Special: When PhotoSwipe is active */
+body.pswp--open .offcanvas.sidebar-nav {
+  z-index: 1000 !important;
+}
+
+body.pswp--open .offcanvas-backdrop {
+  z-index: 999 !important;
+}

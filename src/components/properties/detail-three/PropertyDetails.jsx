@@ -53,8 +53,8 @@ const PropertyDetails = ({ property, locale, t, dynamicT }) => {
          <h3 className="section-title mb-3">{dynamicT ? dynamicT('details', 'Property Details') : 'Property Details'}</h3>
          
          {/* Details Table */}
-         <div className="property-details-table border-0 mb-4">
-            <table className="table" style={{ borderStyle: 'none' }}>
+         <div className="table-responsive property-details-table border-0 mb-4">
+            <table className="table table-borderless">
                <tbody style={{ borderStyle: 'hidden !important' }}>
                   <tr style={{ borderStyle: 'hidden !important' }}>
                      <th>{dynamicT ? dynamicT('property-code', 'Property ID') : 'Property ID'}</th>
@@ -107,6 +107,85 @@ const PropertyDetails = ({ property, locale, t, dynamicT }) => {
                </tbody>
             </table>
          </div>
+
+         {/* Responsive Styles */}
+         <style jsx>{`
+            .property-details-table {
+               overflow-x: auto;
+               -webkit-overflow-scrolling: touch;
+               scrollbar-width: thin;
+               scrollbar-color: #910000 #f0f0f0;
+            }
+            
+            .property-details-table::-webkit-scrollbar {
+               height: 8px;
+            }
+            
+            .property-details-table::-webkit-scrollbar-track {
+               background: #f0f0f0;
+               border-radius: 10px;
+            }
+            
+            .property-details-table::-webkit-scrollbar-thumb {
+               background: #910000;
+               border-radius: 10px;
+            }
+            
+            .property-details-table::-webkit-scrollbar-thumb:hover {
+               background: #750000;
+            }
+            
+            .property-details-table table {
+               min-width: 800px;
+               margin-bottom: 0;
+            }
+            
+            .property-details-table th {
+               white-space: nowrap;
+               font-weight: 600;
+               color: #666;
+               padding: 12px 15px;
+               font-size: 14px;
+            }
+            
+            .property-details-table td {
+               padding: 12px 15px;
+               color: #333;
+               font-size: 14px;
+            }
+            
+            @media (max-width: 768px) {
+               .property-section {
+                  padding: 20px !important;
+               }
+               
+               .property-details-table th,
+               .property-details-table td {
+                  padding: 10px 12px;
+                  font-size: 13px;
+               }
+               
+               .section-title {
+                  font-size: 20px !important;
+               }
+            }
+            
+            @media (max-width: 576px) {
+               .property-section {
+                  padding: 15px !important;
+               }
+               
+               .property-details-table th,
+               .property-details-table td {
+                  padding: 8px 10px;
+                  font-size: 12px;
+               }
+               
+               .section-title {
+                  font-size: 18px !important;
+               }
+            }
+         `}</style>
 
          {/* Google Map */}
          <div className="property-map">

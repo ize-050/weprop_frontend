@@ -28,6 +28,11 @@ serverApi.interceptors.request.use(
     // }
     config.next = config.next || { revalidate: 0 };
     config.cache = config.cache || 'no-store';
+    
+    // Add timestamp to prevent cache
+    config.params = config.params || {};
+    config.params._t = Date.now();
+    
     return config;
   },
   (error) => Promise.reject(error)

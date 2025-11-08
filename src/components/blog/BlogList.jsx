@@ -117,7 +117,14 @@ const BlogList = () => {
                     const title = getLocalizedTitle(blog)
                     const content = getLocalizedContent(blog)
                     const excerpt = content?.replace(/<[^>]*>/g, '').substring(0, 200) || ''
-                    const blogImage = blog.featuredImage || '/images/blog/default-blog.jpg'
+                    
+                    // Build image URL
+                    const imageUrl = blog.featuredImage 
+                      ? (blog.featuredImage.startsWith('http') 
+                          ? blog.featuredImage 
+                          : `${process.env.NEXT_PUBLIC_IMAGE_URL || 'http://localhost:5001'}${blog.featuredImage}`)
+                      : '/images/blog/default-blog.jpg'
+                    
                     const formattedDate = formatDate(blog.createdAt)
 
                     return (
@@ -129,7 +136,7 @@ const BlogList = () => {
                           marginBottom: '30px'
                         }}>
                           <Image
-                            src={blogImage}
+                            src={imageUrl}
                             alt={title}
                             fill
                             style={{ objectFit: 'cover' }}

@@ -100,13 +100,19 @@ const OurBlog = () => {
               const title = getLocalizedTitle(blog)
               const content = getLocalizedContent(blog)
               const excerpt = content?.replace(/<[^>]*>/g, '').substring(0, 150) || ''
-              const blogImage = blog.featuredImage || '/images/blog/default-blog.jpg'
+              
+              // Build image URL
+              const imageUrl = blog.featuredImage 
+                ? (blog.featuredImage.startsWith('http') 
+                    ? blog.featuredImage 
+                    : `${process.env.NEXT_PUBLIC_IMAGE_URL || 'http://localhost:5001'}${blog.featuredImage}`)
+                : '/images/blog/default-blog.jpg'
 
               return (
                 <div className="col-md-6" key={blog.id}>
                   <article className="blog-meta-one mt-35 wow fadeInUp">
                     <figure className="post-img position-relative m0" style={{ 
-                      backgroundImage: `url(${blogImage})`,
+                      backgroundImage: `url(${imageUrl})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',
                       height: '400px',

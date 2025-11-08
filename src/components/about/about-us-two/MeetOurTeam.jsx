@@ -15,8 +15,12 @@ const MeetOurTeam = () => {
 
    const fetchTeamData = async () => {
       try {
-         const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5001'
-         const response = await fetch(`${backendUrl}/api/ui-strings/public/section/team`)
+         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'
+         const response = await fetch(`${apiUrl}/ui-strings/public/section/team`, {
+            headers: {
+               'x-api-key': process.env.NEXT_PUBLIC_API_KEY || 'dd-property-api-key-2025'
+            }
+         })
          const result = await response.json()
          
          if (result.success && result.data) {

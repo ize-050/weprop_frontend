@@ -28,33 +28,61 @@ const BLockFeatureOne = () => {
 
    const fetchAboutData = async () => {
       try {
-         const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5001'
-         const response = await fetch(`${backendUrl}/api/ui-strings/public/section/about`)
-         const result = await response.json()
+         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'
+         console.log('🔍 Fetching about data from:', `${apiUrl}/ui-strings/public/section/about`)
          
-         console.log("DataAbout", result);
+         const response = await fetch(`${apiUrl}/ui-strings/public/section/about`, {
+            headers: {
+               'x-api-key': process.env.NEXT_PUBLIC_API_KEY || 'dd-property-api-key-2025'
+            }
+         })
+         
+         if (!response.ok) {
+            console.error('❌ API Error:', response.status, response.statusText)
+            return
+         }
+         
+         const result = await response.json()
+         console.log("✅ DataAbout received:", result);
          
          if (result.success && result.data) {
             setAboutData(result.data)
+            console.log("✅ About data set:", result.data.length, "items")
+         } else {
+            console.error('❌ No data in response:', result)
          }
       } catch (error) {
-         console.error('Error fetching about data:', error)
+         console.error('❌ Error fetching about data:', error)
       }
    }
 
    const getLocalizedText = (slug) => {
       const item = aboutData.find(item => item.slug === slug)
-      console.log(`Looking for slug: ${slug}, found:`, item)
       
       if (!item) {
-         console.log(`Slug ${slug} not found in aboutData:`, aboutData)
-         return ''
+         console.log(`⚠️ Slug ${slug} not found in aboutData`)
+         // Fallback text
+         const fallbacks = {
+            'who_we_are_title': 'Who We Are',
+            'who_we_are_content': 'Loading...',
+            'our_goal_title': 'Our Goal',
+            'our_goal_content': 'Loading...',
+            'our_vision_title': 'Our Vision',
+            'our_vision_content': 'Loading...',
+            'contact_us_button': 'Contact Us',
+            'counter_properties_number': '100+',
+            'counter_properties_label': 'Properties',
+            'counter_foreign_number': '50+',
+            'counter_foreign_label': 'Foreign Clients',
+            'counter_satisfaction_number': '95%',
+            'counter_satisfaction_label': 'Satisfaction'
+         }
+         return fallbacks[slug] || slug
       }
       
       const localeMap = { 'th': 'th', 'en': 'en', 'zh': 'zhCN', 'ru': 'ru' }
       const lang = localeMap[locale] || 'th'
       const text = item[lang] || item.th || ''
-      console.log(`Returning text for ${slug} in ${lang}:`, text)
       return text
    }
 
@@ -128,7 +156,7 @@ const BLockFeatureOne = () => {
                      </Link>
                   </div>
                </div>
-               <div className="col-xl-6 col-lg-5 d-lg-flex wow fadeInLeft">
+               <div className="col-xl-6 col-lg-5 d-flex wow fadeInLeft">
                   <div className="media-block h-100 w-100 pe-xl-5">
                      <div className="bg-img position-relative" style={{ backgroundImage: `url(/assets/images/aboutus/title.png)` }}>
                     

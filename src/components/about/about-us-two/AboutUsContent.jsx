@@ -16,9 +16,13 @@ const AboutUsContent = () => {
 
    const fetchAboutData = async () => {
       try {
-         const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
-         console.log('Fetching from:', `${backendUrl}/api/aboutus`)
-         const response = await fetch(`${backendUrl}/api/aboutus`)
+         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'
+         console.log('Fetching from:', `${apiUrl}/aboutus`)
+         const response = await fetch(`${apiUrl}/aboutus`, {
+            headers: {
+               'x-api-key': process.env.NEXT_PUBLIC_API_KEY || 'dd-property-api-key-2025'
+            }
+         })
          const data = await response.json()
          console.log('About data received:', data)
          setAboutData(data)

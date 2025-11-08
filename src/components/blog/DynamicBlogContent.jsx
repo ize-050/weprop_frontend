@@ -78,13 +78,21 @@ const DynamicBlogContent = ({ children, blogs, currentPageBlogs, latestPosts, to
               <div className="blog-list">
                 {currentPageBlogs.map((blog, index) => {
                   const blogDate = formatDate(blog.createdAt);
+                  
+                  // Build image URL
+                  const imageUrl = blog.featuredImage 
+                    ? (blog.featuredImage.startsWith('http') 
+                        ? blog.featuredImage 
+                        : `${process.env.NEXT_PUBLIC_IMAGE_URL || 'http://localhost:5001'}${blog.featuredImage}`)
+                    : '/images/placeholder.jpg'
+                  
                   return (
                     <div className="blog-card" key={blog.id}>
                       <div className="blog-image">
                         <img
                           width={800}
                           height={450}
-                          src={blog.featuredImage || '/images/placeholder.jpg'}
+                          src={imageUrl}
                           alt={getLocalizedContent(blog, 'title', locale)}
                         />
                         <div className="date-badge">

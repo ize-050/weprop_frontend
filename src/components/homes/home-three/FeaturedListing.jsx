@@ -51,8 +51,12 @@ const FeaturedListing = ({ randomProperties }) => {
   useEffect(() => {
     try {
       if (randomProperties && Array.isArray(randomProperties) && randomProperties.length > 0) {
-        // Take only first 6 properties
-        setProperties(randomProperties.slice(0, 6))
+        // Remove duplicates by property ID and take only first 6 properties
+        const uniqueProperties = randomProperties.filter((property, index, self) =>
+          index === self.findIndex((p) => p.id === property.id)
+        )
+        console.log('FeaturedListing - Original:', randomProperties.length, 'Unique:', uniqueProperties.length)
+        setProperties(uniqueProperties.slice(0, 6))
       } else {
         setProperties([])
       }

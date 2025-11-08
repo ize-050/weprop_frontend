@@ -51,7 +51,12 @@ const PopularLocationListing = ({ randomProperties }) => {
 
   useEffect(() => {
     if (randomProperties && Array.isArray(randomProperties) && randomProperties.length > 0) {
-      setProperties(randomProperties.slice(0, 8))
+      // Remove duplicates by property ID
+      const uniqueProperties = randomProperties.filter((property, index, self) =>
+        index === self.findIndex((p) => p.id === property.id)
+      )
+      console.log('PopularLocationListing - Props received:', randomProperties.length, 'Unique:', uniqueProperties.length)
+      setProperties(uniqueProperties.slice(0, 8))
     }
   }, [randomProperties])
 
@@ -120,8 +125,7 @@ const PopularLocationListing = ({ randomProperties }) => {
             const duplex = property.labels.some(label => label.labelType === 'duplex');
 
             
-            console.log("property_labels", property.labels)
-            
+  
 
             return (
               <div key={property.id} className="item-first">

@@ -19,7 +19,19 @@ async function getRandomProperties() {
     })
     
     if (response && response.data) {
-      return Array.isArray(response.data) ? response.data : (response.data.data || [])
+      const properties = Array.isArray(response.data) ? response.data : (response.data.data || [])
+      
+      // Debug: Check for duplicates
+      const ids = properties.map(p => p.id)
+      const uniqueIds = [...new Set(ids)]
+      console.log('Home Page - API Response:', {
+        total: properties.length,
+        uniqueCount: uniqueIds.length,
+        hasDuplicates: ids.length !== uniqueIds.length,
+        ids: ids
+      })
+      
+      return properties
     }
     return []
   } catch (error) {

@@ -81,13 +81,21 @@ const PropertyTypes = () => {
             
             
             
-            const mappedTypes = filteredTypes.map((type, index) => ({
-               id: type.id,
-               name: type[nameField] || type.nameEn || type.name,
-               image: process.env.NEXT_PUBLIC_IMAGE_URL + type.p_image || type.pImage || type.z_image || '/assets/images/listing/img_large_01.jpg',
-               bgClass: bgClassMap[type.nameEn || type.name_en] || '', // Use CSS class if available
-               delay: `${index * 0.1}s`
-            }))
+            const mappedTypes = filteredTypes.map((type, index) => {
+               // Get image path with proper fallback
+               const imagePath = type.p_image || type.pImage || type.z_image || '';
+               const imageUrl = imagePath 
+                  ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${imagePath}`
+                  : '/assets/images/listing/img_large_01.jpg';
+               
+               return {
+                  id: type.id,
+                  name: type[nameField] || type.nameEn || type.name,
+                  image: imageUrl,
+                  bgClass: bgClassMap[type.nameEn || type.name_en] || '',
+                  delay: `${index * 0.1}s`
+               };
+            })
 
             console.log("MappedTypes",mappedTypes)
             

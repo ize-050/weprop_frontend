@@ -1,9 +1,9 @@
 "use client";
 
-import useSimpleTranslations from '@/hooks/useDynamicTranslations';
+import useDynamicTranslations from '@/hooks/useDynamicTranslations';
 
 const DynamicBlogContent = ({ children, blogs, currentPageBlogs, latestPosts, totalPages, page, locale }) => {
-  const { t, loading, error } = useSimpleTranslations('blog');
+  const { t, loading, error } = useDynamicTranslations('blog');
 
   if (loading) {
     return (

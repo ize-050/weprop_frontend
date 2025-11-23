@@ -62,8 +62,8 @@ export default function LanguageSwitcher() {
 
   // ข้อมูลภาษาที่รองรับ - ใช้ flag-icons CSS สำหรับธงชาติจริง
   const languages = [
-    { code: 'th', name: 'ไทย', flagCode: 'th' },
     { code: 'en', name: 'English', flagCode: 'gb' },
+    { code: 'th', name: 'ไทย', flagCode: 'th' },
     { code: 'zh', name: '中文', flagCode: 'cn' },
     { code: 'ru', name: 'Русский', flagCode: 'ru' }
   ];

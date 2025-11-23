@@ -9,7 +9,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-const PropertyUnitPlan = ({ property, t, dynamicT }) => {
+const PropertyUnitPlan = ({ property, t }) => {
    const [activeIndex, setActiveIndex] = useState(0)
    const unitPlans = property?.unitPlans || []
    
@@ -17,7 +17,7 @@ const PropertyUnitPlan = ({ property, t, dynamicT }) => {
 
    return (
       <div className="property-section bg-white shadow4 border-20 p-40 mb-50">
-         <h3 className="section-title mb-3">{dynamicT ? dynamicT('unit-plans', 'Unit Plans') : 'Unit Plans'}</h3>
+         <h3 className="section-title mb-3">{t('unitPlans')}</h3>
          <div className="floor-plan-container">
             <Swiper
                spaceBetween={30}

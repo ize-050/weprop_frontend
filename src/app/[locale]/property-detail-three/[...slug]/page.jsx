@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import { getTranslations } from 'next-intl/server'
 import serverApi from '@/utils/serverApi'
 import PropertyDetailThree from '@/components/properties/detail-three/PropertyDetailThree'
 import LoadingAnimation from '@/components/common/LoadingAnimation'
@@ -12,14 +13,15 @@ export const dynamic = 'force-dynamic'
 export async function generateMetadata({ params }) {
   const { slug, locale } = params
   const id = slug[0] // ID is the first part of slug
+  const t = await getTranslations({ locale })
 
   try {
     const property = await getPropertyById(id)
 
     if (!property) {
       return {
-        title: 'Property Not Found',
-        description: 'The requested property could not be found.'
+        title: t('propertyNotFound'),
+        description: t('propertyNotFoundDesc')
       }
     }
 
@@ -83,8 +85,8 @@ export async function generateMetadata({ params }) {
   } catch (error) {
     console.error('Error generating metadata:', error)
     return {
-      title: 'Property Detail | D\'LuckProperty',
-      description: 'View property details'
+      title: `${t('propertyDetail')} | D'LuckProperty`,
+      description: t('viewPropertyDetails')
     }
   }
 }
@@ -102,8 +104,9 @@ async function getPropertyById(id) {
 
 // Main page component
 export default async function PropertyDetailThreePage({ params }) {
-  const { slug } = params
+  const { slug, locale } = params
   const id = slug[0] // ID is the first part of slug
+  const t = await getTranslations({ locale })
 
   try {
     const property = await getPropertyById(id)
@@ -113,8 +116,8 @@ export default async function PropertyDetailThreePage({ params }) {
         <div className="error-page d-flex align-items-center justify-content-center">
           <div className="text-center">
             <h1>404</h1>
-            <h3>Property Not Found</h3>
-            <p>The property you are looking for does not exist.</p>
+            <h3>{t('propertyNotFound')}</h3>
+            <p>{t('propertyNotFoundMessage')}</p>
           </div>
         </div>
       )
@@ -137,9 +140,9 @@ export default async function PropertyDetailThreePage({ params }) {
     return (
       <div className="error-page d-flex align-items-center justify-content-center">
         <div className="text-center">
-          <h1>Error</h1>
-          <h3>Something went wrong</h3>
-          <p>Unable to load property details. Please try again later.</p>
+          <h1>{t('error')}</h1>
+          <h3>{t('somethingWentWrong')}</h3>
+          <p>{t('unableToLoadProperty')}</p>
         </div>
       </div>
     )

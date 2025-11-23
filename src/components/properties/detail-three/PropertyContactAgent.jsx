@@ -1,9 +1,9 @@
 'use client'
 import { useState } from 'react'
-import useSimpleTranslations from '@/hooks/useSimpleTranslations'
+import { useTranslations } from 'next-intl'
 
 const PropertyContactAgent = ({ property }) => {
-   const { t } = useSimpleTranslations('listing')
+   const t = useTranslations()
    const [formData, setFormData] = useState({
       name: '',
       email: '',
@@ -27,7 +27,7 @@ const PropertyContactAgent = ({ property }) => {
    return (
       <div className="property-section bg-white shadow4 border-20 p-40 mb-50">
          <h4 className="mb-40 text-center" style={{ fontSize: '24px', fontWeight: '700' }}>
-            {t('contact-agent', 'Contact Agent')}
+            {t('contactAgent')}
          </h4>
 
          {/* Agent Info */}
@@ -53,10 +53,10 @@ const PropertyContactAgent = ({ property }) => {
          {/* Request Details */}
          <div className="text-center mb-30">
             <h5 className="mb-2" style={{ fontSize: '18px', fontWeight: '600' }}>
-               {t('request-details', 'Request details')}
+               {t('requestDetails')}
             </h5>
             <p className="mb-0" style={{ fontSize: '14px', color: '#666' }}>
-               {t('request-details-desc', 'Leave your contacts and we will send all details about this property')}
+               {t('requestDetailsDesc')}
             </p>
          </div>
 
@@ -67,7 +67,7 @@ const PropertyContactAgent = ({ property }) => {
                   type="text"
                   name="name"
                   className="form-control"
-                  placeholder={t('your-name', 'Your Name')}
+                  placeholder={t('yourName')}
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -85,7 +85,7 @@ const PropertyContactAgent = ({ property }) => {
                   type="email"
                   name="email"
                   className="form-control"
-                  placeholder={t('your-email', 'Your Email')}
+                  placeholder={t('yourEmail')}
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -103,7 +103,7 @@ const PropertyContactAgent = ({ property }) => {
                   type="tel"
                   name="phone"
                   className="form-control"
-                  placeholder={t('your-phone', 'Your Phone')}
+                  placeholder={t('yourPhone')}
                   value={formData.phone}
                   onChange={handleChange}
                   style={{
@@ -119,7 +119,7 @@ const PropertyContactAgent = ({ property }) => {
                <textarea
                   name="message"
                   className="form-control"
-                  placeholder={t('your-message', 'Your Message')}
+                  placeholder={t('yourMessage')}
                   value={formData.message}
                   onChange={handleChange}
                   rows="4"
@@ -148,7 +148,7 @@ const PropertyContactAgent = ({ property }) => {
                onMouseEnter={(e) => e.target.style.backgroundColor = '#6B0000'}
                onMouseLeave={(e) => e.target.style.backgroundColor = '#8B0000'}
             >
-               {t('send-message-now', 'Send a Message Now')}
+               {t('sendMessageNow')}
             </button>
          </form>
 

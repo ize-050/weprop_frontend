@@ -1,7 +1,7 @@
 import { getRequestConfig } from 'next-intl/server';
 
-export const supportedLocales = ['th', 'en', 'zh', 'ru'];
-export const defaultLocale = 'th';
+export const supportedLocales = ['en', 'th', 'zh', 'ru'];
+export const defaultLocale = 'en';
 
 export default getRequestConfig(async ({ locale }) => {
   // ตรวจสอบว่า locale มีค่าและอยู่ในรายการที่รองรับ

@@ -3,9 +3,8 @@ import React, { useState, useEffect } from "react";
 import { FiSearch, FiMenu } from "react-icons/fi";
 import usePropertyFilterStore from '@/store/usePropertyFilterStore';
 import { useSearchParams, useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import AdvanceFilterContent from "@/components/properties/listing/AdvancedFilterContent";
-import useDynamicTranslations from '@/hooks/useDynamicTranslations';
 import NiceSelect from "@/components/ui/NiceSelect";
 
 export default function HeroSearchBar({
@@ -17,6 +16,7 @@ export default function HeroSearchBar({
   const searchParams = useSearchParams();
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations();
   const {advancedSearchVisible,setAdvancedSearchVisible} = usePropertyFilterStore();
  
   // ดึงค่า type จาก URL parameters
@@ -25,6 +25,8 @@ export default function HeroSearchBar({
   const [priceRange, setPriceRange] = useState('');
   const [location, setLocation] = useState('');
   const [quota, setQuota] = useState('');
+  const [zones, setZones] = useState([]);
+  const [propertyTypes, setPropertyTypes] = useState([]);
 
   // กำหนด initial listing type จาก URL parameter ถ้ามี
   const getInitialListingType = () => {
@@ -33,15 +35,53 @@ export default function HeroSearchBar({
     return initialListingType;
   };
 
-  const { t } = useDynamicTranslations('listing');
-
   const tabs = [
-    { id: "buy", label: t('buy', 'Buy') },
-    { id: "rent", label: t('rent', 'Rent') },
+    { id: "buy", label: t('buy') },
+    { id: "rent", label: t('rent') },
   ];
 
   const [listingType, setListingType] = useState(getInitialListingType());
   const [activeTab, setActiveTab] = useState(typeParam === 'rent' ? "rent" : "buy");
+
+  // Fetch zones and property types from API
+  useEffect(() => {
+    const fetchZones = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/zones`, {
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_API_KEY
+          }
+        });
+        if (response.ok) {
+          const result = await response.json();
+          setZones(Array.isArray(result.data) ? result.data : []);
+        }
+      } catch (error) {
+        console.error('Error fetching zones:', error);
+        setZones([]); // Set empty array on error
+      }
+    };
+
+    const fetchPropertyTypes = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/properties/types`, {
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_API_KEY
+          }
+        });
+        if (response.ok) {
+          const result = await response.json();
+          setPropertyTypes(Array.isArray(result.data) ? result.data : []);
+        }
+      } catch (error) {
+        console.error('Error fetching property types:', error);
+        setPropertyTypes([]); // Set empty array on error
+      }
+    };
+
+    fetchZones();
+    fetchPropertyTypes();
+  }, []);
 
   // อัพเดต listingType เมื่อ URL parameters เปลี่ยน
   useEffect(() => {
@@ -71,7 +111,7 @@ export default function HeroSearchBar({
     
     // เพิ่ม property type ถ้ามี
     if (propertyType) {
-      params.append('propertyType', propertyType);
+      params.append('propertyTypeId', propertyType);
     }
     
     // เพิ่ม price range ถ้ามี
@@ -81,9 +121,9 @@ export default function HeroSearchBar({
       if (maxPrice) params.append('maxPrice', maxPrice);
     }
     
-    // เพิ่ม location ถ้ามี
+    // เพิ่ม zone ถ้ามี
     if (location) {
-      params.append('location', location);
+      params.append('zoneId', location);
     }
     
     // เพิ่ม quota ถ้ามี
@@ -213,15 +253,22 @@ export default function HeroSearchBar({
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    Property Type
+                    {t('propertyType')}
                   </label>
                   <NiceSelect
                     options={[
-                      { value: "", text: "All Types" },
-                      { value: "condo", text: "Condominium" },
-                      { value: "villa", text: "Villa" },
-                      { value: "house", text: "House" },
-                      { value: "land", text: "Land" },
+                      { value: "", text: t('allTypes') },
+                      ...propertyTypes.map(type => ({
+                        value: type.id.toString(),
+                        text: (() => {
+                          switch (locale) {
+                            case 'th': return type.nameTh || type.nameEn;
+                            case 'zh': return type.nameZh || type.nameEn;
+                            case 'ru': return type.nameRu || type.nameEn;
+                            default: return type.nameEn;
+                          }
+                        })()
+                      }))
                     ]}
                     defaultCurrent={0}
                     onChange={(e) => setPropertyType(e.target.value)}
@@ -241,15 +288,15 @@ export default function HeroSearchBar({
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    Price
+                    {t('price')}
                   </label>
                   <NiceSelect
                     options={[
-                      { value: "", text: "Select Price" },
-                      { value: "0-1000000", text: "Under 1M" },
-                      { value: "1000000-5000000", text: "1M - 5M" },
-                      { value: "5000000-10000000", text: "5M - 10M" },
-                      { value: "10000000-999999999", text: "Above 10M" },
+                      { value: "", text: t('selectPrice') },
+                      { value: "0-1000000", text: t('under1M') },
+                      { value: "1000000-5000000", text: t('1M5M') },
+                      { value: "5000000-10000000", text: t('5M10M') },
+                      { value: "10000000-999999999", text: t('above10M') },
                     ]}
                     defaultCurrent={0}
                     onChange={(e) => setPriceRange(e.target.value)}
@@ -269,16 +316,22 @@ export default function HeroSearchBar({
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    Location
+                    {t('location')}
                   </label>
                   <NiceSelect
                     options={[
-                      { value: "", text: "All Locations" },
-                      { value: "jomtien", text: "Jomtien" },
-                      { value: "wongamat", text: "Wongamat" },
-                      { value: "naklua", text: "Naklua" },
-                      { value: "pratumnak", text: "Pratumnak" },
-                      { value: "central-pattaya", text: "Central Pattaya" },
+                      { value: "", text: t('allLocations') },
+                      ...zones.map(zone => ({
+                        value: zone.id.toString(),
+                        text: (() => {
+                          switch (locale) {
+                            case 'th': return zone.nameTh || zone.nameEn;
+                            case 'zh': return zone.nameZh || zone.nameEn;
+                            case 'ru': return zone.nameRu || zone.nameEn;
+                            default: return zone.nameEn;
+                          }
+                        })()
+                      }))
                     ]}
                     defaultCurrent={0}
                     onChange={(e) => setLocation(e.target.value)}
@@ -298,13 +351,13 @@ export default function HeroSearchBar({
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    Property Quota
+                    {t('propertyQuota')}
                   </label>
                   <NiceSelect
                     options={[
-                      { value: "", text: "All Quota" },
-                      { value: "thai", text: "Thai Quota" },
-                      { value: "foreign", text: "Foreign Quota" },
+                      { value: "", text: t('allQuota') },
+                      { value: "thai", text: t('thaiQuota') },
+                      { value: "foreign", text: t('foreignQuota') },
                     ]}
                     defaultCurrent={0}
                     onChange={(e) => setQuota(e.target.value)}
@@ -351,7 +404,7 @@ export default function HeroSearchBar({
                         whiteSpace: 'nowrap'
                       }}
                     >
-                      SEARCH
+                      {t('search')}
                     </button>
                   </div>
                 </div>

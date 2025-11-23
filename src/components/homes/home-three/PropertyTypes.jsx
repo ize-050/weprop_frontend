@@ -1,17 +1,16 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
-import { useLocale } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import Link from "next/link"
 import Image from "next/image"
 import Slider from "react-slick"
-import useSimpleTranslations from '@/hooks/useSimpleTranslations'
 
 const PropertyTypes = () => {
    const locale = useLocale()
    const [propertyTypes, setPropertyTypes] = useState([])
    const [loading, setLoading] = useState(true)
    const sliderRef = useRef(null)
-   const { t } = useSimpleTranslations('home')
+   const t = useTranslations()
 
    // Slider settings
    const sliderSettings = {
@@ -132,7 +131,7 @@ const PropertyTypes = () => {
          <div className="container container-large">
             <div className="position-relative">
                <div className="title-one text-center text-lg-start mb-60 xl-mb-40 lg-mb-20 wow fadeInUp">
-                  <h3>{t('propertyTypes.title', 'Property Types')}</h3>
+                  <h3>{t('propertyTypesTitle')}</h3>
                </div>
                
                <Slider ref={sliderRef} {...sliderSettings} className="property-types-slider">

@@ -2,10 +2,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import Slider from 'react-slick'
 import createSlug from '@/utils/slugify'
-import useSimpleTranslations from '@/hooks/useSimpleTranslations'
 import { convertAndFormatPriceSync, localeToCurrencySymbol } from '@/utils/currencyUtils'
 
 const sliderSettings = {
@@ -45,8 +44,7 @@ const PopularLocationListing = ({ randomProperties }) => {
   const locale = useLocale()
   const sliderRef = useRef(null)
   const [properties, setProperties] = useState([])
-  const { t: dynamicT } = useSimpleTranslations('home')
-  const { t: listingT } = useSimpleTranslations('listing')
+  const t = useTranslations()
   const currencySymbol = localeToCurrencySymbol(locale)
 
   useEffect(() => {
@@ -81,13 +79,13 @@ const PopularLocationListing = ({ randomProperties }) => {
       <div className="container">
         <div className="title-one mb-75 xl-mb-50 md-mb-30 wow fadeInUp">
             <h3 style={{ color: '#1a1a1a', fontWeight: '600', fontSize: '42px', lineHeight: '1.2' }}>
-              {dynamicT('featured.title.part1', 'Featured')}{' '}
+              {t('featuredPart1')}{' '}
               <span style={{ color: '#AF1A1E' }}>
-                {dynamicT('featured.title.part2', 'Listing')}
+                {t('featuredPart2')}
               </span>
             </h3>
             <p className="fs-22" style={{ color: '#6c757d', marginTop: '15px' }}>
-              {dynamicT('featured.subtitle', 'Explore featured properties for sale.')}
+              {t('featuredSubtitle')}
             </p>
         </div>
 
@@ -179,7 +177,7 @@ const PopularLocationListing = ({ randomProperties }) => {
                           textTransform: 'uppercase'
                         }}
                       >
-                        {listingT('hot-offer', 'HOT OFFER')}
+                        {t('hotOffer')}
                       </div>
                     )}
 
@@ -197,7 +195,7 @@ const PopularLocationListing = ({ randomProperties }) => {
                           textTransform: 'uppercase'
                         }}
                       >
-                        {listingT('new-listing', 'NEW LISTING')}
+                        {t('newListing')}
                       </div>
                     )}
 
@@ -215,7 +213,7 @@ const PopularLocationListing = ({ randomProperties }) => {
                           textTransform: 'uppercase'
                         }}
                       >
-                        {listingT('resale', 'RESALE')}
+                        {t('resale')}
                       </div>
                     )}
 
@@ -233,7 +231,7 @@ const PopularLocationListing = ({ randomProperties }) => {
                           textTransform: 'uppercase'
                         }}
                       >
-                        {listingT('rented', 'RENTED')}
+                        {t('rented')}
                       </div>
                     )}
 
@@ -251,7 +249,7 @@ const PopularLocationListing = ({ randomProperties }) => {
                           textTransform: 'uppercase'
                         }}
                       >
-                        {listingT('new-development', 'NEW DEVELOPMENT')}
+                        {t('newDevelopment')}
                       </div>
                     )}
 
@@ -269,7 +267,7 @@ const PopularLocationListing = ({ randomProperties }) => {
                           textTransform: 'uppercase'
                         }}
                       >
-                        {listingT('sold', 'SOLD')}
+                        {t('sold')}
                       </div>
                     )}
 
@@ -287,7 +285,7 @@ const PopularLocationListing = ({ randomProperties }) => {
                           textTransform: 'uppercase'
                         }}
                       >
-                        {listingT('reduce-price', 'REDUCE PRICE')}
+                        {t('reducePrice')}
                       </div>
                     )}
 
@@ -305,7 +303,7 @@ const PopularLocationListing = ({ randomProperties }) => {
                           textTransform: 'uppercase'
                         }}
                       >
-                        {listingT('under-construction', 'UNDER CONSTRUCTION')}
+                        {t('underConstruction')}
                       </div>
                     )}
 
@@ -323,7 +321,7 @@ const PopularLocationListing = ({ randomProperties }) => {
                           textTransform: 'uppercase'
                         }}
                       >
-                        {listingT('duplex', 'DUPLEX')}
+                        {t('duplex')}
                       </div>
                     )}
 
@@ -341,8 +339,8 @@ const PopularLocationListing = ({ randomProperties }) => {
                       }}
                     >
                       {listingType === 'RENT' 
-                        ? listingT('for-rent', 'For Rent') 
-                        : listingT('for-sale', 'For Sale')
+                        ? t('forRent') 
+                        : t('forSale')
                       }
                     </div>
                   </div>
@@ -362,7 +360,7 @@ const PopularLocationListing = ({ randomProperties }) => {
                       {formattedPrice}
                       {listingType === 'RENT' && (
                         <span style={{ fontSize: '14px', fontWeight: '400' }}>
-                          {listingT('mo', '/mo')}
+                          {t('perMonth')}
                         </span>
                       )}
                     </div>
@@ -377,19 +375,19 @@ const PopularLocationListing = ({ randomProperties }) => {
                       {property.bedrooms > 0 && (
                         <span>
                           <i className="fa-solid fa-bed" style={{ marginRight: '4px' }}></i>
-                          {property.bedrooms} {listingT('bed', 'bed')}
+                          {property.bedrooms} {t('bed')}
                         </span>
                       )}
                       {property.bathrooms > 0 && (
                         <span>
                           <i className="fa-solid fa-bath" style={{ marginRight: '4px' }}></i>
-                          {property.bathrooms} {listingT('bath', 'bath')}
+                          {property.bathrooms} {t('bath')}
                         </span>
                       )}
                       {property.usableArea > 0 && (
                         <span>
                           <i className="fa-solid fa-ruler-combined" style={{ marginRight: '4px' }}></i>
-                          {property.usableArea} {listingT('sqm', 'sqm')}
+                          {property.usableArea} {t('sqm')}
                         </span>
                       )}
                     </div>

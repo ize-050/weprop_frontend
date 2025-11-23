@@ -1,8 +1,6 @@
 'use client'
-import useSimpleTranslations from '@/hooks/useSimpleTranslations'
 
 const PropertyDescription = ({ property, locale, t }) => {
-   const { t: dynamicT } = useSimpleTranslations('property-detail')
    // Get localized description (รองรับ 4 ภาษา: th, en, zh, ru)
    const getDescription = () => {
       if (!property) {
@@ -70,7 +68,7 @@ const PropertyDescription = ({ property, locale, t }) => {
 
    return (
       <div className="property-section bg-white shadow4 border-20 p-40 mb-50">
-         <h4 className="mb-20">{dynamicT('description', 'Description')}</h4>
+         <h4 className="mb-20">{t('description')}</h4>
          <div 
             className="property-description" 
             dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br>') }}

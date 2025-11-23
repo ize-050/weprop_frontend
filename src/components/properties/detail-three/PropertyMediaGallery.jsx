@@ -10,7 +10,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
 
-const PropertyMediaGallery = ({ property }) => {
+const PropertyMediaGallery = ({ property, t }) => {
    const [thumbsSwiper, setThumbsSwiper] = useState(null)
    // Get images from propertyImages or images array (รองรับทั้ง 2 แบบ)
    const getImages = () => {
@@ -50,22 +50,28 @@ const PropertyMediaGallery = ({ property }) => {
                <div className="bg-white border-20 md-mb-20 shadow4 p-30">
                   <div className="position-relative z-1 overflow-hidden border-20">
                      {/* See all Photos Button with Fancybox */}
-                     <div className="img-fancy-btn border-10 fw-500 fs-16 color-dark">
-                        See all {images.length} Photos
-                        <Fancybox
-                           options={{
-                              Carousel: {
-                                 infinite: true,
-                              },
-                           }}
-                        >
-                           {images.map((img, index) => (
-                              <a key={index} className="d-block" data-fancybox="property-gallery"
-                                 href={img}
-                              ></a>
-                           ))}
-                        </Fancybox>
-                     </div>
+                     <Fancybox
+                        options={{
+                           Carousel: {
+                              infinite: true,
+                           },
+                        }}
+                     >
+                        <div className="img-fancy-btn border-10 fw-500 fs-16 color-dark">
+                           <a 
+                              data-fancybox="property-gallery"
+                              href={images[0]}
+                              style={{ color: 'inherit', textDecoration: 'none', cursor: 'pointer' }}
+                           >
+                              {t('seeAllPhotos', { count: images.length })}
+                           </a>
+                        </div>
+                        {images.slice(1).map((img, index) => (
+                           <a key={index + 1} className="d-none" data-fancybox="property-gallery"
+                              href={img}
+                           ></a>
+                        ))}
+                     </Fancybox>
 
                      {/* Main Swiper */}
                      <Swiper

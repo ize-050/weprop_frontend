@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter, useSearchParams } from 'next/navigation'
 import ReactPaginate from 'react-paginate'
 import HeaderTwo from '@/layouts/headers/HeaderTwo'
@@ -11,12 +11,11 @@ import HeroSearchBar from '@/components/properties/listing/HeroSearchBar'
 import createSlug from '@/utils/slugify'
 import { convertAndFormatPriceSync, localeToCurrencySymbol } from '@/utils/currencyUtils'
 import ContactModal from '../common/ContactModal/ContactModal'
-import useSimpleTranslations from '@/hooks/useSimpleTranslations'
 
 // Property Card Component with Modal
 const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, baseImageUrl, currencySymbol, formattedSalePrice, formattedRentPrice, isForSale, isForRent }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { t: dynamicT } = useSimpleTranslations('listing')
+  const t = useTranslations()
 
   const isHotOffer = property.labels.some(label => label.labelType === 'hot-offer');
   const isNewListing = property.labels.some(label => label.labelType === 'new-listing');
@@ -55,7 +54,7 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                     textTransform: 'uppercase',
                     display: 'inline-block'
                   }}>
-                    {isForRent ? dynamicT('for-rent', 'FOR RENT') : dynamicT('for-sale', 'FOR SALE')}
+                    {isForRent ? t('forRent') : t('forSale')}
                   </div>
                 </div>
               )}
@@ -87,7 +86,7 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      {dynamicT('hot-offer', 'HOT OFFER')}
+                      {t('hotOffer')}
                     </div>
                   )}
                   {isNewListing && (
@@ -104,7 +103,7 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      {dynamicT('new-listing', 'NEW LISTING')}
+                      {t('newListing')}
                     </div>
                   )}
                   {reducePrice && (
@@ -121,7 +120,7 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      {dynamicT('reduce-price', 'REDUCE PRICE')}
+                      {t('reducePrice')}
                     </div>
                   )}
                   {resale && (
@@ -138,7 +137,7 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      {dynamicT('resale', 'RESALE')}
+                      {t('resale')}
                     </div>
                   )}
                   {rented && (
@@ -155,7 +154,7 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      {dynamicT('rented', 'RENTED')}
+                      {t('rented')}
                     </div>
                   )}
                   {sold && (
@@ -172,7 +171,7 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      {dynamicT('sold', 'SOLD')}
+                      {t('sold')}
                     </div>
                   )}
                   {newDevelopment && (
@@ -190,7 +189,7 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                       justifyContent: 'center',
                       whiteSpace: 'nowrap'
                     }}>
-                      {dynamicT('new-development', 'NEW DEVELOPMENT')}
+                      {t('newDevelopment')}
                     </div>
                   )}
                   {underConstruction && (
@@ -208,7 +207,7 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                       justifyContent: 'center',
                       whiteSpace: 'nowrap'
                     }}>
-                      {dynamicT('under-construction', 'UNDER CONSTRUCTION')}
+                      {t('underConstruction')}
                     </div>
                   )}
                 </div>
@@ -326,15 +325,15 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
             <ul className="style-none feature d-flex flex-wrap align-items-center justify-content-between mb-3">
               <li className="d-flex align-items-center">
                 <i className="flaticon-expand me-2" style={{ color: '#6c757d' }}></i>
-                <span className="fs-16">{property.usableArea || 0} {dynamicT('sqm', 'sqm')}</span>
+                <span className="fs-16">{property.usableArea || 0} {t('sqm')}</span>
               </li>
               <li className="d-flex align-items-center">
                 <i className="flaticon-bed me-2" style={{ color: '#6c757d' }}></i>
-                <span className="fs-16">{property.bedrooms || 0} {dynamicT('bed', 'bed')}</span>
+                <span className="fs-16">{property.bedrooms || 0} {t('bed')}</span>
               </li>
               <li className="d-flex align-items-center">
                 <i className="flaticon-shower me-2" style={{ color: '#6c757d' }}></i>
-                <span className="fs-16">{property.bathrooms || 0} {dynamicT('bath', 'bath')}</span>
+                <span className="fs-16">{property.bathrooms || 0} {t('bath')}</span>
               </li>
             </ul>
 
@@ -347,7 +346,7 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                 )}
                 {isForRent && formattedRentPrice && (
                   <strong className="price fw-500 color-dark" style={{ fontSize: isForSale ? '16px' : '20px', color: '#1a1a1a', display: 'block' }}>
-                    {formattedRentPrice}<sub style={{ fontSize: '14px', fontWeight: '400' }}>{dynamicT('mo', '/mo')}</sub>
+                    {formattedRentPrice}<sub style={{ fontSize: '14px', fontWeight: '400' }}>{t('perMonth')}</sub>
                   </strong>
                 )}
               </div>
@@ -394,6 +393,7 @@ const PropertiesList = ({ searchParams }) => {
   const locale = useLocale()
   const router = useRouter()
   const urlSearchParams = useSearchParams()
+  const t = useTranslations()
 
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(true)
@@ -586,8 +586,8 @@ const PropertiesList = ({ searchParams }) => {
           {/* Results Header */}
           <div className="listing-header-filter d-sm-flex justify-content-between align-items-center mb-40 lg-mb-30">
             <div>
-              Showing <span className="color-dark fw-500">{currentPage * itemsPerPage + 1}–{Math.min((currentPage + 1) * itemsPerPage, totalCount)}</span> of{' '}
-              <span className="color-dark fw-500">{totalCount}</span> results
+              {t('showing')} <span className="color-dark fw-500">{currentPage * itemsPerPage + 1}–{Math.min((currentPage + 1) * itemsPerPage, totalCount)}</span> {t('of')}{' '}
+              <span className="color-dark fw-500">{totalCount}</span> {t('results')}
             </div>
           </div>
 
@@ -595,12 +595,12 @@ const PropertiesList = ({ searchParams }) => {
           {loading ? (
             <div className="text-center py-5">
               <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
+                <span className="visually-hidden">{t('loading')}</span>
               </div>
             </div>
           ) : properties.length === 0 ? (
             <div className="text-center py-5">
-              <p>No properties found.</p>
+              <p>{t('noPropertiesFound')}</p>
             </div>
           ) : (
             <div className="row gx-xxl-5">

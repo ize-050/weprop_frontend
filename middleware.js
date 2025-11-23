@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 // รายการภาษาที่รองรับ
 const locales = ['th', 'en', 'zh', 'ru'];
 // ภาษาเริ่มต้น
-export const defaultLocale = 'th';
+export const defaultLocale = 'en';
 
 // ฟังก์ชันสำหรับตรวจสอบภาษาจาก Accept-Language header
 function getLocaleFromHeader(request) {
@@ -57,8 +57,8 @@ export function middleware(request) {
     locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
   
-  // ถ้าเป็น /th ให้ redirect ไปที่ root path
-  if (pathname === '/th') {
+  // ถ้าเป็น /en ให้ redirect ไปที่ root path
+  if (pathname === '/en') {
     return NextResponse.redirect(new URL('/', request.url));
   }
   
@@ -67,12 +67,12 @@ export function middleware(request) {
     // ตรวจสอบภาษาจาก Accept-Language header
     const locale = getLocaleFromHeader(request);
     
-    // ถ้าเป็นภาษาไทยและเป็น root path
+    // ถ้าเป็นภาษาอังกฤษและเป็น root path
     if (locale === defaultLocale && pathname === '/') {
       return NextResponse.next();
     }
     
-    // ถ้าเป็นภาษาไทยแต่ไม่ใช่ root path
+    // ถ้าเป็นภาษาอังกฤษแต่ไม่ใช่ root path
     if (locale === defaultLocale) {
       return NextResponse.next();
     }

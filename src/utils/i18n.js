@@ -1,6 +1,6 @@
 // ข้อมูลภาษาที่รองรับ
-export const locales = ['th', 'en', 'zh', 'ru'];
-export const defaultLocale = 'th';
+export const locales = ['en', 'th', 'zh', 'ru'];
+export const defaultLocale = 'en';
 
 
 

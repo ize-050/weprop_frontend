@@ -76,9 +76,9 @@ const PopularLocation = ({ zones = [] }) => {
               {dynamicT('ExploreLocations.title.part2', 'Location')}
             </span>
           </h3>
-          <p className="fs-22" style={{ color: '#6c757d', marginTop: '15px' }}>
+          {/* <p className="fs-22" style={{ color: '#6c757d', marginTop: '15px' }}>
             {dynamicT('ExploreLocations.subtitle.short', 'Explore latest & featured properties for sale.')}
-          </p>
+          </p> */}
         </div>
 
         <Slider {...sliderSettings} ref={sliderRef} className="property-location-slider-one">

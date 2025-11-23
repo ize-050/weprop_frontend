@@ -1,6 +1,6 @@
 'use client'
 
-const PropertyHighlights = ({ property, locale, t, dynamicT }) => {
+const PropertyHighlights = ({ property, locale, t }) => {
    const highlights = property?.propertyHighlights || property?.highlights || []
    if (highlights.length === 0) return null
 
@@ -11,7 +11,7 @@ const PropertyHighlights = ({ property, locale, t, dynamicT }) => {
 
    return (
       <div>
-         <h4 className="mb-20">{dynamicT('highlights', 'Highlights')}</h4>
+         <h4 className="mb-20">{t('highlights')}</h4>
          <div className="property-highlights">
             <ul className="style-none d-flex flex-wrap">
                {highlights.map((item, index) => (

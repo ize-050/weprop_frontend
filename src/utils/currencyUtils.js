@@ -19,7 +19,8 @@ const defaultRates = {
   'CNY': 0.20,
   'RUB': 2.50,
   'GBP': 0.023,
-  'EUR': 0.027
+  'EUR': 0.027,
+  'AUD': 0.045
 };
 
 // Currency symbols
@@ -29,7 +30,8 @@ export const currencySymbols = {
   'CNY': '¥',
   'RUB': '₽',
   'GBP': '£',
-  'EUR': '€'
+  'EUR': '€',
+  'AUD': 'A$'
 };
 
 /**
@@ -154,7 +156,8 @@ export const formatPrice = (price, locale = 'th', showCurrencySymbol = true) => 
         targetCurrency === 'CNY' ? 'zh-CN' :
           targetCurrency === 'RUB' ? 'ru-RU' :
             targetCurrency === 'GBP' ? 'en-GB' :
-              targetCurrency === 'EUR' ? 'de-DE' : 'th-TH';
+              targetCurrency === 'EUR' ? 'de-DE' :
+                targetCurrency === 'AUD' ? 'en-AU' : 'th-TH';
 
   formattedPrice = new Intl.NumberFormat(formatLocale, {
     maximumFractionDigits: 0

@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 import { convertAndFormatPriceSync } from '@/utils/currencyUtils'
-import useSimpleTranslations from '@/hooks/useSimpleTranslations'
 import ContactModal from '@/components/common/ContactModal/ContactModal'
 import createSlug from '@/utils/slugify'
 import Fancybox from '@/components/common/Fancybox'
@@ -18,7 +17,6 @@ import 'swiper/css/pagination'
 
 const PropertySimilar = ({ property, locale, t }) => {
    const router = useRouter()
-   const { t: dynamicT } = useSimpleTranslations('listing')
    const [relatedProperties, setRelatedProperties] = useState([])
    const [loading, setLoading] = useState(true)
    const [isModalOpen, setIsModalOpen] = useState(false)
@@ -70,8 +68,8 @@ const PropertySimilar = ({ property, locale, t }) => {
    if (loading) {
       return (
          <div className="related-listings-section mb-50">
-            <h3 className="section-title mb-4">{dynamicT ? dynamicT('discover-featured-listings', 'Similar Homes You May Like') : 'Similar Homes You May Like'}</h3>
-            <div className="loading-spinner">{dynamicT ? dynamicT('loading', 'Loading...') : 'Loading...'}</div>
+            <h3 className="section-title mb-4">{t('similarHomes')}</h3>
+            <div className="loading-spinner">{t('loading')}</div>
          </div>
       )
    }
@@ -89,7 +87,7 @@ const PropertySimilar = ({ property, locale, t }) => {
 
    return (
       <div className="similar-property mb-50">
-         <h4 className="mb-40">{dynamicT ? dynamicT('discover-featured-listings', 'Similar Homes You May Like') : 'Similar Homes You May Like'}</h4>
+         <h4 className="mb-40">{t('similarHomes')}</h4>
          
          <Swiper
             modules={[Navigation, Pagination]}
@@ -186,9 +184,9 @@ const PropertySimilar = ({ property, locale, t }) => {
                                  {prop.zone?.[`name_${locale}`] || prop.zone?.name}
                               </div>
                               <ul className="style-none d-flex align-items-center justify-content-between mb-3">
-                                 <li><i className="fa-light fa-bed-front me-2"></i>{prop.bedrooms || 0} {dynamicT ? dynamicT('bed', 'bed') : 'bed'}</li>
-                                 <li><i className="fa-light fa-bath me-2"></i>{prop.bathrooms || 0} {dynamicT ? dynamicT('bath', 'bath') : 'bath'}</li>
-                                 <li><i className="fa-light fa-ruler-combined me-2"></i>{prop.usableArea || 0} {dynamicT ? dynamicT('sqm', 'sqm') : 'sqm'}</li>
+                                 <li><i className="fa-light fa-bed-front me-2"></i>{prop.bedrooms || 0} {t('bed')}</li>
+                                 <li><i className="fa-light fa-bath me-2"></i>{prop.bathrooms || 0} {t('bath')}</li>
+                                 <li><i className="fa-light fa-ruler-combined me-2"></i>{prop.usableArea || 0} {t('sqm')}</li>
                               </ul>
                               <div className="pl-footer m0 d-flex align-items-center justify-content-between">
                                  <div className="price-container">
@@ -199,7 +197,7 @@ const PropertySimilar = ({ property, locale, t }) => {
                                     )}
                                     {rentPrice > 0 && (
                                        <strong className="price fw-500 color-dark d-block">
-                                          {convertAndFormatPriceSync(rentPrice, 'THB', locale)}{dynamicT ? dynamicT('mo', '/mo') : '/mo'}
+                                          {convertAndFormatPriceSync(rentPrice, 'THB', locale)}{t('perMonth')}
                                        </strong>
                                     )}
                                  </div>

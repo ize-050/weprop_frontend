@@ -18,7 +18,8 @@ const CurrencySwitcher = () => {
         { code: "CNY", name: "Chinese Yuan", symbol: currencySymbols.CNY },
         { code: "RUB", name: "Russian Ruble", symbol: currencySymbols.RUB },
         { code: "GBP", name: "British Pound", symbol: currencySymbols.GBP },
-        { code: "EUR", name: "Euro", symbol: currencySymbols.EUR }
+        { code: "EUR", name: "Euro", symbol: currencySymbols.EUR },
+        { code: "AUD", name: "Australian Dollar", symbol: currencySymbols.AUD }
     ];
 
     useEffect(() => {

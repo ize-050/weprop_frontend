@@ -28,8 +28,24 @@ const onSearch = () => {
 
 const HeroBanner = () => {
    const locale = useLocale();
-   const { t } = useSimpleTranslations('hero');
+   const { t } = useSimpleTranslations('home');
 
+   // Hardcode translations for immediate effect
+   const heroTitle = {
+      part1: {
+         en: 'Find the Right',
+         th: 'ค้นหาที่เหมาะสม',
+         zh: '找到合适的',
+         ru: 'Найдите подходящую'
+      },
+      part2: {
+         en: 'Property for Your Dream',
+         th: 'ทรัพย์สินในฝันของคุณ',
+         zh: '您梦想的房产',
+         ru: 'недвижимость для вашей мечты'
+      }
+   }
+      
    return (
       <div className="hero-banner-three position-relative z-1 pt-130 lg-pt-100 pb-170 xl-pb-130 lg-pb-100">
          <Slider {...setting} className="hero-slider-one m0">
@@ -51,7 +67,7 @@ const HeroBanner = () => {
                         letterSpacing: '1px'
                      }}
                   >
-                     {t('hero.title.part1', 'Find the Right')}
+                     {heroTitle.part1[locale] || heroTitle.part1.en}
                   </h2>
                   <h1 
                      className="text-center text-white wow fadeInUp hero-title-large" 
@@ -63,7 +79,7 @@ const HeroBanner = () => {
                         letterSpacing: '2px'
                      }}
                   >
-                     {t('hero.title.part2', 'Property for Your Dream')}
+                     {heroTitle.part2[locale] || heroTitle.part2.en}
                   </h1>
                   
                   <style jsx>{`

@@ -1,6 +1,6 @@
 'use client'
 
-const PropertyAmenities = ({ property, locale, t, dynamicT }) => {
+const PropertyAmenities = ({ property, locale, t }) => {
    const amenities = property?.propertyAmenities || property?.amenities || []
    if (amenities.length === 0) return null
 
@@ -11,7 +11,7 @@ const PropertyAmenities = ({ property, locale, t, dynamicT }) => {
 
    return (
       <div>
-         <h3 className="section-title mb-3">{dynamicT ? dynamicT('amenity', 'Amenity') : t('amenities', 'Amenities')}</h3>
+         <h3 className="section-title mb-3">{t('amenities')}</h3>
          <div className="amenity-items">
             <div className="row g-3">
                {amenities.map((item, index) => (

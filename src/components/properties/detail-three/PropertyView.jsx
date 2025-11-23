@@ -1,6 +1,6 @@
 'use client'
 
-const PropertyView = ({ property, locale, t, dynamicT }) => {
+const PropertyView = ({ property, locale, t }) => {
    const views = property?.propertyViews || property?.views || []
    if (views.length === 0) return null
 
@@ -11,7 +11,7 @@ const PropertyView = ({ property, locale, t, dynamicT }) => {
 
    return (
       <div className="mb-50">
-         <h3 className="section-title mb-3">{dynamicT('view', 'View')}</h3>
+         <h3 className="section-title mb-3">{t('view')}</h3>
          <div className="view-items">
             <div className="row g-3">
                {views.map((item, index) => (

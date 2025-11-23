@@ -16,8 +16,7 @@ import PriceRange from './PriceRange';
 //service
 import getProperties from '@/utils/properties';
 import propertyTypeService from '@/services/propertyTypeService';
-import { useLocale } from 'next-intl';
-import useDynamicTranslations from '@/hooks/useDynamicTranslations';
+import { useLocale, useTranslations } from 'next-intl';
 
 const customStyles = {
     option: (styles, { isFocused, isSelected, isHovered }) => {
@@ -36,7 +35,7 @@ const customStyles = {
 
 export default function AdvancedFilterContent({ onClose, onSearch, type }) {
     const zones = useZoneStore((s) => s.zones);
-    const { t } = useDynamicTranslations('listing');
+    const t = useTranslations();
 
     // กำหนดช่วงราคาเริ่มต้นตาม type
     const getInitialPriceRange = (listingType) => {
@@ -98,24 +97,24 @@ export default function AdvancedFilterContent({ onClose, onSearch, type }) {
     useEffect(() => {
         setDataZone(zones.map((zone) => {
             // Map locale to correct field name
-            let fieldName = 'name_en'; // default fallback
+            let label = zone.nameEn; // default fallback
             switch (locale) {
                 case 'th':
-                    fieldName = 'name_th';
+                    label = zone.nameTh || zone.nameEn;
                     break;
                 case 'zh':
-                    fieldName = 'name_ch'; 
+                    label = zone.nameZh || zone.nameEn; 
                     break;
                 case 'ru':
-                    fieldName = 'name_ru';
+                    label = zone.nameRu || zone.nameEn;
                     break;
                 default:
-                    fieldName = 'name_en';
+                    label = zone.nameEn;
             }
             
             return {
                 value: zone.id,
-                label: zone[fieldName] || zone.name_en || zone.name_th, // fallback
+                label: label,
             }
         }))
     }, [zones, locale])
@@ -206,7 +205,7 @@ export default function AdvancedFilterContent({ onClose, onSearch, type }) {
         <>
             <div className="modal-header pl30 pr30">
                 <h4 className="modal-title" id="advanceSeachModalLabel">
-                    {t('advanced-filter', 'Advanced Filter')}
+                    {t('advancedFilter')}
                 </h4>
                 <button
                     type="button"
@@ -222,7 +221,7 @@ export default function AdvancedFilterContent({ onClose, onSearch, type }) {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="widget-wrapper">
-                            <h6 className="list-title mb20">Price Range</h6>
+                            <h6 className="list-title mb20">{t('priceRange')}</h6>
                             <div className="range-slider-style modal-version">
                                 <PriceRange filterFunctions={filterFunctions} listingType={type} />
                             </div>
@@ -234,7 +233,7 @@ export default function AdvancedFilterContent({ onClose, onSearch, type }) {
                 <div className="row">
                     <div className="col-sm-6">
                         <div className="widget-wrapper">
-                            <h6 className="list-title">{t('type', 'Type')}</h6>
+                            <h6 className="list-title">{t('type')}</h6>
                             <div className="form-style2 input-group">
                                 <Select
                                     defaultValue={propertyTypesOptions[0]}
@@ -256,7 +255,7 @@ export default function AdvancedFilterContent({ onClose, onSearch, type }) {
                     {/* End .col-6 */}
                     <div className="col-sm-6">
                         <div className="widget-wrapper">
-                            <h6 className="list-title">{t('location', 'Location')}</h6>
+                            <h6 className="list-title">{t('location')}</h6>
                             <div className="form-style2 input-group">
                                 <Select
                                     defaultValue={dataZone[0]}
@@ -281,7 +280,7 @@ export default function AdvancedFilterContent({ onClose, onSearch, type }) {
                 <div className="row">
                     <div className="col-sm-6">
                         <div className="widget-wrapper">
-                            <h6 className="list-title">{t('bedrooms', 'Bedrooms')}</h6>
+                            <h6 className="list-title">{t('bedrooms')}</h6>
                             <div className="d-flex">
                                 <Bedroom filterFunctions={filterFunctions} />
                             </div>
@@ -291,7 +290,7 @@ export default function AdvancedFilterContent({ onClose, onSearch, type }) {
 
                     <div className="col-sm-6">
                         <div className="widget-wrapper">
-                            <h6 className="list-title">{t('bathrooms', 'Bathrooms')}</h6>
+                            <h6 className="list-title">{t('bathrooms')}</h6>
                             <div className="d-flex">
                                 <Bathroom filterFunctions={filterFunctions} />
                             </div>
@@ -310,7 +309,7 @@ export default function AdvancedFilterContent({ onClose, onSearch, type }) {
                     onClick={() => resetFilters()}
                 >
                     <span className="flaticon-turn-back" />
-                    <u>{t('reset-all-filters', 'Reset all filters')}</u>
+                    <u>{t('resetAllFilters')}</u>
                 </button>
                 <div className="btn-area">
                     <button type="submit" onClick={handleSearch}
@@ -320,7 +319,7 @@ export default function AdvancedFilterContent({ onClose, onSearch, type }) {
                         }}
                         className="ud-btn btn-thm">
                         <span className="flaticon-search align-text-top pr10" />
-                        {t('search', 'Search')}
+                        {t('search')}
                     </button>
                 </div>
             </div>

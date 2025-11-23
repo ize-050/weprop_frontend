@@ -1,5 +1,5 @@
 export const locales = ['en', 'th', 'zh', 'ru'];
-export const defaultLocale = 'th';
+export const defaultLocale = 'en';
 
 export function getLocaleDirection(locale) {
   // ภาษาที่อ่านจากขวาไปซ้าย (RTL) - ไม่มีในกรณีนี้

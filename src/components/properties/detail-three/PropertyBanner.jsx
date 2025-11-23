@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { convertAndFormatPriceSync } from '@/utils/currencyUtils'
 
-const PropertyBanner = ({ property, locale, t, dynamicT }) => {
+const PropertyBanner = ({ property, locale, t }) => {
    const [isFavorite, setIsFavorite] = useState(false)
 
    // Get localized title
@@ -96,7 +96,7 @@ const PropertyBanner = ({ property, locale, t, dynamicT }) => {
                      borderRadius: '20px',
                      letterSpacing: '0.5px'
                   }}>
-                     {dynamicT('for', 'FOR')} {getListingTypes()}
+                     {t('for')} {getListingTypes()}
                   </span>
                   <span style={{ 
                      fontSize: '15px',
@@ -143,7 +143,7 @@ const PropertyBanner = ({ property, locale, t, dynamicT }) => {
                            </div>
                            {isRent && (
                               <div className="text-muted" style={{ fontSize: '16px', fontWeight: '400' }}>
-                                 {dynamicT ? dynamicT('mo', '/mo') : '/mo'}
+                                 {t('perMonth')}
                               </div>
                            )}
                         </div>

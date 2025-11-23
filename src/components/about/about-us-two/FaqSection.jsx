@@ -1,69 +1,27 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
-import { useParams } from "next/navigation"
+import { useTranslations } from "next-intl"
 
 const FaqSection = () => {
-   const [faqData, setFaqData] = useState([])
    const [openAccordion, setOpenAccordion] = useState('collapse3')
-   const params = useParams()
-   const locale = params?.locale || 'th'
-
-   useEffect(() => {
-      fetchFaqData()
-   }, [])
+   const t = useTranslations()
 
    const toggleAccordion = (id) => {
       setOpenAccordion(openAccordion === id ? '' : id)
    }
 
-   const fetchFaqData = async () => {
-      try {
-         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'
-         const response = await fetch(`${apiUrl}/ui-strings/public/section/faq`, {
-            headers: {
-               'x-api-key': process.env.NEXT_PUBLIC_API_KEY || 'dd-property-api-key-2025'
-            }
-         })
-         const result = await response.json()
-         
-         if (result.success && result.data) {
-            setFaqData(result.data)
-         }
-      } catch (error) {
-         console.error('Error fetching faq data:', error)
-      }
-   }
-
-   const getLocalizedText = (slug) => {
-      const item = faqData.find(item => item.slug === slug)
-      if (!item) return ''
-      
-      const localeMap = { 'th': 'th', 'en': 'en', 'zh': 'zhCN', 'ru': 'ru' }
-      const lang = localeMap[locale] || 'th'
-      return item[lang] || item.th || ''
-   }
-
    const faq_categories = [
       {
          id: 1,
-         id_name: "Selling",
-         title: getLocalizedText('faq_category_1'),
+         id_name: "Buying",
+         title: t('faqBuyingTitle'),
          md_pt: false,
          faq: [
-            { id: 1, question: getLocalizedText('faq_q1_selling'), answer: getLocalizedText('faq_a1_selling') },
-            { id: 2, question: getLocalizedText('faq_q2_selling'), answer: getLocalizedText('faq_a2_selling') },
-            { id: 3, question: getLocalizedText('faq_q3_selling'), answer: getLocalizedText('faq_a3_selling') },
-         ]
-      },
-      {
-         id: 2,
-         id_name: "Renting",
-         title: getLocalizedText('faq_category_2'),
-         md_pt: true,
-         faq: [
-            { id: 4, question: getLocalizedText('faq_q1_renting'), answer: getLocalizedText('faq_a1_renting') },
-            { id: 5, question: getLocalizedText('faq_q2_renting'), answer: getLocalizedText('faq_a2_renting') },
+            { id: 1, question: t('faqBuyingQ1'), answer: t('faqBuyingA1') },
+            { id: 2, question: t('faqBuyingQ2'), answer: t('faqBuyingA2') },
+            { id: 3, question: t('faqBuyingQ3'), answer: t('faqBuyingA3') },
+            { id: 4, question: t('faqBuyingQ4'), answer: t('faqBuyingA4') },
          ]
       },
    ]
@@ -72,8 +30,8 @@ const FaqSection = () => {
       <div className="faq-section-two mt-130 xl-mt-100 mb-150 xl-mb-100">
          <div className="container">
             <div className="title-one text-center mb-80 xl-mb-50 md-mb-30">
-               <h3>{getLocalizedText('faq_title')}</h3>
-               <p className="fs-20 mt-xs">{getLocalizedText('faq_subtitle')}</p>
+               <h3>{t('faqTitle')}</h3>
+               <p className="fs-20 mt-xs">{t('faqSubtitle')}</p>
             </div>
             
             <div className="row">
@@ -81,13 +39,12 @@ const FaqSection = () => {
                   <div className="faq-sidebar">
                      <div className="bg-wrapper">
                         <ul className="style-none">
-                           <li><Link href="#Selling">1. <span>{getLocalizedText('faq_category_1')}</span></Link></li>
-                           <li><Link href="#Renting">2. <span>{getLocalizedText('faq_category_2')}</span></Link></li>
+                           <li><Link href="#Buying">1. <span>{t('faqBuyingTitle')}</span></Link></li>
                         </ul>
                      </div>
                      <div className="bg-wrapper text-center mt-35">
-                        <h4 className="mb-35">{getLocalizedText('faq_sidebar_title')}</h4>
-                        <Link href="/contact" className="btn-five">{getLocalizedText('faq_contact_button')}</Link>
+                        <h4 className="mb-35">{t('faqSidebarTitle')}</h4>
+                        <Link href="/contact" className="btn-five">{t('faqContactButton')}</Link>
                      </div>
                   </div>
                </div>

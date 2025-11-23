@@ -1,6 +1,6 @@
 'use client'
 
-const PropertyOverview = ({ property, locale, t, dynamicT }) => {
+const PropertyOverview = ({ property, locale, t }) => {
    // Get localized property type (รองรับ 4 ภาษา: th, en, zh, ru)
    const getPropertyType = () => {
       const propertyType = property?.propertyType
@@ -20,22 +20,22 @@ const PropertyOverview = ({ property, locale, t, dynamicT }) => {
    const overviewItems = [
       {
          icon: 'flaticon-home',
-         label: dynamicT ? dynamicT('property-type', 'Property Type') : 'Property Type',
+         label: t('propertyType'),
          value: getPropertyType()
       },
       {
          icon: 'flaticon-bed',
-         label: dynamicT ? dynamicT('bedrooms', 'Bedroom') : 'Bedroom',
+         label: t('bedrooms'),
          value: property?.bedrooms || 'N/A'
       },
       {
          icon: 'flaticon-shower',
-         label: dynamicT ? dynamicT('bathrooms', 'Bathroom') : 'Bathroom',
+         label: t('bathrooms'),
          value: property?.bathrooms || 'N/A'
       },
       {
          icon: 'flaticon-expand',
-         label: dynamicT ? dynamicT('usable-area', 'Useable Area') : 'Useable Area',
+         label: t('usableArea'),
          value: property?.usableArea || property?.usable_area ? `${property.usableArea || property.usable_area} sqm` : 'N/A'
       }
    ]

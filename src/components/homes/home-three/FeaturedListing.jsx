@@ -93,7 +93,20 @@ const FeaturedListing = ({ randomProperties }) => {
             <div className="col-lg-12">
               <div className="main-title2">
                 <h2 className="title">
-                  Featured <span style={{ color: '#eb6753' }}>Listing</span>
+                  {(() => {
+                    const titleTranslations = {
+                      'en': { part1: 'Featured', part2: 'Listing' },
+                      'th': { part1: 'รายการ', part2: 'แนะนำ' },
+                      'zh': { part1: '精选', part2: '房源' },
+                      'ru': { part1: 'Избранные', part2: 'объявления' }
+                    }
+                    const title = titleTranslations[locale] || titleTranslations['en']
+                    return (
+                      <>
+                        {title.part1} <span style={{ color: '#eb6753' }}>{title.part2}</span>
+                      </>
+                    )
+                  })()}
                 </h2>
                 <p className="paragraph">
                   {(() => {

@@ -1,6 +1,6 @@
 'use client'
 
-const PropertyNearby = ({ property, locale, t, dynamicT }) => {
+const PropertyNearby = ({ property, locale, t }) => {
    const nearby = property?.propertyNearby || property?.nearbyPlaces || property?.nearby || []
    if (nearby.length === 0) return null
 
@@ -11,7 +11,7 @@ const PropertyNearby = ({ property, locale, t, dynamicT }) => {
 
    return (
       <div>
-         <h3 className="section-title mb-3">{dynamicT('near-by', 'Near By')}</h3>
+         <h3 className="section-title mb-3">{t('nearBy')}</h3>
          <div className="nearby-items">
             <div className="row g-3">
                {nearby.map((item, index) => (

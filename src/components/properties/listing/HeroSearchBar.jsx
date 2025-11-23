@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FiSearch, FiMenu } from "react-icons/fi";
 import usePropertyFilterStore from '@/store/usePropertyFilterStore';
 import { useSearchParams, useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import AdvanceFilterContent from "./AdvancedFilterContent";
-import useDynamicTranslations from '@/hooks/useDynamicTranslations';
 import propertyTypeService from '@/services/propertyTypeService';
 import zoneService from '@/services/zoneService';
 import NiceSelect from "@/components/ui/NiceSelect";
@@ -39,11 +38,11 @@ export default function HeroSearchBar({
     return initialListingType;
   };
 
-  const { t } = useDynamicTranslations('listing');
+  const t = useTranslations();
 
   const tabs = [
-    { id: "buy", label: t('buy', 'Buy') },
-    { id: "rent", label: t('rent', 'Rent') },
+    { id: "buy", label: t('buy') },
+    { id: "rent", label: t('rent') },
   ];
 
   const [listingType, setListingType] = useState(getInitialListingType());
@@ -181,14 +180,14 @@ export default function HeroSearchBar({
           marginBottom: '15px',
           textShadow: '0 2px 4px rgba(0,0,0,0.3)'
         }}>
-          {t('find-your-property', 'Find Your Property')}
+          {t('findYourProperty')}
         </h2>
         <p className="hero-text" style={{ 
           fontSize: '16px', 
           color: 'rgba(255,255,255,0.9)',
           textShadow: '0 1px 2px rgba(0,0,0,0.3)'
         }}>
-          {t('apartments-available-text', "We've more than 745,000 apartments, place & plot.")}
+          {t('apartmentsAvailableText')}
         </p> 
       </div>
 
@@ -276,11 +275,11 @@ export default function HeroSearchBar({
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    {t('property-type', 'Property Type')}
+                    {t('propertyType')}
                   </label>
                   <NiceSelect
                     options={[
-                      { value: "", text: t('all-types', 'All Types') },
+                      { value: "", text: t('allTypes') },
                       ...propertyTypes
                     ]}
                     defaultCurrent={0}
@@ -301,23 +300,23 @@ export default function HeroSearchBar({
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    {t('price', 'Price')}
+                    {t('price')}
                   </label>
                   <NiceSelect
                     options={
                       activeTab === "rent" ? [
-                        { value: "", text: t('select-price', 'Select Price') },
-                        { value: "0-10000", text: t('0-10k', '฿0 - ฿10,000') },
-                        { value: "10000-20000", text: t('10k-20k', '฿10,000 - ฿20,000') },
-                        { value: "20000-30000", text: t('20k-30k', '฿20,000 - ฿30,000') },
-                        { value: "30000-50000", text: t('30k-50k', '฿30,000 - ฿50,000') },
-                        { value: "50000-100000", text: t('50k-plus', '฿50,000+') },
+                        { value: "", text: t('selectPrice') },
+                        { value: "0-10000", text: '฿0 - ฿10,000' },
+                        { value: "10000-20000", text: '฿10,000 - ฿20,000' },
+                        { value: "20000-30000", text: '฿20,000 - ฿30,000' },
+                        { value: "30000-50000", text: '฿30,000 - ฿50,000' },
+                        { value: "50000-100000", text: '฿50,000+' },
                       ] : [
-                        { value: "", text: t('select-price', 'Select Price') },
-                        { value: "0-1000000", text: t('under-1m', '฿0 - ฿1M') },
-                        { value: "1000000-5000000", text: t('1m-5m', '฿1M - ฿5M') },
-                        { value: "5000000-10000000", text: t('5m-10m', '฿5M - ฿10M') },
-                        { value: "10000000-999999999", text: t('above-10m', '฿10M+') },
+                        { value: "", text: t('selectPrice') },
+                        { value: "0-1000000", text: '฿0 - ฿1M' },
+                        { value: "1000000-5000000", text: '฿1M - ฿5M' },
+                        { value: "5000000-10000000", text: '฿5M - ฿10M' },
+                        { value: "10000000-999999999", text: '฿10M+' },
                       ]
                     }
                     defaultCurrent={0}
@@ -338,11 +337,11 @@ export default function HeroSearchBar({
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    {t('location', 'Location')}
+                    {t('location')}
                   </label>
                   <NiceSelect
                     options={[
-                      { value: "", text: t('all-locations', 'All Locations') },
+                      { value: "", text: t('allLocations') },
                       ...locations
                     ]}
                     defaultCurrent={0}
@@ -363,13 +362,13 @@ export default function HeroSearchBar({
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    {t('property-quota', 'Property Quota')}
+                    {t('propertyQuota')}
                   </label>
                   <NiceSelect
                     options={[
-                      { value: "", text: t('all-quotas', 'All Quotas') },
-                      { value: "THAI", text: t('thai-quota', 'Thai Quota') },
-                      { value: "FOREIGN", text: t('foreign-quota', 'Foreign Quota') },
+                      { value: "", text: t('allQuotas') },
+                      { value: "THAI", text: t('thaiQuota') },
+                      { value: "FOREIGN", text: t('foreignQuota') },
                     ]}
                     defaultCurrent={0}
                     onChange={(e) => setSelectedQuota(e.target.value)}
@@ -417,7 +416,7 @@ export default function HeroSearchBar({
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    {t('search', 'SEARCH')}
+                    {t('search')}
                   </button>
                 </div>
               </div>

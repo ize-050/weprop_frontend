@@ -2,13 +2,12 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import blogService from '@/services/blogService'
-import useSimpleTranslations from '@/hooks/useSimpleTranslations'
 
 const OurBlog = () => {
   const locale = useLocale()
-  const { t } = useSimpleTranslations('home')
+  const t = useTranslations()
   const [blogs, setBlogs] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -84,13 +83,13 @@ const OurBlog = () => {
           <div className="position-relative">
             <div className="title-one mb-35 xl-mb-20 md-mb-10 wow fadeInUp">
               <h2 className="font-garamond">
-                {t('blog-title-part1', 'Our')}{' '}
+                {t('blogTitlePart1')}{' '}
                 <span style={{ color: '#AF1A1E' }}>
-                  {t('blog-title-part2', 'Blog')}
+                  {t('blogTitlePart2')}
                 </span>
               </h2>
               <p className="fs-20 mt-xs">
-                {t('blog-subtitle', 'Get the latest update, trips & tricks from our expert')}
+                {t('blogSubtitle')}
               </p>
             </div>
 
@@ -183,7 +182,7 @@ const OurBlog = () => {
                 href={`/${locale !== 'th' ? locale + '/' : ''}blog`}
                 className="btn-eight"
               >
-                <span>{t('blog.exploreAll', 'Explore All')}</span> <i className="bi bi-arrow-up-right"></i>
+                <span>{t('exploreAll')}</span> <i className="bi bi-arrow-up-right"></i>
               </Link>
             </div>
           </div>

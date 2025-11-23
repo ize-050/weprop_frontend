@@ -2,7 +2,7 @@
 
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 
-const PropertyLocation = ({ property, locale, t, dynamicT }) => {
+const PropertyLocation = ({ property, locale, t }) => {
    const mapContainerStyle = {
       width: '100%',
       height: '400px',
@@ -33,7 +33,7 @@ const PropertyLocation = ({ property, locale, t, dynamicT }) => {
    return (
       <div className="property-location mb-50">
          <div className="property-section bg-white shadow4 border-20 p-40">
-            <h3 className="section-title mb-3">{dynamicT ? dynamicT('location', 'Location') : 'Location'}</h3>
+            <h3 className="section-title mb-3">{t('location')}</h3>
             <p className="mb-4">
                {getAddress()}
             </p>

@@ -1,6 +1,6 @@
 'use client'
 
-const PropertyVideo = ({ property, t, dynamicT }) => {
+const PropertyVideo = ({ property, t }) => {
    // Get YouTube URL from propertyListings or socialMedia
    const getYoutubeUrl = () => {
       // Try propertyListings first
@@ -49,7 +49,7 @@ const PropertyVideo = ({ property, t, dynamicT }) => {
 
    return (
       <div className="property-section bg-white shadow4 border-20 p-40 mb-50">
-         <h3 className="section-title mb-4">{dynamicT ? dynamicT('video', 'Video') : 'Video'}</h3>
+         <h3 className="section-title mb-4">{t('video')}</h3>
          <div className="video-container" style={{
             position: 'relative',
             paddingBottom: '56.25%', // 16:9 aspect ratio

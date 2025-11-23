@@ -82,7 +82,7 @@ export async function generateMetadata({ params: { locale } }) {
 const About = () => {
   return (
     <>
-      <BreadcrumbTwo title="Get to Know about Us"  />
+      <BreadcrumbTwo />
       <BLockFeatureOne />
       <FaqSection />
       <MeetOurTeam />

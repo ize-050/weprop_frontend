@@ -116,7 +116,7 @@ const PropertySimilar = ({ property, locale, t }) => {
                const salePrice = prop.listings?.find(l => l.listingType === 'SALE')?.price || 0
                const rentPrice = prop.listings?.find(l => l.listingType === 'RENT')?.price || 0
                const slug = createSlug(prop.title)
-               const propertyDetailUrl = `/${locale !== 'th' ? locale + '/' : ''}property_detail/${prop.id}/${slug}`
+               const propertyDetailUrl = `/${locale !== 'th' ? locale + '/' : ''}property-detail-three/${prop.id}/${slug}`
                const mainImage = prop.images && prop.images.length > 0 ? prop.images[0]?.url : null
                
                // Get listing type badge

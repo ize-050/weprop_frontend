@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Thumbs } from 'swiper/modules'
@@ -42,6 +42,26 @@ const PropertyMediaGallery = ({ property, t }) => {
    }
 
    const images = getImages()
+   const [imagesLoaded, setImagesLoaded] = useState(false)
+
+   // Debug: Log images
+   console.log('PropertyMediaGallery images:', images)
+
+   // Preload images
+   useEffect(() => {
+      if (images.length > 0) {
+         const img = new window.Image()
+         img.src = images[0]
+         img.onload = () => {
+            console.log('First image loaded successfully:', images[0])
+            setImagesLoaded(true)
+         }
+         img.onerror = (e) => {
+            console.error('Error loading first image:', images[0], e)
+            setImagesLoaded(true) // Still set to true to show UI
+         }
+      }
+   }, [images])
 
    return (
       <div className="media-gallery mt-100 xl-mt-80 lg-mt-60">
@@ -50,13 +70,7 @@ const PropertyMediaGallery = ({ property, t }) => {
                <div className="bg-white border-20 md-mb-20 shadow4 p-30">
                   <div className="position-relative z-1 overflow-hidden border-20">
                      {/* See all Photos Button with Fancybox */}
-                     <Fancybox
-                        options={{
-                           Carousel: {
-                              infinite: true,
-                           },
-                        }}
-                     >
+                     <Fancybox>
                         <div className="img-fancy-btn border-10 fw-500 fs-16 color-dark">
                            <a 
                               data-fancybox="property-gallery"
@@ -67,7 +81,10 @@ const PropertyMediaGallery = ({ property, t }) => {
                            </a>
                         </div>
                         {images.slice(1).map((img, index) => (
-                           <a key={index + 1} className="d-none" data-fancybox="property-gallery"
+                           <a 
+                              key={index + 1} 
+                              className="d-none" 
+                              data-fancybox="property-gallery"
                               href={img}
                            ></a>
                         ))}
@@ -187,6 +204,19 @@ const PropertyMediaGallery = ({ property, t }) => {
                      display: inline-block;
                      width: 100%;
                      height: 100%;
+                  }
+
+                  /* Fancybox z-index fix */
+                  .fancybox__container {
+                     z-index: 9999 !important;
+                  }
+                  
+                  .fancybox__backdrop {
+                     z-index: 9998 !important;
+                  }
+                  
+                  .fancybox__carousel {
+                     z-index: 9999 !important;
                   }
                `}</style>
             </div>

@@ -9,6 +9,7 @@ const Fancybox = (props) => {
 
    useEffect(() => {
       const container = containerRef.current;
+      if (!container) return;
 
       const delegate = props.delegate || '[data-fancybox]';
       const options = props.options || {};
@@ -19,7 +20,7 @@ const Fancybox = (props) => {
          NativeFancybox.unbind(container);
          NativeFancybox.close();
       };
-   });
+   }, []); // Empty dependency - bind เพียงครั้งเดียวตอน mount
 
    return <div ref={containerRef}>{props.children}</div>;
 }

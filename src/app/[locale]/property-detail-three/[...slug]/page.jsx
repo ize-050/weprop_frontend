@@ -132,7 +132,7 @@ export default async function PropertyDetailThreePage({ params }) {
 
     return (
       <Suspense fallback={<LoadingAnimation />}>
-        <PropertyDetailThree propertyData={propertyData} />
+        <PropertyDetailThree propertyData={propertyData} locale={locale} />
       </Suspense>
     )
   } catch (error) {

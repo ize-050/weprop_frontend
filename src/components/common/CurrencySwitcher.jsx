@@ -8,18 +8,18 @@ import { getSelectedCurrency, currencySymbols } from "@/utils/currencyUtils";
 
 const CurrencySwitcher = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedCurrency, setSelectedCurrency] = useState("THB");
+    const [selectedCurrency, setSelectedCurrency] = useState("AUD");
     const router = useRouter();
     const pathname = usePathname();
 
     const currencies = [
+        { code: "AUD", name: "Australian Dollar", symbol: currencySymbols.AUD },
         { code: "THB", name: "Thai Baht", symbol: currencySymbols.THB },
         { code: "USD", name: "US Dollar", symbol: currencySymbols.USD },
         { code: "CNY", name: "Chinese Yuan", symbol: currencySymbols.CNY },
         { code: "RUB", name: "Russian Ruble", symbol: currencySymbols.RUB },
         { code: "GBP", name: "British Pound", symbol: currencySymbols.GBP },
-        { code: "EUR", name: "Euro", symbol: currencySymbols.EUR },
-        { code: "AUD", name: "Australian Dollar", symbol: currencySymbols.AUD }
+        { code: "EUR", name: "Euro", symbol: currencySymbols.EUR }
     ];
 
     useEffect(() => {

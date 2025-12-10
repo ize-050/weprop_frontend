@@ -48,13 +48,13 @@ export async function generateMetadata({ params }) {
     const propertyUrl = `${localizedUrl}/property-detail-three/${id}`
 
     return {
-      title: `${propertyTitle} | D'LuckProperty`,
+      title: `${propertyTitle} | 12 Real Estate Pattaya`,
       description: description.substring(0, 160),
       openGraph: {
-        title: propertyTitle,
+        title: `${propertyTitle} | 12 Real Estate Pattaya`,
         description: description.substring(0, 160),
         url: propertyUrl,
-        siteName: "D'LuckProperty",
+        siteName: "12 Real Estate Pattaya",
         images: [
           {
             url: property?.mainImage || `${baseUrl}/images/logo.png`,
@@ -85,7 +85,7 @@ export async function generateMetadata({ params }) {
   } catch (error) {
     console.error('Error generating metadata:', error)
     return {
-      title: `${t('propertyDetail')} | D'LuckProperty`,
+      title: `${t('propertyDetail')} | 12 Real Estate Pattaya`,
       description: t('viewPropertyDetails')
     }
   }

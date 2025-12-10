@@ -37,6 +37,7 @@ const NiceSelect = ({
       onClick={() => setOpen((prev) => !prev)}
       onKeyDown={(e) => e}
       ref={ref}
+      style={{ position: 'relative', zIndex: open ? 9999 : 1 }}
     >
       <span className="current">{current?.text || placeholder}</span>
       <ul
@@ -44,6 +45,7 @@ const NiceSelect = ({
         role="menubar"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.stopPropagation()}
+        style={{ zIndex: 9999, position: 'absolute' }}
       >
         {options?.map((item, i) => (
           <li

@@ -18,7 +18,7 @@ const HomeThree = ({ locale, randomProperties = [], homeTranslations = {}, zones
       >
         <HeroBanner />
         <WelcomeSection />
-        <BLockFeatureOne />
+        {/* <BLockFeatureOne /> */}
         <PopularLocationListing randomProperties={randomProperties} />
         <PropertyTypes />
         <br></br><br></br>

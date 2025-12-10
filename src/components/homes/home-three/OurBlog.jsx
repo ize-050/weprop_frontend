@@ -109,7 +109,9 @@ const OurBlog = () => {
 
               return (
                 <div className="col-md-6" key={blog.id}>
-                  <article className="blog-meta-one mt-35 wow fadeInUp">
+                  <article className="blog-meta-one mt-35 wow fadeInUp"
+                  
+                  >
                     <figure className="post-img position-relative m0" style={{ 
                       backgroundImage: `url(${imageUrl})`,
                       backgroundSize: 'cover',
@@ -152,7 +154,8 @@ const OurBlog = () => {
                             height: '50px',
                             borderRadius: '50%',
                             border: '1px solid #e0e0e0',
-                            color: '#1a1a1a',
+                            color: '#fff',
+                            backgroundColor: '#AF1A1E',
                             textDecoration: 'none',
                             transition: 'all 0.3s ease'
                           }}
@@ -181,6 +184,11 @@ const OurBlog = () => {
               <Link 
                 href={`/${locale !== 'th' ? locale + '/' : ''}blog`}
                 className="btn-eight"
+                style={{
+                  backgroundColor: '#AF1A1E',
+                  borderColor: '#AF1A1E',
+                  color: 'white'
+                }}
               >
                 <span>{t('exploreAll')}</span> <i className="bi bi-arrow-up-right"></i>
               </Link>

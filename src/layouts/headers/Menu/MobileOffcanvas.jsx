@@ -21,12 +21,12 @@ const MobileOffcanvas = () => {
 
    useEffect(() => {
       setMenuItems([
-         { id: "home", title: t("home"), link: `/${locale !== 'th' ? locale + '/' : ''}` },
-         { id: "forSale", title: t('buy'), link: `/${locale !== 'th' ? locale + '/' : ''}properties?type=sale` },
-         { id: "forRent", title: t('rent'), link: `/${locale !== 'th' ? locale + '/' : ''}properties?type=rent` },
-         { id: "blog", title: t('blog'), link: `/${locale !== 'th' ? locale + '/' : ''}blog` },
-         { id: "about", title: t('about'), link: `/${locale !== 'th' ? locale + '/' : ''}about` },
-         { id: "contact", title: t('contact'), link: `/${locale !== 'th' ? locale + '/' : ''}contact-us` },
+         { id: "home", title: t('header.home'), link: `/${locale !== 'th' ? locale + '/' : ''}` },
+         { id: "forSale", title: t('header.buy'), link: `/${locale !== 'th' ? locale + '/' : ''}properties?type=sale` },
+         { id: "forRent", title: t('header.rent'), link: `/${locale !== 'th' ? locale + '/' : ''}properties?type=rent` },
+         { id: "blog", title: t('header.blog'), link: `/${locale !== 'th' ? locale + '/' : ''}blog` },
+         { id: "about", title: t('header.about'), link: `/${locale !== 'th' ? locale + '/' : ''}about` },
+         { id: "contact", title: t('header.contact'), link: `/${locale !== 'th' ? locale + '/' : ''}contact-us` },
       ])
    }, [locale, t])
 
@@ -84,13 +84,13 @@ const MobileOffcanvas = () => {
                   <div className="switchers-block mt-40 pt-40" style={{ borderTop: '1px solid #e0e0e0' }}>
                      <div className="mb-30">
                         <h6 className="mb-15" style={{ fontSize: '14px', fontWeight: '600', color: '#666' }}>
-                           {t('language')}
+                           {t('backoffice.menu.language')}
                         </h6>
                         <LanguageSwitcher />
                      </div>
                      <div className="mb-30">
                         <h6 className="mb-15" style={{ fontSize: '14px', fontWeight: '600', color: '#666' }}>
-                           {t('currency')}
+                           {t('backoffice.menu.currency')}
                         </h6>
                         <CurrencySwitcher />
                      </div>

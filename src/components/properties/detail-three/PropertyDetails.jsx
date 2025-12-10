@@ -36,13 +36,15 @@ const PropertyDetails = ({ property, locale, t }) => {
       borderRadius: '10px'
    }
 
+   // Debug: log lat/lng from property
+   console.log('Property lat/lng:', { lat: property?.latitude, lng: property?.longitude, property })
+
    const center = {
-      lat: property?.lat || 12.9236,
-      lng: property?.lng || 100.8825
+      lat: parseFloat(property?.latitude) ,
+      lng: parseFloat(property?.longitude)
    }
 
    const mapOptions = {
-      zoomControl: true,
       streetViewControl: false,
       mapTypeControl: false,
       fullscreenControl: true,
@@ -72,7 +74,7 @@ const PropertyDetails = ({ property, locale, t }) => {
                      <th>{t('usableArea')}</th>
                      <td>{property?.usableArea || property?.usable_area ? `${property.usableArea || property.usable_area} ${t('sqm')}` : 'N/A'}</td>
                      <th>{t('floor')}</th>
-                     <td>{property?.floors ? `${property.floors} ${t('floors')}` : 'N/A'}</td>
+                     <td>{property?.floors ? `${property.floors}` : 'N/A'}</td>
                   </tr>
                   <tr>
                      <th>{t('furnishing')}</th>

@@ -32,8 +32,30 @@ const PropertyTypes = () => {
         setLoading(true);
 
         const typesResponse = await propertyTypeService.getPropertyTypes();
+        
+        console.log('API Response:', typesResponse.data);
 
-        setPropertyTypes(typesResponse.data);
+        // Filter only 4 types: House, Condo, Commercial, Land
+        const allowedTypes = ['House', 'Condo', 'Commercial', 'Land'];
+        const filteredTypes = typesResponse.data.filter(type => {
+          const isAllowed = allowedTypes.some(allowed => 
+            type.name?.toLowerCase() === allowed.toLowerCase()
+          );
+          console.log(`Type: ${type.name}, Allowed: ${isAllowed}`);
+          return isAllowed;
+        });
+        
+        console.log('Filtered Types:', filteredTypes);
+        
+        // Sort by the order: House, Condo, Commercial, Land
+        const sortedTypes = filteredTypes.sort((a, b) => {
+          const orderA = allowedTypes.findIndex(t => t.toLowerCase() === a.name?.toLowerCase());
+          const orderB = allowedTypes.findIndex(t => t.toLowerCase() === b.name?.toLowerCase());
+          return orderA - orderB;
+        });
+
+        console.log('Sorted Types:', sortedTypes);
+        setPropertyTypes(sortedTypes);
         setError(null);
       } catch (err) {
         console.error('Error fetching property data:', err);

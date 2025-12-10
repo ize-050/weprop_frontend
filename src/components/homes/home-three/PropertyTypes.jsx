@@ -58,8 +58,36 @@ const PropertyTypes = () => {
             
             const data = result.status === 'success' ? result.data : result
          
-            // Use all property types (no filtering)
-            const filteredTypes = data
+            // Priority types to show first: House, Condo, Commercial, Land
+            const priorityTypes = ['House', 'Condo', 'Commercial', 'Land']
+            
+            // Separate priority types and others
+            const priorityItems = []
+            const otherItems = []
+            
+            data.forEach(type => {
+               const typeName = type.name || type.nameEn
+               const isPriority = priorityTypes.some(p => 
+                  typeName?.toLowerCase() === p.toLowerCase()
+               )
+               if (isPriority) {
+                  priorityItems.push(type)
+               } else {
+                  otherItems.push(type)
+               }
+            })
+            
+            // Sort priority items by the defined order
+            priorityItems.sort((a, b) => {
+               const nameA = a.name || a.nameEn
+               const nameB = b.name || b.nameEn
+               const orderA = priorityTypes.findIndex(t => t.toLowerCase() === nameA?.toLowerCase())
+               const orderB = priorityTypes.findIndex(t => t.toLowerCase() === nameB?.toLowerCase())
+               return orderA - orderB
+            })
+            
+            // Combine: priority first, then others
+            const filteredTypes = [...priorityItems, ...otherItems]
             
             // Map locale to field name (Prisma uses camelCase)
             const localeMap = {
@@ -127,7 +155,7 @@ const PropertyTypes = () => {
    }
 
    return (
-      <div className="category-section-two mt-170 xl-mt-120">
+      <div className="category-section-two mt-120 xl-mt-120">
          <div className="container container-large">
             <div className="position-relative">
                <div className="title-one text-center text-lg-start mb-60 xl-mb-40 lg-mb-20 wow fadeInUp">

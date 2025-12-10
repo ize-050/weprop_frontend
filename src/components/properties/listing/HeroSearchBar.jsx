@@ -254,7 +254,10 @@ export default function HeroSearchBar({
           backgroundColor: '#ffffff',
           borderRadius: '0 12px 12px 12px',
           padding: '25px 30px',
-          boxShadow: '0 10px 40px rgba(0,0,0,0.1)'
+          boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+          overflow: 'visible',
+          position: 'relative',
+          zIndex: 100
         }}>
           {tabs.map((tab) => activeTab === tab.id && (
             <form key={tab.id} onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>

@@ -467,12 +467,12 @@ const PropertiesList = ({ searchParams }) => {
       })
 
       const data = await response.json()
-
-
+      
+      console.log('API Response:', data)
 
       // Log all properties labels
-      if (data.properties && data.properties.length > 0) {
-        data.properties.forEach((prop, idx) => {
+      if (data.data && data.data.length > 0) {
+        data.data.forEach((prop, idx) => {
           console.log(`Property ${idx} (${prop.id}):`, {
             title: prop.titleEn,
             labels: prop.labels,
@@ -481,8 +481,8 @@ const PropertiesList = ({ searchParams }) => {
         })
       }
 
-      setProperties(data.properties || [])
-      setTotalCount(data.total || 0)
+      setProperties(data.data || [])
+      setTotalCount(data.meta?.total || data.total || 0)
 
     } catch (error) {
       console.error('Error fetching properties:', error)

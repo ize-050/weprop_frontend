@@ -75,7 +75,7 @@ const PopularLocationListing = ({ randomProperties }) => {
   }
 
   return (
-    <div className="block-feature-three mt-150 xl-mt-120" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+    <div className="block-feature-three mt-50 xl-mt-120" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
       <div className="container">
         <div className="title-one mb-75 xl-mb-50 md-mb-30 wow fadeInUp">
             <h3 style={{ color: '#1a1a1a', fontWeight: '600', fontSize: '42px', lineHeight: '1.2' }}>

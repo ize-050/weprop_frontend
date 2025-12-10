@@ -111,7 +111,7 @@ export default function HeroSearchBar({
     
     // เพิ่ม property type ถ้ามี
     if (propertyType) {
-      params.append('propertyTypeId', propertyType);
+      params.append('propertyType', propertyType);
     }
     
     // เพิ่ม price range ถ้ามี
@@ -190,6 +190,16 @@ export default function HeroSearchBar({
       )}
 
       {/* Filter Box - Custom Style */}
+      <style jsx global>{`
+        .hero-banner-three {
+          overflow: visible !important;
+        }
+        .nice-select .list {
+          z-index: 9999 !important;
+          max-height: 300px !important;
+        s
+        }
+      `}</style>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Buy/Rent Tabs - Separate from filter box */}
         <div style={{ 
@@ -227,7 +237,10 @@ export default function HeroSearchBar({
           backgroundColor: '#ffffff',
           borderRadius: '0 12px 12px 12px',
           padding: '25px 30px',
-          boxShadow: '0 10px 40px rgba(0,0,0,0.1)'
+          boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+          overflow: 'visible',
+          position: 'relative',
+          zIndex: 100
         }}>
           {tabs.map((tab) => activeTab === tab.id && (
             <form key={tab.id} onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
@@ -259,7 +272,7 @@ export default function HeroSearchBar({
                     options={[
                       { value: "", text: t('allTypes') },
                       ...propertyTypes.map(type => ({
-                        value: type.id.toString(),
+                        value: type.name,
                         text: (() => {
                           switch (locale) {
                             case 'th': return type.nameTh || type.nameEn;

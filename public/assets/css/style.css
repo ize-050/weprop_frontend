@@ -8370,7 +8370,7 @@ iframe {
   font-size: 30px;
   width: 65px;
   height: 65px;
-  background: #000;
+  
   color: #fff;
 }
 .blog-meta-one .post-data .read-btn:hover {
@@ -8381,7 +8381,7 @@ iframe {
   color: rgba(0, 0, 0, 0.5);
 }
 .blog-meta-one .post-data .post-info a {
-  color: #000;
+ 
 }
 .blog-meta-one .post-data .post-info a:hover {
   text-decoration: underline;
@@ -8399,7 +8399,7 @@ iframe {
   padding: 0 12px;
   text-transform: uppercase;
   background: #fff;
-  color: #000;
+ 
 }
 .blog-meta-one .post-img.border-25 {
   border-radius: 25px;

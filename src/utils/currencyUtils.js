@@ -48,8 +48,8 @@ export const getSelectedCurrency = (locale) => {
     return cookieCurrency;
   }
 
-  // Otherwise fall back to locale-based currency
-  return localeToCurrency[locale] || 'THB';
+  // Otherwise fall back to AUD as default
+  return 'AUD';
 };
 
 /**

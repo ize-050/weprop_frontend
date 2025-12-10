@@ -357,7 +357,7 @@ const PopularLocationListing = ({ randomProperties }) => {
                   >
                     {/* Price */}
                     <div className="text-white fw-bold" style={{ fontSize: '22px', marginBottom: '8px' }}>
-                      {formattedPrice}
+                      {currencySymbol} {formattedPrice}
                       {listingType === 'RENT' && (
                         <span style={{ fontSize: '14px', fontWeight: '400' }}>
                           {t('perMonth')}

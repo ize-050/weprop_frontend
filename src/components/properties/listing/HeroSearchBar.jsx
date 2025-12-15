@@ -52,7 +52,12 @@ export default function HeroSearchBar({
     const fetchPropertyTypes = async () => {
       try {
         const response = await propertyTypeService.getPropertyTypesForFilter();
-        const types = response.data.map((type) => {
+        // Filter เฉพาะ 4 ประเภทที่ต้องการ: House, Condo, Commercial, Land
+        const allowedTypes = ['House', 'Condo', 'Commercial', 'Land'];
+        const filteredData = response.data.filter(type => 
+          allowedTypes.some(allowed => allowed.toLowerCase() === (type.name || type.nameEn || '').toLowerCase())
+        );
+        const types = filteredData.map((type) => {
           let label = type.name;
           switch (locale) {
             case 'th': label = type.nameTh || type.nameEn || type.name; break;
@@ -317,7 +322,7 @@ export default function HeroSearchBar({
                       ] : [
                         { value: "", text: t('selectPrice') },
                         { value: "0-1000000", text: '฿0 - ฿1M' },
-                        { value: "1000000-5000000", text: '฿1M - ฿5M' },
+                        { value: "2000000-5000000", text: '฿2M - ฿5M' },
                         { value: "5000000-10000000", text: '฿5M - ฿10M' },
                         { value: "10000000-999999999", text: '฿10M+' },
                       ]

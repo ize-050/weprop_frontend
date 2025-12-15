@@ -109,7 +109,7 @@ const PropertyMediaGallery = ({ property, t }) => {
                                  width={1200}
                                  height={600}
                                  className="w-100 border-20" 
-                                 style={{ objectFit: 'cover', height: '600px' }}
+                                 style={{ objectFit: 'cover', height: 'auto', maxHeight: '600px', minHeight: '300px' }}
                               />
                            </SwiperSlide>
                         ))}
@@ -221,35 +221,56 @@ const PropertyMediaGallery = ({ property, t }) => {
                `}</style>
             </div>
 
-            {/* Thumbnails */}
+            {/* Thumbnails - Desktop: vertical, Mobile: horizontal */}
             {images.length > 1 && (
-               <div className="col-lg-2">
-                  <div className="position-relative p-15 w-100 h-100 border-15 bg-white shadow4">
-                     <Swiper
-                        modules={[Thumbs]}
-                        onSwiper={setThumbsSwiper}
-                        spaceBetween={10}
-                        slidesPerView={4}
-                        direction="vertical"
-                        watchSlidesProgress
-                        className="property-thumb-gallery"
-                        style={{ height: '600px' }}
-                     >
-                        {images.map((img, i) => (
-                           <SwiperSlide key={i}>
+               <>
+                  {/* Desktop Thumbnails - Vertical */}
+                  <div className="col-lg-2 d-none d-lg-block">
+                     <div className="position-relative p-15 w-100 h-100 border-15 bg-white shadow4">
+                        <Swiper
+                           modules={[Thumbs]}
+                           onSwiper={setThumbsSwiper}
+                           spaceBetween={10}
+                           slidesPerView={4}
+                           direction="vertical"
+                           watchSlidesProgress
+                           className="property-thumb-gallery"
+                           style={{ height: '600px' }}
+                        >
+                           {images.map((img, i) => (
+                              <SwiperSlide key={i}>
+                                 <Image 
+                                    src={img} 
+                                    alt={`Thumbnail ${i + 1}`} 
+                                    width={200}
+                                    height={150}
+                                    className="w-100 border-10" 
+                                    style={{ objectFit: 'cover', height: '140px', cursor: 'pointer' }}
+                                 />
+                              </SwiperSlide>
+                           ))}
+                        </Swiper>
+                     </div>
+                  </div>
+
+                  {/* Mobile Thumbnails - Horizontal */}
+                  <div className="col-12 d-lg-none mt-20">
+                     <div className="d-flex justify-content-center gap-2">
+                        {images.slice(0, 4).map((img, i) => (
+                           <div key={i} style={{ width: '80px', height: '80px', borderRadius: '12px', overflow: 'hidden' }}>
                               <Image 
                                  src={img} 
                                  alt={`Thumbnail ${i + 1}`} 
-                                 width={200}
-                                 height={150}
-                                 className="w-100 border-10" 
-                                 style={{ objectFit: 'cover', height: '140px', cursor: 'pointer' }}
+                                 width={80}
+                                 height={80}
+                                 style={{ objectFit: 'cover', width: '100%', height: '100%', cursor: 'pointer' }}
+                                 onClick={() => thumbsSwiper?.slideTo(i)}
                               />
-                           </SwiperSlide>
+                           </div>
                         ))}
-                     </Swiper>
+                     </div>
                   </div>
-               </div>
+               </>
             )}
          </div>
       </div>

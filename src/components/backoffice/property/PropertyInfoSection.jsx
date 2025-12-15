@@ -92,7 +92,7 @@ const PropertyInfoSection = () => {
             className={`form-control ${errors.projectName ? 'is-invalid' : ''}`}
             defaultValue={formData.projectName}
             placeholder={t('placeholders.projectName')}
-            {...register('projectName', { required: t('validation.projectNameRequired') })}
+            {...register('projectName')}
           />
           {errors.projectName && (
             <div className="invalid-feedback">{errors.projectName.message}</div>

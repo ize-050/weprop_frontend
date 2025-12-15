@@ -123,7 +123,12 @@ export default function AdvancedFilterContent({ onClose, onSearch, type }) {
         const fetchPropertyTypes = async () => {
             try {
                 const response = await propertyTypeService.getPropertyTypesForFilter();
-                const propertyTypes = response.data.map((propertyType) => {
+                // Filter เฉพาะ 4 ประเภทที่ต้องการ: House, Condo, Commercial, Land
+                const allowedTypes = ['House', 'Condo', 'Commercial', 'Land'];
+                const filteredData = response.data.filter(type => 
+                    allowedTypes.some(allowed => allowed.toLowerCase() === (type.name || type.nameEn || '').toLowerCase())
+                );
+                const propertyTypes = filteredData.map((propertyType) => {
                     // เลือก label ตามภาษาปัจจุบัน
                     let label = propertyType.name; // fallback
                     

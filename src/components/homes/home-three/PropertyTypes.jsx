@@ -86,8 +86,8 @@ const PropertyTypes = () => {
                return orderA - orderB
             })
             
-            // Combine: priority first, then others
-            const filteredTypes = [...priorityItems, ...otherItems]
+            // แสดงเฉพาะ 4 ประเภทที่ต้องการ (House, Condo, Commercial, Land)
+            const filteredTypes = priorityItems
             
             // Map locale to field name (Prisma uses camelCase)
             const localeMap = {

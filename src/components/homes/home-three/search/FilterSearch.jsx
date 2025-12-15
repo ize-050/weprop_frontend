@@ -71,7 +71,13 @@ export default function HeroSearchBar({
         });
         if (response.ok) {
           const result = await response.json();
-          setPropertyTypes(Array.isArray(result.data) ? result.data : []);
+          const allTypes = Array.isArray(result.data) ? result.data : [];
+          // Filter เฉพาะ 4 ประเภทที่ต้องการ: House, Condo, Commercial, Land
+          const allowedTypes = ['House', 'Condo', 'Commercial', 'Land'];
+          const filteredTypes = allTypes.filter(type => 
+            allowedTypes.some(allowed => allowed.toLowerCase() === (type.name || type.nameEn || '').toLowerCase())
+          );
+          setPropertyTypes(filteredTypes);
         }
       } catch (error) {
         console.error('Error fetching property types:', error);
@@ -306,10 +312,10 @@ export default function HeroSearchBar({
                   <NiceSelect
                     options={[
                       { value: "", text: t('selectPrice') },
-                      { value: "0-1000000", text: t('under1M') },
-                      { value: "1000000-5000000", text: t('1M5M') },
-                      { value: "5000000-10000000", text: t('5M10M') },
-                      { value: "10000000-999999999", text: t('above10M') },
+                      { value: "0-1000000", text: "฿0 - ฿1M" },
+                      { value: "2000000-5000000", text: "฿2M - ฿5M" },
+                      { value: "5000000-10000000", text: "฿5M - ฿10M" },
+                      { value: "10000000-999999999", text: "฿10M+" },
                     ]}
                     defaultCurrent={0}
                     onChange={(e) => setPriceRange(e.target.value)}

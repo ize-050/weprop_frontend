@@ -4,7 +4,7 @@ import * as yup from 'yup';
 export const propertyFormSchema = yup.object().shape({
   // Property Information
   propertyTitle: yup.string().required('Property title is required'),
-  projectName: yup.string().required('Project name is required'),
+  projectName: yup.string().nullable(),
   
   // Property Type
   propertyType: yup.array().min(1, 'At least one property type must be selected'),
@@ -122,7 +122,7 @@ export const propertyFormSchema = yup.object().shape({
 export const propertyFormSchemaBasic = yup.object().shape({
   // Property Information
   propertyTitle: yup.string().required('Property title is required'),
-  projectName: yup.string().required('Project name is required'),
+  projectName: yup.string().nullable(),
   
   // Property Type
   propertyTypes: yup.array().min(1, 'At least one property type must be selected'),

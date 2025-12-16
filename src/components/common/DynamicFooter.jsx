@@ -133,7 +133,7 @@ const DynamicFooter = () => {
               </li>
               <li style={{ marginBottom: '8px' }}>
                 <Link 
-                  href="/contact" 
+                  href="/contact-us" 
                   style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '14px' }}
                 >
                   {getTranslation('contact-us', 'contactUs')}

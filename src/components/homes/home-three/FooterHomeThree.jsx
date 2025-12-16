@@ -285,7 +285,7 @@ const FooterHomeThree = () => {
                 </li>
                 <li className="mb-2">
                   <Link 
-                    href={`/${locale !== 'th' ? locale + '/' : ''}contact`}
+                    href={`/${locale !== 'th' ? locale + '/' : ''}contact-us`}
                     style={{ color: '#6c757d', textDecoration: 'none', fontSize: '15px', transition: 'color 0.3s' }}
                     onMouseEnter={(e) => e.target.style.color = '#AF1A1E'}
                     onMouseLeave={(e) => e.target.style.color = '#6c757d'}
@@ -304,7 +304,7 @@ const FooterHomeThree = () => {
               <ul className="footer-list" style={{ listStyle: 'none', padding: 0 }}>
                 <li className="mb-2">
                   <Link 
-                    href={`/${locale !== 'th' ? locale + '/' : ''}properties?zone=jomtien`}
+                    href={`/${locale !== 'th' ? locale + '/' : ''}properties?zoneId=1`}
                     style={{ color: '#6c757d', textDecoration: 'none', fontSize: '15px', transition: 'color 0.3s' }}
                     onMouseEnter={(e) => e.target.style.color = '#AF1A1E'}
                     onMouseLeave={(e) => e.target.style.color = '#6c757d'}
@@ -314,7 +314,7 @@ const FooterHomeThree = () => {
                 </li>
                 <li className="mb-2">
                   <Link 
-                    href={`/${locale !== 'th' ? locale + '/' : ''}properties?zone=wongamat`}
+                    href={`/${locale !== 'th' ? locale + '/' : ''}properties?zoneId=18`}
                     style={{ color: '#6c757d', textDecoration: 'none', fontSize: '15px', transition: 'color 0.3s' }}
                     onMouseEnter={(e) => e.target.style.color = '#AF1A1E'}
                     onMouseLeave={(e) => e.target.style.color = '#6c757d'}
@@ -324,7 +324,7 @@ const FooterHomeThree = () => {
                 </li>
                 <li className="mb-2">
                   <Link 
-                    href={`/${locale !== 'th' ? locale + '/' : ''}properties?zone=naklua`}
+                    href={`/${locale !== 'th' ? locale + '/' : ''}properties?zoneId=3`}
                     style={{ color: '#6c757d', textDecoration: 'none', fontSize: '15px', transition: 'color 0.3s' }}
                     onMouseEnter={(e) => e.target.style.color = '#AF1A1E'}
                     onMouseLeave={(e) => e.target.style.color = '#6c757d'}
@@ -334,7 +334,7 @@ const FooterHomeThree = () => {
                 </li>
                 <li className="mb-2">
                   <Link 
-                    href={`/${locale !== 'th' ? locale + '/' : ''}properties?zone=pratumnak`}
+                    href={`/${locale !== 'th' ? locale + '/' : ''}properties?zoneId=11`}
                     style={{ color: '#6c757d', textDecoration: 'none', fontSize: '15px', transition: 'color 0.3s' }}
                     onMouseEnter={(e) => e.target.style.color = '#AF1A1E'}
                     onMouseLeave={(e) => e.target.style.color = '#6c757d'}

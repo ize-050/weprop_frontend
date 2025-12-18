@@ -52,11 +52,19 @@ export default function HeroSearchBar({
     const fetchPropertyTypes = async () => {
       try {
         const response = await propertyTypeService.getPropertyTypesForFilter();
-        // Filter เฉพาะ 4 ประเภทที่ต้องการ: House, Condo, Commercial, Land
-        const allowedTypes = ['House', 'Condo', 'Commercial', 'Land'];
-        const filteredData = response.data.filter(type => 
-          allowedTypes.some(allowed => allowed.toLowerCase() === (type.name || type.nameEn || '').toLowerCase())
-        );
+        // Filter และเรียงลำดับ: Condo, House, Commercial, Land
+        const typeOrder = ['Condo', 'House', 'Commercial', 'Land'];
+        const filteredData = response.data
+          .filter(type => 
+            typeOrder.some(allowed => allowed.toLowerCase() === (type.name || type.nameEn || '').toLowerCase())
+          )
+          .sort((a, b) => {
+            const aName = (a.name || a.nameEn || '').toLowerCase();
+            const bName = (b.name || b.nameEn || '').toLowerCase();
+            const aIndex = typeOrder.findIndex(t => t.toLowerCase() === aName);
+            const bIndex = typeOrder.findIndex(t => t.toLowerCase() === bName);
+            return aIndex - bIndex;
+          });
         const types = filteredData.map((type) => {
           let label = type.name;
           switch (locale) {

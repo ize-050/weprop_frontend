@@ -3,7 +3,10 @@
 import { useEffect } from 'react';
 import Script from 'next/script';
 
-const GoogleAnalytics = ({ GA_MEASUREMENT_ID = 'G-4WRWC06HG5' }) => {
+const GA_MEASUREMENT_ID = 'G-S6TPESK6GC';
+const GTM_ID = 'GTM-NNZ4F9SL';
+
+const GoogleAnalytics = () => {
   useEffect(() => {
     // Initialize dataLayer if it doesn't exist
     window.dataLayer = window.dataLayer || [];
@@ -24,11 +27,36 @@ const GoogleAnalytics = ({ GA_MEASUREMENT_ID = 'G-4WRWC06HG5' }) => {
       page_title: document.title,
       page_location: window.location.href,
     });
-  }, [GA_MEASUREMENT_ID]);
+  }, []);
 
   return (
     <>
-      {/* Google Analytics Script */}
+      {/* Google Tag Manager */}
+      <Script
+        id="google-tag-manager"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${GTM_ID}');
+          `,
+        }}
+      />
+      
+      {/* Google Tag Manager (noscript) */}
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+          height="0"
+          width="0"
+          style={{ display: 'none', visibility: 'hidden' }}
+        />
+      </noscript>
+      
+      {/* Google Analytics (gtag.js) */}
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
@@ -41,10 +69,7 @@ const GoogleAnalytics = ({ GA_MEASUREMENT_ID = 'G-4WRWC06HG5' }) => {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}', {
-              page_title: document.title,
-              page_location: window.location.href,
-            });
+            gtag('config', '${GA_MEASUREMENT_ID}');
           `,
         }}
       />

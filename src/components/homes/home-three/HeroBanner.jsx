@@ -33,16 +33,16 @@ const HeroBanner = () => {
    // Hardcode translations for immediate effect
    const heroTitle = {
       part1: {
-         en: 'Find the Right',
-         th: 'ค้นหาที่เหมาะสม',
-         zh: '找到合适的',
-         ru: 'Найдите подходящую'
+         en: 'Find Your Best',
+         th: 'ค้นหาอสังหาริมทรัพย์ที่คุ้มค่าที่สุด',
+         zh: '找到最适合您的',
+         ru: 'Найдите лучшую'
       },
       part2: {
-         en: 'Property for Your Dream',
-         th: 'ทรัพย์สินในฝันของคุณ',
-         zh: '您梦想的房产',
-         ru: 'недвижимость для вашей мечты'
+         en: 'Property in Pattaya',
+         th: 'ในพัทยา',
+         zh: '帕塔雅的房产',
+         ru: 'недвижимость в Патая'
       }
    }
       

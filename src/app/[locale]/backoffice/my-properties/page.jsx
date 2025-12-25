@@ -266,7 +266,7 @@ function MyPropertiesPage() {
 
   const handleViewProperty = (property) => {
     const slug = createSlug(property.title);
-    window.open(`/${locale}/property_detail/${property.id}/${slug}`, '_blank');
+    window.open(`/${locale}/property-detail-three/${property.id}/${slug}`, '_blank');
   }
 
   const handleTogglePropertyPublished = async (propertyId, currentIsPublished) => {

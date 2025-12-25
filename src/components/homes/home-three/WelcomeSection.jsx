@@ -41,7 +41,7 @@ const WelcomeSection = () => {
           <div className="col-lg-12">
             {/* Main Title */}
             <div className="main-title text-center mb40">
-              <h2 className="title fz55">
+              <h2 className="title" style={{ fontSize: 'clamp(28px, 4vw, 42px)' }}>
                 {titleText.part1[locale] || titleText.part1.en}{' '}
                 <span style={{ color: '#AF1A1E' }}>
                   {titleText.part2[locale] || titleText.part2.en}

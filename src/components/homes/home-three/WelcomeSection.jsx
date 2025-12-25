@@ -13,16 +13,22 @@ const WelcomeSection = () => {
 
   const titleText = {
     part1: {
-      en: 'Welcome to',
-      th: 'ยินดีต้อนรับสู่',
-      zh: '欢迎来到',
-      ru: 'Добро пожаловать в'
+      en: 'The 12 Real Estate',
+      th: 'The 12 Real Estate',
+      zh: 'The 12 Real Estate',
+      ru: 'The 12 Real Estate'
+    },
+    part2: {
+      en: 'Pattaya Real Value',
+      th: 'คอนโดพัทยาและลงทุนอสังหาฯ พัทยา',
+      zh: '芭提雅房产真正价值',
+      ru: 'Паттайя Реальная Ценность'
     },
     part3: {
-      en: 'Pattaya',
-      th: 'พัทยา',
-      zh: '芭提雅',
-      ru: 'Паттайя'
+      en: 'in Every Deal',
+      th: 'ที่คุ้มค่าที่สุด',
+      zh: '每笔交易',
+      ru: 'в Каждой Сделке'
     }
   }
 
@@ -38,7 +44,7 @@ const WelcomeSection = () => {
               <h2 className="title fz55">
                 {titleText.part1[locale] || titleText.part1.en}{' '}
                 <span style={{ color: '#AF1A1E' }}>
-                  12 Real Estate
+                  {titleText.part2[locale] || titleText.part2.en}
                 </span>{' '}
                 {titleText.part3[locale] || titleText.part3.en}
               </h2>

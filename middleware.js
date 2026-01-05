@@ -64,21 +64,9 @@ export function middleware(request) {
   
   // ถ้าไม่มีภาษาใน pathname และไม่ใช่ static files หรือ API routes
   if (!pathnameHasLocale && !pathname.includes('.') && !pathname.startsWith('/api')) {
-    // ตรวจสอบภาษาจาก Accept-Language header
-    const locale = getLocaleFromHeader(request);
-    
-    // ถ้าเป็นภาษาอังกฤษและเป็น root path
-    if (locale === defaultLocale && pathname === '/') {
-      return NextResponse.next();
-    }
-    
-    // ถ้าเป็นภาษาอังกฤษแต่ไม่ใช่ root path
-    if (locale === defaultLocale) {
-      return NextResponse.next();
-    }
-    
-    // สำหรับภาษาอื่นๆ ให้ redirect ไปที่ /{locale}{pathname}
-    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
+    // Default เป็นภาษาอังกฤษเสมอ (ไม่ใช้ Accept-Language header)
+    // ถ้าต้องการให้ redirect ตาม browser language ให้ใช้ getLocaleFromHeader(request) แทน
+    return NextResponse.next();
   }
   
   return NextResponse.next();

@@ -80,7 +80,7 @@ const montserrat = Montserrat({
 
 export default async function LocaleLayout({ children, params }) {
   // โหลดข้อความแปลภาษา
-  const locale = params.locale || 'th';
+  const locale = params.locale || 'en';
 
 
   const headersList = headers();

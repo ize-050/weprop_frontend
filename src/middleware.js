@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import createMiddleware from "next-intl/middleware";
 import { localePrefix, locales } from "./navigation";
 
-if (!locales.includes("th")) {
+if (!locales.includes("en")) {
   throw new Error("Invalid default locale. Please check your locales setup.");
 }
 
@@ -10,8 +10,8 @@ if (!locales.includes("th")) {
 const intlMiddleware = createMiddleware({
   locales,
   localePrefix,
-  localeDetection: true,
-  defaultLocale: "th",
+  localeDetection: false, // ปิด auto-detect จาก browser language
+  defaultLocale: "en",
 });
 
 // ใช้ middleware แบบง่ายๆ โดยเพิ่ม header และเรียกใช้ intlMiddleware

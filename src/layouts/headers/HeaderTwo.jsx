@@ -45,6 +45,8 @@ const HeaderTwo = ({ style_1, style_2 }) => {
                         <ul className="d-flex align-items-center style-none">
                            <li><LanguageSwitcher /></li>
                            <li><CurrencySwitcher /></li>
+                           {/* Spacer to maintain position after removing Backoffice button */}
+                           <li className="d-none d-md-inline-block" style={{ width: '140px' }}></li>
                         </ul>
                      </div>
 

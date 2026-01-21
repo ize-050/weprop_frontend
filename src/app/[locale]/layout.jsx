@@ -166,12 +166,7 @@ export default async function LocaleLayout({ children, params }) {
                     <Suspense fallback={<LoadingAnimation />}>
                       <ResponsiveHeader />
                     </Suspense>
-                    <hr style={{ 
-                      margin: 0, 
-                      border: 'none', 
-                      borderTop: '1px solid #e0e0e0',
-                      opacity: 1
-                    }} />
+                    {/* Removed hr to fix header gap issue */}
                     <div className="main-page-wrapper">
                       {children}
                     </div>

@@ -21,7 +21,6 @@ const HomeThree = ({ locale, randomProperties = [], homeTranslations = {}, zones
         {/* <BLockFeatureOne /> */}
         <PopularLocationListing randomProperties={randomProperties} />
         <PropertyTypes />
-        <br></br><br></br>
         <PopularLocation zones={zones} />
         <OurBlog />
       </TranslationInitializer>

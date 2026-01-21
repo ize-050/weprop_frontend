@@ -180,9 +180,9 @@ const Contact = async ({ params }) => {
                             <p className="small text-muted">
                                 {contactTranslations.find(t => t.slug === 'phone_contact')?.[dbLocale] || 
                                  contactTranslations.find(t => t.slug === 'phone_contact')?.en || 
-                                 '+66(0)95 1432 2345'}
+                                 '+66(0)80 253 0612'}
                             </p>
-                        </a>
+                        </a> 
                     </div>
 
                     <div className="col-lg-4 text-center">

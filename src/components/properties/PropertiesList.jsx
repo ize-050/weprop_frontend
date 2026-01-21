@@ -211,6 +211,47 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                     </div>
                   )}
                 </div>
+                {/* Carousel Indicators (Slide Bar Preview) */}
+                {sortedImages.length > 1 && (
+                  <div className="carousel-indicators" style={{
+                    position: 'absolute',
+                    bottom: '10px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 5,
+                    display: 'flex',
+                    gap: '6px',
+                    margin: 0,
+                    padding: '4px 8px',
+                    backgroundColor: 'rgba(0,0,0,0.3)',
+                    borderRadius: '10px'
+                  }}>
+                    {sortedImages.slice(0, 5).map((_, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        data-bs-target={`#carousel${property.id}`}
+                        data-bs-slide-to={index}
+                        className={index === 0 ? 'active' : ''}
+                        aria-current={index === 0 ? 'true' : 'false'}
+                        aria-label={`Slide ${index + 1}`}
+                        style={{
+                          width: '8px',
+                          height: '8px',
+                          borderRadius: '50%',
+                          backgroundColor: index === 0 ? '#fff' : 'rgba(255,255,255,0.5)',
+                          border: 'none',
+                          padding: 0,
+                          cursor: 'pointer',
+                          transition: 'background-color 0.3s'
+                        }}
+                      />
+                    ))}
+                    {sortedImages.length > 5 && (
+                      <span style={{ color: '#fff', fontSize: '10px', marginLeft: '2px' }}>+{sortedImages.length - 5}</span>
+                    )}
+                  </div>
+                )}
                 <div className="carousel-inner">
                   {sortedImages.length > 0 ? (
                     sortedImages.map((image, index) => (

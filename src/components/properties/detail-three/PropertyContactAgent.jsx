@@ -10,6 +10,8 @@ const PropertyContactAgent = ({ property }) => {
       phone: '',
       message: ''
    })
+   const [isSubmitting, setIsSubmitting] = useState(false)
+   const [submitStatus, setSubmitStatus] = useState(null)
 
    const handleChange = (e) => {
       setFormData({
@@ -18,10 +20,40 @@ const PropertyContactAgent = ({ property }) => {
       })
    }
 
-   const handleSubmit = (e) => {
+   const handleSubmit = async (e) => {
       e.preventDefault()
-      // TODO: Handle form submission
-      console.log('Form submitted:', formData)
+      setIsSubmitting(true)
+      setSubmitStatus(null)
+
+      try {
+         const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+               ...formData,
+               propertyId: property?.id,
+               propertyTitle: property?.title,
+               subject: `Property Inquiry: ${property?.title || 'Property'}`,
+               to: 'info@12realestatepattaya.com',
+               cc: 'krittiyakwang@gmail.com'
+            }),
+         })
+
+         if (response.ok) {
+            setSubmitStatus('success')
+            setFormData({ name: '', email: '', phone: '', message: '' })
+            setTimeout(() => setSubmitStatus(null), 5000)
+         } else {
+            setSubmitStatus('error')
+         }
+      } catch (error) {
+         console.error('Form submission error:', error)
+         setSubmitStatus('error')
+      } finally {
+         setIsSubmitting(false)
+      }
    }
 
    return (
@@ -133,22 +165,36 @@ const PropertyContactAgent = ({ property }) => {
                ></textarea>
             </div>
 
+            {submitStatus === 'success' && (
+               <div className="alert alert-success mb-3" style={{ fontSize: '14px' }}>
+                  {t('messageSentSuccess') || 'Message sent successfully!'}
+               </div>
+            )}
+            
+            {submitStatus === 'error' && (
+               <div className="alert alert-danger mb-3" style={{ fontSize: '14px' }}>
+                  {t('messageSentError') || 'Failed to send message. Please try again.'}
+               </div>
+            )}
+
             <button
                type="submit"
                className="btn w-100 text-white"
+               disabled={isSubmitting}
                style={{
-                  backgroundColor: '#8B0000',
+                  backgroundColor: isSubmitting ? '#999' : '#8B0000',
                   padding: '14px',
                   borderRadius: '8px',
                   fontSize: '16px',
                   fontWeight: '600',
                   border: 'none',
-                  transition: 'all 0.3s'
+                  transition: 'all 0.3s',
+                  cursor: isSubmitting ? 'not-allowed' : 'pointer'
                }}
-               onMouseEnter={(e) => e.target.style.backgroundColor = '#6B0000'}
-               onMouseLeave={(e) => e.target.style.backgroundColor = '#8B0000'}
+               onMouseEnter={(e) => !isSubmitting && (e.target.style.backgroundColor = '#6B0000')}
+               onMouseLeave={(e) => !isSubmitting && (e.target.style.backgroundColor = '#8B0000')}
             >
-               {t('sendMessageNow')}
+               {isSubmitting ? (t('sending') || 'Sending...') : (t('sendMessageNow') || 'Send a Message Now')}
             </button>
          </form>
 

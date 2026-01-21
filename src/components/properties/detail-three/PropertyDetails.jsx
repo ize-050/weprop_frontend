@@ -54,106 +54,109 @@ const PropertyDetails = ({ property, locale, t }) => {
       <div className="property-section bg-white shadow4 border-20 p-40 mb-50">
          <h3 className="section-title mb-3">{t('propertyDetails')}</h3>
          
-         {/* Details Table */}
-         <div className="table-responsive property-details-table border-0 mb-4">
-            <table className="table table-borderless">
-               <tbody style={{ borderStyle: 'hidden !important' }}>
-                  <tr style={{ borderStyle: 'hidden !important' }}>
-                     <th>{t('propertyCode')}</th>
-                     <td>{property?.propertyCode || property?.property_code || 'N/A'}</td>
-                     <th>{t('ownershipQuota')}</th>
-                     <td>{property?.ownershipQuota || property?.ownership_quota || 'N/A'}</td>
-                  </tr>
-                  <tr style={{ borderStyle: 'hidden !important' }}>
-                     <th>{t('landSize')}</th>
-                     <td>{formatLandSize()}</td>
-                     <th></th>
-                     <td></td>
-                  </tr>
-                  <tr>
-                     <th>{t('usableArea')}</th>
-                     <td>{property?.usableArea || property?.usable_area ? `${property.usableArea || property.usable_area} ${t('sqm')}` : 'N/A'}</td>
-                     <th>{t('floor')}</th>
-                     <td>{property?.floors ? `${property.floors}` : 'N/A'}</td>
-                  </tr>
-                  <tr>
-                     <th>{t('furnishing')}</th>
-                     <td>{getFurnishingText(property?.furnishing)}</td>
-                     <th>{t('bedrooms')}</th>
-                     <td>{property?.bedrooms || 'N/A'}</td>
-                  </tr>
-                  <tr>
-                     <th>{t('bathrooms')}</th>
-                     <td>{property?.bathrooms || 'N/A'}</td>
-                     <th>{t('constructionYear')}</th>
-                     <td>{property?.constructionYear || property?.construction_year || 'N/A'}</td>
-                  </tr>
-                  {(property?.communityFee || property?.community_fee) && (
-                     <tr>
-                        <th>{t('communityFees')}</th>
-                        <td>{property?.communityFee || property?.community_fee}</td>
-                        <th></th>
-                        <td></td>
-                     </tr>
-                  )}
-                  <tr>
-                     <th>{t('area')}</th>
-                     <td>{property?.district || 'N/A'}</td>
-                     <th></th>
-                     <td></td>
-                  </tr>
-                  <tr>
-                     <th>{t('address')}</th>
-                     <td colSpan="3">{getAddress()}</td>
-                  </tr>
-               </tbody>
-            </table>
+         {/* Details - Responsive Grid */}
+         <div className="property-details-grid mb-4">
+            <div className="row g-3">
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('propertyCode')}</span>
+                     <span className="detail-value">{property?.propertyCode || property?.property_code || 'N/A'}</span>
+                  </div>
+               </div>
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('ownershipQuota')}</span>
+                     <span className="detail-value">{property?.ownershipQuota || property?.ownership_quota || 'N/A'}</span>
+                  </div>
+               </div>
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('landSize')}</span>
+                     <span className="detail-value">{formatLandSize()}</span>
+                  </div>
+               </div>
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('usableArea')}</span>
+                     <span className="detail-value">{property?.usableArea || property?.usable_area ? `${property.usableArea || property.usable_area} ${t('sqm')}` : 'N/A'}</span>
+                  </div>
+               </div>
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('furnishing')}</span>
+                     <span className="detail-value">{getFurnishingText(property?.furnishing)}</span>
+                  </div>
+               </div>
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('bedrooms')}</span>
+                     <span className="detail-value">{property?.bedrooms || 'N/A'}</span>
+                  </div>
+               </div>
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('bathrooms')}</span>
+                     <span className="detail-value">{property?.bathrooms || 'N/A'}</span>
+                  </div>
+               </div>
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('floor')}</span>
+                     <span className="detail-value">{property?.floors ? `${property.floors}` : 'N/A'}</span>
+                  </div>
+               </div>
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('constructionYear')}</span>
+                     <span className="detail-value">{property?.constructionYear || property?.construction_year || 'N/A'}</span>
+                  </div>
+               </div>
+               {(property?.communityFee || property?.community_fee) && (
+                  <div className="col-6 col-md-3">
+                     <div className="detail-item">
+                        <span className="detail-label">{t('communityFees')}</span>
+                        <span className="detail-value">{property?.communityFee || property?.community_fee}</span>
+                     </div>
+                  </div>
+               )}
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('area')}</span>
+                     <span className="detail-value">{property?.district || 'N/A'}</span>
+                  </div>
+               </div>
+               <div className="col-12">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('address')}</span>
+                     <span className="detail-value">{getAddress()}</span>
+                  </div>
+               </div>
+            </div>
          </div>
 
          {/* Responsive Styles */}
          <style jsx>{`
-            .property-details-table {
-               overflow-x: auto;
-               -webkit-overflow-scrolling: touch;
-               scrollbar-width: thin;
-               scrollbar-color: #910000 #f0f0f0;
+            .property-details-grid .detail-item {
+               display: flex;
+               flex-direction: column;
+               padding: 12px;
+               background: #f8f9fa;
+               border-radius: 8px;
+               height: 100%;
             }
             
-            .property-details-table::-webkit-scrollbar {
-               height: 8px;
-            }
-            
-            .property-details-table::-webkit-scrollbar-track {
-               background: #f0f0f0;
-               border-radius: 10px;
-            }
-            
-            .property-details-table::-webkit-scrollbar-thumb {
-               background: #910000;
-               border-radius: 10px;
-            }
-            
-            .property-details-table::-webkit-scrollbar-thumb:hover {
-               background: #750000;
-            }
-            
-            .property-details-table table {
-               min-width: 800px;
-               margin-bottom: 0;
-            }
-            
-            .property-details-table th {
-               white-space: nowrap;
-               font-weight: 600;
+            .property-details-grid .detail-label {
+               font-size: 12px;
                color: #666;
-               padding: 12px 15px;
-               font-size: 14px;
+               font-weight: 600;
+               margin-bottom: 4px;
+               text-transform: uppercase;
             }
             
-            .property-details-table td {
-               padding: 12px 15px;
-               color: #333;
+            .property-details-grid .detail-value {
                font-size: 14px;
+               color: #333;
+               font-weight: 500;
             }
             
             @media (max-width: 768px) {
@@ -161,14 +164,20 @@ const PropertyDetails = ({ property, locale, t }) => {
                   padding: 20px !important;
                }
                
-               .property-details-table th,
-               .property-details-table td {
-                  padding: 10px 12px;
-                  font-size: 13px;
-               }
-               
                .section-title {
                   font-size: 20px !important;
+               }
+               
+               .property-details-grid .detail-item {
+                  padding: 10px;
+               }
+               
+               .property-details-grid .detail-label {
+                  font-size: 11px;
+               }
+               
+               .property-details-grid .detail-value {
+                  font-size: 13px;
                }
             }
             
@@ -177,14 +186,20 @@ const PropertyDetails = ({ property, locale, t }) => {
                   padding: 15px !important;
                }
                
-               .property-details-table th,
-               .property-details-table td {
-                  padding: 8px 10px;
-                  font-size: 12px;
-               }
-               
                .section-title {
                   font-size: 18px !important;
+               }
+               
+               .property-details-grid .detail-item {
+                  padding: 8px;
+               }
+               
+               .property-details-grid .detail-label {
+                  font-size: 10px;
+               }
+               
+               .property-details-grid .detail-value {
+                  font-size: 12px;
                }
             }
          `}</style>

@@ -50,32 +50,42 @@ const PropertyOverview = ({ property, locale, t }) => {
                      borderRadius: '10px',
                      minHeight: '80px'
                   }}>
-                     <div className="icon-box me-3" style={{
-                        width: '50px',
-                        height: '50px',
+                     <div className="icon-box me-2 me-md-3" style={{
+                        width: '45px',
+                        height: '45px',
                         backgroundColor: '#3c3c3c',
                         borderRadius: '8px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         color: '#ffffff',
-                        fontSize: '22px',
+                        fontSize: '20px',
                         flexShrink: 0
                      }}>
                         <i className={item.icon}></i>
                      </div>
-                     <div className="content">
+                     <div className="content" style={{ 
+                        flex: 1,
+                        minWidth: 0,
+                        overflow: 'hidden'
+                     }}>
                         <div className="label" style={{
-                           fontSize: '14px',
+                           fontSize: '11px',
                            color: '#666',
-                           marginBottom: '4px'
+                           marginBottom: '2px',
+                           whiteSpace: 'nowrap',
+                           overflow: 'hidden',
+                           textOverflow: 'ellipsis'
                         }}>
                            {item.label}
                         </div>
                         <div className="value" style={{
-                           fontSize: '16px',
+                           fontSize: '14px',
                            fontWeight: '600',
-                           color: '#333'
+                           color: '#333',
+                           whiteSpace: 'nowrap',
+                           overflow: 'hidden',
+                           textOverflow: 'ellipsis'
                         }}>
                            {item.value}
                         </div>

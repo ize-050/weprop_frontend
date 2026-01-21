@@ -7,6 +7,16 @@ import { convertAndFormatPriceSync } from '@/utils/currencyUtils'
 const PropertyBanner = ({ property, locale, t }) => {
    const [isFavorite, setIsFavorite] = useState(false)
 
+   // Get labels
+   const isHotOffer = property?.labels?.some(label => label.labelType === 'hot-offer')
+   const isNewListing = property?.labels?.some(label => label.labelType === 'new-listing')
+   const resale = property?.labels?.some(label => label.labelType === 'resale')
+   const rented = property?.labels?.some(label => label.labelType === 'rented')
+   const newDevelopment = property?.labels?.some(label => label.labelType === 'new-development')
+   const reducePrice = property?.labels?.some(label => label.labelType === 'reduce-price')
+   const sold = property?.labels?.some(label => label.labelType === 'sold')
+   const underConstruction = property?.labels?.some(label => label.labelType === 'under-construction')
+
    // Get localized title
    const getTitle = () => {
       return property?.displayTitle || property?.title || ''
@@ -98,6 +108,70 @@ const PropertyBanner = ({ property, locale, t }) => {
                   }}>
                      {t('for')} {getListingTypes()}
                   </span>
+                  {isHotOffer && (
+                     <span className="badge px-3 py-2" style={{ 
+                        fontSize: '11px', fontWeight: '700', textTransform: 'uppercase',
+                        backgroundColor: '#DC3545', color: '#fff', borderRadius: '20px'
+                     }}>
+                        {t('hotOffer')}
+                     </span>
+                  )}
+                  {isNewListing && (
+                     <span className="badge px-3 py-2" style={{ 
+                        fontSize: '11px', fontWeight: '700', textTransform: 'uppercase',
+                        backgroundColor: '#FFC107', color: '#fff', borderRadius: '20px'
+                     }}>
+                        {t('newListing')}
+                     </span>
+                  )}
+                  {reducePrice && (
+                     <span className="badge px-3 py-2" style={{ 
+                        fontSize: '11px', fontWeight: '700', textTransform: 'uppercase',
+                        backgroundColor: '#FF5A3C', color: '#fff', borderRadius: '20px'
+                     }}>
+                        {t('reducePrice')}
+                     </span>
+                  )}
+                  {sold && (
+                     <span className="badge px-3 py-2" style={{ 
+                        fontSize: '11px', fontWeight: '700', textTransform: 'uppercase',
+                        backgroundColor: '#343a40', color: '#fff', borderRadius: '20px'
+                     }}>
+                        {t('sold')}
+                     </span>
+                  )}
+                  {rented && (
+                     <span className="badge px-3 py-2" style={{ 
+                        fontSize: '11px', fontWeight: '700', textTransform: 'uppercase',
+                        backgroundColor: '#6c757d', color: '#fff', borderRadius: '20px'
+                     }}>
+                        {t('rented')}
+                     </span>
+                  )}
+                  {newDevelopment && (
+                     <span className="badge px-3 py-2" style={{ 
+                        fontSize: '11px', fontWeight: '700', textTransform: 'uppercase',
+                        backgroundColor: '#17a2b8', color: '#fff', borderRadius: '20px'
+                     }}>
+                        {t('newDevelopment')}
+                     </span>
+                  )}
+                  {resale && (
+                     <span className="badge px-3 py-2" style={{ 
+                        fontSize: '11px', fontWeight: '700', textTransform: 'uppercase',
+                        backgroundColor: '#28a745', color: '#fff', borderRadius: '20px'
+                     }}>
+                        {t('resale')}
+                     </span>
+                  )}
+                  {underConstruction && (
+                     <span className="badge px-3 py-2" style={{ 
+                        fontSize: '11px', fontWeight: '700', textTransform: 'uppercase',
+                        backgroundColor: '#ffc107', color: '#333', borderRadius: '20px'
+                     }}>
+                        {t('underConstruction')}
+                     </span>
+                  )}
                   <span style={{ 
                      fontSize: '15px',
                      color: '#666',

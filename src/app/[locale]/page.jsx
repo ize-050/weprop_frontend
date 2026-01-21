@@ -6,8 +6,8 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 export const metadata = {
-  title: "12 Real Estate Pattaya - Property for Sale & Rent",
-  description: "Find your dream property in Pattaya with 12 Real Estate. Condos, houses, and villas for sale and rent."
+  title: "Property in Pattaya for Sale & Rent | The 12 Real Estate",
+  description: "Find your dream property in Pattaya with The 12 Real Estate. Condos, houses, and villas for sale and rent."
 }
 
 // ฟังก์ชันสำหรับดึงข้อมูล properties แบบสุ่มจาก API (Server-Side)

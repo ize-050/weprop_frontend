@@ -15,12 +15,12 @@ export async function generateMetadata({ params: { locale } }) {
   
   const metadataByLocale = {
     th: {
-      title: 'เกี่ยวกับ D-Luck Property: ผู้เชี่ยวชาญอสังหาฯ พัทยา & EEC',
+      title: 'About | Property in Pattaya for Sale and Rent',
       description: 'D-Luck Property คือที่ปรึกษาอสังหาฯ ครบวงจรในพัทยา เชี่ยวชาญคอนโด บ้าน วิลล่า. เรามุ่งมั่นบริการด้วยความโปร่งใส ช่วยเหลือทุกขั้นตอนสำหรับลูกค้าไทยและต่างชาติ เพื่อการลงทุนและอยู่อาศัยที่ราบรื่น',
       keywords: ['เกี่ยวกับ D-Luck Property','บริษัทอสังหาริมทรัพย์ พัทยา','นายหน้าอสังหาริมทรัพย์ พัทยา','ตัวแทนอสังหาริมทรัพย์ พัทยา','ผู้เชี่ยวชาญอสังหาฯ พัทยา','ที่ปรึกษาอสังหาฯ พัทยา','ประสบการณ์อสังหาริมทรัพย์ พัทยา','ทีมงาน D-Luck Property','บริการซื้อ ขาย เช่า พัทยา','บริหารจัดการอสังหาริมทรัพย์ พัทยา','กฎหมายอสังหาริมทรัพย์ พัทยา','ที่ปรึกษาการลงทุนอสังหาฯ พัทยา','บริษัทอสังหาฯ ชาวต่างชาติ พัทยา','อสังหาริมทรัพย์ EEC','อสังหาริมทรัพย์ที่เชื่อถือได้ พัทยา','ตัวแทนอสังหาริมทรัพย์ในพัทยาที่น่าเชื่อถือ','รีวิว D-Luck Property']
     },
     en: {
-      title: 'About D-Luck Property: Your Pattaya & EEC Real Estate Experts',
+      title: 'About | Property in Pattaya for Sale and Rent',
       description: 'D-Luck Property is your trusted real estate consultant in Pattaya & EEC. We specialize in condos, houses, and villas, offering transparent, expert guidance for seamless buying, selling, and renting for both local and international clients.',
       keywords: ['Buy property Pattaya','Pattaya real estate company','Pattaya real estate agents','D-Luck Property about us','Real estate experts Pattaya','Pattaya property consultants','Trusted real estate Pattaya','Buy sell rent property Pattaya','Property management Pattaya','Pattaya condo specialists','Pattaya villa specialists','Pattaya house specialists','Pattaya pool villa experts','Real estate investment Pattaya advice','Foreigner property buying Pattaya','EEC real estate services','Reliable property agency Pattaya','Pattaya real estate market insights','Experienced Pattaya agents','D-Luck Property team']
     },

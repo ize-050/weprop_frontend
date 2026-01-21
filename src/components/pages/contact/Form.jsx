@@ -9,6 +9,7 @@ const Form = ({ translations, locale }) => {
     firstName: "",
     lastName: "",
     email: "",
+    countryCode: "+66",
     phone: "",
     subject: "",
     message: ""
@@ -65,7 +66,7 @@ const Form = ({ translations, locale }) => {
     const emailData = {
       name: `${formData.firstName} ${formData.lastName}`,
       email: formData.email,
-      phone: formData.phone,
+      phone: formData.phone ? `${formData.countryCode}${formData.phone}` : '',
       subject: formData.subject || 'Contact Form Inquiry',
       message: formData.message,
     };
@@ -79,6 +80,7 @@ const Form = ({ translations, locale }) => {
         firstName: "",
         lastName: "",
         email: "",
+        countryCode: "+66",
         phone: "",
         subject: "",
         message: ""
@@ -155,15 +157,40 @@ const Form = ({ translations, locale }) => {
         <label htmlFor="phone" className="form-label">
           {getContactText('phone_number', 'Phone Number')}
         </label>
-        <input 
-          type="tel" 
-          className="form-control" 
-          id="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          placeholder={getContactText('phone_placeholder', 'Enter your phone number')}
-          disabled={loading}
-        />
+        <div className="d-flex gap-2">
+          <select
+            className="form-select"
+            id="countryCode"
+            value={formData.countryCode}
+            onChange={handleChange}
+            disabled={loading}
+            style={{ width: '120px', flexShrink: 0 }}
+          >
+            <option value="+66">🇹🇭 +66</option>
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+44">🇬🇧 +44</option>
+            <option value="+86">🇨🇳 +86</option>
+            <option value="+7">🇷🇺 +7</option>
+            <option value="+81">🇯🇵 +81</option>
+            <option value="+82">🇰🇷 +82</option>
+            <option value="+65">🇸🇬 +65</option>
+            <option value="+60">🇲🇾 +60</option>
+            <option value="+84">🇻🇳 +84</option>
+            <option value="+91">🇮🇳 +91</option>
+            <option value="+61">🇦🇺 +61</option>
+            <option value="+49">🇩🇪 +49</option>
+            <option value="+33">🇫🇷 +33</option>
+          </select>
+          <input 
+            type="tel" 
+            className="form-control" 
+            id="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder={getContactText('phone_placeholder', 'Enter your phone number')}
+            disabled={loading}
+          />
+        </div>
       </div>
       
       <div className="mb-3">

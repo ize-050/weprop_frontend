@@ -15,16 +15,47 @@ import ContactModal from '../common/ContactModal/ContactModal'
 // Property Card Component with Modal
 const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, baseImageUrl, currencySymbol, formattedSalePrice, formattedRentPrice, isForSale, isForRent }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [touchStart, setTouchStart] = useState(null)
+  const [touchEnd, setTouchEnd] = useState(null)
   const t = useTranslations()
 
-  const isHotOffer = property.labels.some(label => label.labelType === 'hot-offer');
-  const isNewListing = property.labels.some(label => label.labelType === 'new-listing');
-  const resale = property.labels.some(label => label.labelType === 'resale');
-  const rented = property.labels.some(label => label.labelType === 'rented');
-  const newDevelopment = property.labels.some(label => label.labelType === 'new-development');
-  const reducePrice = property.labels.some(label => label.labelType === 'reduce-price');
-  const sold = property.labels.some(label => label.labelType === 'sold');
-  const underConstruction = property.labels.some(label => label.labelType === 'under-construction');
+  // Touch swipe handlers for mobile carousel
+  const minSwipeDistance = 50
+  const onTouchStart = (e) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
+  const onTouchEnd = (carouselId) => {
+    if (!touchStart || !touchEnd) return
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+    if (isLeftSwipe || isRightSwipe) {
+      const carousel = document.getElementById(carouselId)
+      if (carousel) {
+        const bsCarousel = window.bootstrap?.Carousel?.getOrCreateInstance(carousel)
+        if (bsCarousel) {
+          isLeftSwipe ? bsCarousel.next() : bsCarousel.prev()
+        }
+      }
+    }
+  }
+
+  const labels = property.labels || [];
+  const isHotOffer = labels.some(label => label.labelType === 'hot-offer');
+  const isNewListing = labels.some(label => label.labelType === 'new-listing');
+  const resale = labels.some(label => label.labelType === 'resale');
+  const rented = labels.some(label => label.labelType === 'rented');
+  const newDevelopment = labels.some(label => label.labelType === 'new-development');
+  const reducePrice = labels.some(label => label.labelType === 'reduce-price');
+  const sold = labels.some(label => label.labelType === 'sold');
+  const underConstruction = labels.some(label => label.labelType === 'under-construction');
+  
+  // Debug: log labels
+  if (labels.length > 0) {
+    console.log(`Property ${property.id} labels:`, labels.map(l => l.labelType));
+  }
 
   return (
     <>
@@ -60,7 +91,15 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
               )}
 
               {/* Image Carousel */}
-              <div id={`carousel${property.id}`} className="carousel slide" data-bs-ride="false">
+              <div 
+                id={`carousel${property.id}`} 
+                className="carousel slide" 
+                data-bs-ride="false"
+                data-bs-touch="true"
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={() => onTouchEnd(`carousel${property.id}`)}
+              >
                 {/* Additional Labels (HOT OFFER, NEW LISTING) */}
                 <div style={{
                   position: 'absolute',
@@ -349,17 +388,30 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
               href={`/${locale !== 'th' ? locale + '/' : ''}property-detail-three/${property.id}/${slug}`}
               className="title tran3s"
               style={{
-                fontSize: '20px',
+                fontSize: '18px',
                 fontWeight: '600',
                 color: '#1a1a1a',
                 textDecoration: 'none',
-                display: 'block',
-                marginBottom: '10px'
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                minHeight: '44px',
+                lineHeight: '1.3',
+                marginBottom: '8px'
               }}
             >
               {title}
             </Link>
-            <div className="address" style={{ color: '#6c757d', fontSize: '14px', marginBottom: '15px' }}>
+            <div className="address" style={{ 
+              color: '#6c757d', 
+              fontSize: '14px', 
+              marginBottom: '12px',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis'
+            }}>
               {zoneName}
             </div>
 

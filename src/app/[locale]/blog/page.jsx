@@ -7,7 +7,7 @@ import DynamicBlogContent from '@/components/blog/DynamicBlogContent';
 import '@/styles/blog.scss';
 
 export const metadata = {
-  title: 'Blog | DD Property',
+  title: 'Blog | Property in Pattaya for Sale and Rent',
 };
 
 async function fetchBlogs() {

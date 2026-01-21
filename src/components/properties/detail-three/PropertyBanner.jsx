@@ -87,7 +87,7 @@ const PropertyBanner = ({ property, locale, t }) => {
                   marginBottom: '15px'
                }}>
                   <h1 className="property-title mb-0" style={{ 
-                     fontSize: '36px', 
+                     fontSize: 'clamp(22px, 5vw, 36px)', 
                      fontWeight: '600', 
                      lineHeight: '1.3',
                      color: '#000',

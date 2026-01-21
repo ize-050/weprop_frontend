@@ -125,6 +125,18 @@ const PropertyDetails = ({ property, locale, t }) => {
                      <span className="detail-value">{property?.district || 'N/A'}</span>
                   </div>
                </div>
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('dateListed') || 'Date Listed'}</span>
+                     <span className="detail-value">{property?.createdAt ? new Date(property.createdAt).toLocaleDateString(locale === 'th' ? 'th-TH' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}</span>
+                  </div>
+               </div>
+               <div className="col-6 col-md-3">
+                  <div className="detail-item">
+                     <span className="detail-label">{t('dateUpdated') || 'Date Updated'}</span>
+                     <span className="detail-value">{property?.updatedAt ? new Date(property.updatedAt).toLocaleDateString(locale === 'th' ? 'th-TH' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}</span>
+                  </div>
+               </div>
                <div className="col-12">
                   <div className="detail-item">
                      <span className="detail-label">{t('address')}</span>

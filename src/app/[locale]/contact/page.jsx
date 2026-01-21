@@ -165,10 +165,45 @@ const Contact = async ({ params }) => {
             </section>
 
 
+            {/* Google Map Section */}
+            <section className="container mb-5">
+                <div className="row">
+                    <div className="col-12">
+                        <h3 className="mb-4 text-center">
+                            {contactTranslations.find(t => t.slug === 'our_location')?.[dbLocale] || 'Our Location'}
+                        </h3>
+                        <div className="map-container" style={{ borderRadius: '12px', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3892.0!2d100.8775!3d12.9236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3102976d5a5a5a5a%3A0x5a5a5a5a5a5a5a5a!2sPattaya%2C%20Thailand!5e0!3m2!1sen!2sth!4v1234567890"
+                                width="100%"
+                                height="450"
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                title="The 12 Real Estate Pattaya Location"
+                            ></iframe>
+                        </div>
+                        <div className="text-center mt-3">
+                            <a 
+                                href="https://maps.app.goo.gl/J1qRZhu45YN5b3oP8" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="btn btn-outline-primary"
+                                style={{ borderRadius: '25px', padding: '10px 30px' }}
+                            >
+                                <i className="bi bi-geo-alt me-2"></i>
+                                {contactTranslations.find(t => t.slug === 'open_in_maps')?.[dbLocale] || 'Open in Google Maps'}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section className="container">
                 <div className="d-flex row">
                     <div className="col-lg-4 text-center">
-                        <a href="tel:+66951432234" className="d-block text-decoration-none">
+                        <a href="tel:+66888997944" className="d-block text-decoration-none">
                             <div className="mb-3">
                                 <img src="/images/contact/icon-call-us.png" alt="Call Us" width="60" height="60" />
                             </div>

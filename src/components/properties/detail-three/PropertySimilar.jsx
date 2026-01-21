@@ -87,7 +87,7 @@ const PropertySimilar = ({ property, locale, t }) => {
 
    return (
       <div className="similar-property mb-50">
-         <h4 className="mb-40">{t('similarHomes')}</h4>
+         <h4 className="mb-30" style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: '600' }}>{t('similarHomes')}</h4>
          
          <Swiper
             modules={[Navigation, Pagination]}
@@ -137,7 +137,7 @@ const PropertySimilar = ({ property, locale, t }) => {
                return (
                   <SwiperSlide key={prop.id}>
                      <div className="item">
-                        <div className="listing-card-one shadow4 style-three border-30 mb-50">
+                        <div className="listing-card-one shadow4 style-three border-30 mb-50" style={{ height: '100%' }}>
                            <div className="img-gallery p-15">
                               <div className="position-relative border-20 overflow-hidden">
                                  <div className="tag bg-white text-dark fw-500 border-20">{getListingBadge()}</div>
@@ -177,13 +177,32 @@ const PropertySimilar = ({ property, locale, t }) => {
                               </div>
                            </div>
                            <div className="property-info pe-4 ps-4">
-                              <Link href={propertyDetailUrl} className="title tran3s">
+                              <Link 
+                                href={propertyDetailUrl} 
+                                className="title tran3s"
+                                style={{
+                                   fontSize: '16px',
+                                   fontWeight: '600',
+                                   display: '-webkit-box',
+                                   WebkitLineClamp: 2,
+                                   WebkitBoxOrient: 'vertical',
+                                   overflow: 'hidden',
+                                   textOverflow: 'ellipsis',
+                                   minHeight: '40px',
+                                   lineHeight: '1.3'
+                                }}
+                              >
                                  {getRelatedTitle(prop)}
                               </Link>
-                              <div className="address m0 pb-5">
+                              <div className="address m0 pb-5" style={{ 
+                                 fontSize: '13px',
+                                 whiteSpace: 'nowrap',
+                                 overflow: 'hidden',
+                                 textOverflow: 'ellipsis'
+                              }}>
                                  {prop.zone?.[`name_${locale}`] || prop.zone?.name}
                               </div>
-                              <ul className="style-none d-flex align-items-center justify-content-between mb-3">
+                              <ul className="style-none d-flex align-items-center justify-content-between mb-3" style={{ fontSize: '13px' }}>
                                  <li><i className="fa-light fa-bed-front me-2"></i>{prop.bedrooms || 0} {t('bed')}</li>
                                  <li><i className="fa-light fa-bath me-2"></i>{prop.bathrooms || 0} {t('bath')}</li>
                                  <li><i className="fa-light fa-ruler-combined me-2"></i>{prop.usableArea || 0} {t('sqm')}</li>

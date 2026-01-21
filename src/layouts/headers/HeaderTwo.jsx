@@ -45,11 +45,6 @@ const HeaderTwo = ({ style_1, style_2 }) => {
                         <ul className="d-flex align-items-center style-none">
                            <li><LanguageSwitcher /></li>
                            <li><CurrencySwitcher /></li>
-                           <li className="d-none d-md-inline-block ms-3">
-                              <Link href="/backoffice/login" className={style_1 ? "btn-ten" : "btn-two rounded-0"}>
-                                 <span>BACKOFFICE</span> <i className="fa-thin fa-arrow-up-right"></i>
-                              </Link>
-                           </li>
                         </ul>
                      </div>
 

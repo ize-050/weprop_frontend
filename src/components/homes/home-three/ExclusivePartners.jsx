@@ -66,7 +66,7 @@ const ExclusivePartners = () => {
         <div className="row g-4">
           {partners.map((partner, index) => (
             <div key={index} className="col-lg-3 col-md-6 col-sm-6">
-              <PartnerCard partner={partner} />
+              <PartnerCard partner={partner} visitWebsiteText={dynamicT('ExclusivePartners.visitWebsite', 'Visit Website')} />
             </div>
           ))}
         </div>
@@ -75,7 +75,7 @@ const ExclusivePartners = () => {
   )
 }
 
-const PartnerCard = ({ partner }) => {
+const PartnerCard = ({ partner, visitWebsiteText }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
@@ -266,7 +266,7 @@ const PartnerCard = ({ partner }) => {
             gap: '5px'
           }}>
             <i className="fa-solid fa-arrow-up-right-from-square"></i>
-            Visit Website
+            {visitWebsiteText}
           </span>
         )}
       </div>

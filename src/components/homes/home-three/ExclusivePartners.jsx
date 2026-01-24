@@ -1,10 +1,27 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
-import useSimpleTranslations from '@/hooks/useSimpleTranslations'
+import React, { useState } from 'react'
+import { useLocale } from 'next-intl'
 
 const ExclusivePartners = () => {
-  const { t: dynamicT } = useSimpleTranslations('home')
+  const locale = useLocale()
+
+  const translations = {
+    title: {
+      part1: { en: 'Exclusive', th: 'พันธมิตร', zh: '独家', ru: 'Эксклюзивные' },
+      part2: { en: 'Partners', th: 'พิเศษ', zh: '合作伙伴', ru: 'Партнеры' }
+    },
+    visitWebsite: { en: 'Visit Website', th: 'เยี่ยมชมเว็บไซต์', zh: '访问网站', ru: 'Посетить сайт' }
+  }
+
+  const t = (key) => {
+    const keys = key.split('.')
+    let value = translations
+    for (const k of keys) {
+      value = value?.[k]
+    }
+    return value?.[locale] || value?.en || key
+  }
 
   const partners = [
     {
@@ -56,9 +73,9 @@ const ExclusivePartners = () => {
       <div className="container">
         <div className="title-one text-center mb-75 xl-mb-50 md-mb-30 wow fadeInUp">
           <h3 style={{ color: '#1a1a1a', fontWeight: '600', fontSize: '42px', lineHeight: '1.2' }}>
-            {dynamicT('ExclusivePartners.title.part1', 'Exclusive')}{' '}
+            {t('title.part1')}{' '}
             <span style={{ color: '#eb6753' }}>
-              {dynamicT('ExclusivePartners.title.part2', 'Partners')}
+              {t('title.part2')}
             </span>
           </h3>
         </div>
@@ -66,7 +83,7 @@ const ExclusivePartners = () => {
         <div className="row g-4">
           {partners.map((partner, index) => (
             <div key={index} className="col-lg-3 col-md-6 col-sm-6">
-              <PartnerCard partner={partner} visitWebsiteText={dynamicT('ExclusivePartners.visitWebsite', 'Visit Website')} />
+              <PartnerCard partner={partner} visitWebsiteText={t('visitWebsite')} />
             </div>
           ))}
         </div>

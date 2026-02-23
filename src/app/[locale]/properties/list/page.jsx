@@ -246,10 +246,10 @@ async function PropertyListContent({ searchParams }) {
 }
 
 export default function PropertyListPage({ params, searchParams }) {
+  const suspenseKey = JSON.stringify(searchParams);
   return (
     <div className="main-wrapper">
-      <Suspense fallback={<PropertyListingLoading />}>
-       
+      <Suspense key={suspenseKey} fallback={<PropertyListingLoading />}>
         <PropertyListContent searchParams={searchParams} />
       </Suspense>
     </div>

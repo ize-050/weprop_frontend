@@ -22,35 +22,21 @@ const PropertyDescription = ({ property, locale: localeProp, t }) => {
             }
          }
          
-         // Check if it's an object
+         // EN is the default locale — EN description is stored in property.description
+         // Always use property.description for EN locale first
+         if (locale === 'en') {
+            return property?.description || ''
+         }
+
+         // For non-EN locales, try translatedDescriptions[locale] first
          if (translatedDescriptions && typeof translatedDescriptions === 'object') {
-            // Try current locale (check for non-empty string)
             if (locale && translatedDescriptions[locale] && translatedDescriptions[locale].trim()) {
                return translatedDescriptions[locale]
             }
-         }
-
-         // EN is the default locale — EN description is stored in property.description (not translatedDescriptions.en)
-         // So for 'en' locale, use property.description directly
-         if (locale === 'en' && property?.description && property.description.trim()) {
-            return property.description
-         }
-
-         // For non-EN locales, try other fallbacks
-         if (translatedDescriptions && typeof translatedDescriptions === 'object') {
-            // Try English translation if available
-            if (translatedDescriptions.en && translatedDescriptions.en.trim()) {
-               return translatedDescriptions.en
-            }
             
-            // Try Thai (non-empty)
-            if (translatedDescriptions.th && translatedDescriptions.th.trim()) {
-               return translatedDescriptions.th
-            }
-            
-            // Try any available language
+            // Try any available non-EN language
             const availableLang = Object.keys(translatedDescriptions).find(
-               key => translatedDescriptions[key] && translatedDescriptions[key].trim()
+               key => key !== 'en' && translatedDescriptions[key] && translatedDescriptions[key].trim()
             )
             if (availableLang) {
                return translatedDescriptions[availableLang]

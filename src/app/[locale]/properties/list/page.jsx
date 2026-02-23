@@ -229,10 +229,9 @@ function PropertyListingLoading() {
 
 
 async function PropertyListContent({ searchParams }) {
+  const resolvedParams = await searchParams;
+  const searchResults = await searchProperties(resolvedParams);
 
-  const searchResults = await searchProperties(searchParams);
-
-  
   const zones = await getAllZones();
   
   return (
@@ -240,17 +239,18 @@ async function PropertyListContent({ searchParams }) {
       properties={searchResults.data || []}
       pagination={searchResults.pagination || {}}
       zones={zones || []}
-      searchParams={searchParams || {}}
+      searchParams={resolvedParams || {}}
     />
   );
 }
 
-export default function PropertyListPage({ params, searchParams }) {
-  const suspenseKey = JSON.stringify(searchParams);
+export default async function PropertyListPage({ params, searchParams }) {
+  const resolvedParams = await searchParams;
+  const suspenseKey = JSON.stringify(resolvedParams);
   return (
     <div className="main-wrapper">
       <Suspense key={suspenseKey} fallback={<PropertyListingLoading />}>
-        <PropertyListContent searchParams={searchParams} />
+        <PropertyListContent searchParams={resolvedParams} />
       </Suspense>
     </div>
   );

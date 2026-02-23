@@ -4,19 +4,19 @@ import React, { useState, useEffect } from "react";
 
 // Default fallback data
 const defaultSocialIcons = [
-  { icon: "fab fa-facebook-f", url: "#", platform: "messenger" },
-  { icon: "fab fa-twitter", url: "https://x.com/dluckproperty", platform: "twitter" },
-  { icon: "fab fa-instagram", url: "#", platform: "instagram" },
+  { icon: "fab fa-whatsapp", url: "https://wa.me/+66888997944", platform: "whatsapp" },
+  { icon: "fab fa-line", url: "https://lin.ee/dG5aGu4", platform: "line" },
+  { icon: "fab fa-facebook-messenger", url: "https://m.me/222887021193075", platform: "messenger" },
 ];
 
 const defaultContactInfo = {
   telephone: {
-    number: "086-543-2345",
-    url: "tel:+660865432345",
+    number: "+66 88 899 7944",
+    url: "tel:+66888997944",
   },
   email: {
-    address: "info@d-luckproperty.com",
-    url: "mailto:info@d-luckproperty.com",
+    address: "info@12realestatepattaya.com",
+    url: "mailto:info@12realestatepattaya.com",
   },
 };
 
@@ -58,7 +58,7 @@ const SidebarStickyBar = () => {
                 if (setting.platformValue && setting.isEnabled) {
                   const facebookIndex = updatedSocialIcons.findIndex(icon => icon.platform === 'messenger');
                   if (facebookIndex !== -1) {
-                    updatedSocialIcons[facebookIndex].url = 'https://www.facebook.com/' + setting.platformValue;
+                    updatedSocialIcons[facebookIndex].url = 'https://m.me/' + setting.platformValue;
                   }
                 }
                 break;
@@ -74,7 +74,7 @@ const SidebarStickyBar = () => {
                 if (setting.platformValue && setting.isEnabled) {
                   const twitterIndex = updatedSocialIcons.findIndex(icon => icon.platform === 'twitter');
                   if (twitterIndex !== -1) {
-                    updatedSocialIcons[twitterIndex].url = 'https://x.com/dluckproperty';
+                    updatedSocialIcons[twitterIndex].url = 'https://x.com/' + setting.platformValue;
                   }
                 }
                 break;

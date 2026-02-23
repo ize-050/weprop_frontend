@@ -23,9 +23,9 @@ import PropertySimilar from './PropertySimilar'
 import PropertyContactAgent from './PropertyContactAgent'
 // import PropertyPaymentPlan from './PropertyPaymentPlan'
 
-const PropertyDetailThree = ({ propertyData }) => {
+const PropertyDetailThree = ({ propertyData, locale: localeProp }) => {
    const params = useParams()
-   const locale = params?.locale || 'th'
+   const locale = localeProp || params?.locale || 'th'
    const t = useTranslations()
 
    return (

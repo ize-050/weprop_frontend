@@ -51,6 +51,7 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
   const reducePrice = labels.some(label => label.labelType === 'reduce-price');
   const sold = labels.some(label => label.labelType === 'sold');
   const underConstruction = labels.some(label => label.labelType === 'under-construction');
+  const newProject = labels.some(label => label.labelType === 'new-project');
   
   // Debug: log labels
   if (labels.length > 0) {
@@ -69,24 +70,47 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                   position: 'absolute',
                   top: '0px',
                   left: '0px',
-                  zIndex: 2
+                  zIndex: 2,
+                  display: 'flex',
+                  gap: '6px'
                 }}>
-                  <div className="tag border-25" style={{
-                    backgroundColor: isForRent ? '#FF5A3C' : '#00B579',
-                    color: 'white',
-                    borderRadius: '14px',
-                    width: '90px',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: 'auto',
-                    height: '27px',
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    textTransform: 'uppercase',
-                    display: 'inline-block'
-                  }}>
-                    {isForRent ? t('forRent') : t('forSale')}
-                  </div>
+                  {isForSale && isForRent ? (
+                    <div style={{
+                      backgroundColor: '#1a73e8',
+                      color: 'white',
+                      borderRadius: '14px',
+                      padding: '0 14px',
+                      height: '27px',
+                      fontSize: '11px',
+                      fontWeight: '600',
+                      textTransform: 'uppercase',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      whiteSpace: 'nowrap',
+                      lineHeight: '27px',
+                      letterSpacing: '0.3px'
+                    }}>
+                      {t('forSale')} & {t('forRent')}
+                    </div>
+                  ) : (
+                    <div className="tag border-25" style={{
+                      backgroundColor: isForRent ? '#FF5A3C' : '#00B579',
+                      color: 'white',
+                      borderRadius: '14px',
+                      width: '90px',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      margin: 'auto',
+                      height: '27px',
+                      fontSize: '12px',
+                      fontWeight: '600',
+                      textTransform: 'uppercase',
+                      display: 'inline-block'
+                    }}>
+                      {isForRent ? t('forRent') : t('forSale')}
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -247,6 +271,24 @@ const PropertyCard = ({ property, locale, slug, title, zoneName, sortedImages, b
                       whiteSpace: 'nowrap'
                     }}>
                       {t('underConstruction')}
+                    </div>
+                  )}
+                  {newProject && (
+                    <div className="tag border-25" style={{
+                      backgroundColor: '#6f42c1',
+                      color: 'white',
+                      borderRadius: '14px',
+                      padding: '0 12px',
+                      height: '27px',
+                      fontSize: '12px',
+                      fontWeight: '600',
+                      textTransform: 'uppercase',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      whiteSpace: 'nowrap'
+                    }}>
+                      {t('newProject')}
                     </div>
                   )}
                 </div>
@@ -703,7 +745,7 @@ const PropertiesList = ({ searchParams }) => {
                 const slug = createSlug(title, property.id)
 
                 // Get images with base URL
-                const baseImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || ''
+                const baseImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5001'
                 const sortedImages = property.images && property.images.length > 0
                   ? property.images.sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
                   : []

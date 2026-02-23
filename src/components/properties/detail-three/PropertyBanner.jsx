@@ -16,6 +16,7 @@ const PropertyBanner = ({ property, locale, t }) => {
    const reducePrice = property?.labels?.some(label => label.labelType === 'reduce-price')
    const sold = property?.labels?.some(label => label.labelType === 'sold')
    const underConstruction = property?.labels?.some(label => label.labelType === 'under-construction')
+   const newProject = property?.labels?.some(label => label.labelType === 'new-project')
 
    // Get localized title
    const getTitle = () => {
@@ -170,6 +171,14 @@ const PropertyBanner = ({ property, locale, t }) => {
                         backgroundColor: '#ffc107', color: '#333', borderRadius: '20px'
                      }}>
                         {t('underConstruction')}
+                     </span>
+                  )}
+                  {newProject && (
+                     <span className="badge px-3 py-2" style={{ 
+                        fontSize: '11px', fontWeight: '700', textTransform: 'uppercase',
+                        backgroundColor: '#6f42c1', color: '#fff', borderRadius: '20px'
+                     }}>
+                        {t('newProject')}
                      </span>
                   )}
                   <span style={{ 

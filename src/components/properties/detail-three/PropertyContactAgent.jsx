@@ -2,11 +2,33 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
+const COUNTRY_CODES = [
+   { code: '+66', label: 'TH +66' },
+   { code: '+1', label: 'US +1' },
+   { code: '+44', label: 'UK +44' },
+   { code: '+86', label: 'CN +86' },
+   { code: '+7', label: 'RU +7' },
+   { code: '+81', label: 'JP +81' },
+   { code: '+82', label: 'KR +82' },
+   { code: '+49', label: 'DE +49' },
+   { code: '+33', label: 'FR +33' },
+   { code: '+61', label: 'AU +61' },
+   { code: '+65', label: 'SG +65' },
+   { code: '+60', label: 'MY +60' },
+   { code: '+91', label: 'IN +91' },
+   { code: '+971', label: 'AE +971' },
+   { code: '+46', label: 'SE +46' },
+   { code: '+47', label: 'NO +47' },
+   { code: '+45', label: 'DK +45' },
+   { code: '+358', label: 'FI +358' },
+]
+
 const PropertyContactAgent = ({ property }) => {
    const t = useTranslations()
    const [formData, setFormData] = useState({
       name: '',
       email: '',
+      countryCode: '+66',
       phone: '',
       message: ''
    })
@@ -25,14 +47,21 @@ const PropertyContactAgent = ({ property }) => {
       setIsSubmitting(true)
       setSubmitStatus(null)
 
+      const fullPhone = formData.phone ? `${formData.countryCode}${formData.phone}` : ''
+
       try {
-         const response = await fetch('/api/contact', {
+         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'
+         const response = await fetch(`${apiUrl}/contact-form`, {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',
+               'x-api-key': process.env.NEXT_PUBLIC_API_KEY || 'dd-property-api-key-2025'
             },
             body: JSON.stringify({
-               ...formData,
+               name: formData.name,
+               email: formData.email,
+               phone: fullPhone,
+               message: formData.message,
                propertyId: property?.id,
                propertyTitle: property?.title,
                subject: `Property Inquiry: ${property?.title || 'Property'}`,
@@ -43,9 +72,11 @@ const PropertyContactAgent = ({ property }) => {
 
          if (response.ok) {
             setSubmitStatus('success')
-            setFormData({ name: '', email: '', phone: '', message: '' })
+            setFormData({ name: '', email: '', countryCode: '+66', phone: '', message: '' })
             setTimeout(() => setSubmitStatus(null), 5000)
          } else {
+            const errorData = await response.json().catch(() => null)
+            console.error('Form submission failed:', errorData)
             setSubmitStatus('error')
          }
       } catch (error) {
@@ -131,20 +162,41 @@ const PropertyContactAgent = ({ property }) => {
             </div>
 
             <div className="mb-3">
-               <input
-                  type="tel"
-                  name="phone"
-                  className="form-control"
-                  placeholder={t('yourPhone')}
-                  value={formData.phone}
-                  onChange={handleChange}
-                  style={{
-                     padding: '12px 20px',
-                     border: '1px solid #e0e0e0',
-                     borderRadius: '8px',
-                     fontSize: '14px'
-                  }}
-               />
+               <div className="d-flex gap-2">
+                  <select
+                     name="countryCode"
+                     className="form-select"
+                     value={formData.countryCode}
+                     onChange={handleChange}
+                     style={{
+                        padding: '12px 8px',
+                        border: '1px solid #e0e0e0',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        width: '110px',
+                        minWidth: '110px'
+                     }}
+                  >
+                     {COUNTRY_CODES.map(cc => (
+                        <option key={cc.code} value={cc.code}>{cc.label}</option>
+                     ))}
+                  </select>
+                  <input
+                     type="tel"
+                     name="phone"
+                     className="form-control"
+                     placeholder={t('yourPhone')}
+                     value={formData.phone}
+                     onChange={handleChange}
+                     style={{
+                        padding: '12px 20px',
+                        border: '1px solid #e0e0e0',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        flex: 1
+                     }}
+                  />
+               </div>
             </div>
 
             <div className="mb-4">
@@ -200,8 +252,9 @@ const PropertyContactAgent = ({ property }) => {
 
          {/* Social Icons */}
          <div className="d-flex justify-content-center align-items-center gap-3 mt-4 pt-3" style={{ borderTop: '1px solid #e0e0e0' }}>
+            {/* Call */}
             <a 
-               href="mailto:info@12realestatepattaya.com"
+               href="tel:+66888997944"
                className="d-inline-flex align-items-center justify-content-center"
                style={{
                   width: '50px',
@@ -225,11 +278,12 @@ const PropertyContactAgent = ({ property }) => {
                   e.currentTarget.style.color = '#333'
                }}
             >
-               <i className="bi bi-envelope-fill" style={{ lineHeight: 1 }}></i>
+               <i className="bi bi-telephone-fill" style={{ lineHeight: 1 }}></i>
             </a>
 
+            {/* WhatsApp */}
             <a 
-               href="https://wa.me/66892530622"
+               href="https://wa.me/+66888997944"
                target="_blank"
                rel="noopener noreferrer"
                className="d-inline-flex align-items-center justify-content-center"
@@ -258,8 +312,9 @@ const PropertyContactAgent = ({ property }) => {
                <i className="bi bi-whatsapp" style={{ lineHeight: 1 }}></i>
             </a>
 
+            {/* LINE */}
             <a 
-               href="https://m.me/12realestatepattaya"
+               href="https://lin.ee/dG5aGu4"
                target="_blank"
                rel="noopener noreferrer"
                className="d-inline-flex align-items-center justify-content-center"
@@ -285,7 +340,7 @@ const PropertyContactAgent = ({ property }) => {
                   e.currentTarget.style.color = '#333'
                }}
             >
-               <i className="bi bi-messenger" style={{ lineHeight: 1 }}></i>
+               <i className="bi bi-line" style={{ lineHeight: 1 }}></i>
             </a>
          </div>
       </div>

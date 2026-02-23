@@ -1,12 +1,12 @@
 // Schema.org markup generator สำหรับ SEO
 export const generateOrganizationSchema = (locale = 'th') => {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.d-luckproperty.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.12realestatepattaya.com';
   
   const organizationNames = {
-    th: 'ดี-ลัค พร็อพเพอร์ตี้',
-    en: 'D-Luck Property',
-    zh: 'D-LUCK PROPERTY',
-    ru: 'D-LUCK PROPERTY'
+    th: 'The 12 Real Estate Pattaya',
+    en: 'The 12 Real Estate Pattaya',
+    zh: 'The 12 Real Estate Pattaya',
+    ru: 'The 12 Real Estate Pattaya'
   };
 
   const descriptions = {
@@ -24,8 +24,8 @@ export const generateOrganizationSchema = (locale = 'th') => {
     "url": `${baseUrl}/${locale}`,
     "logo": `${baseUrl}/images/logo.png`,
     "image": `${baseUrl}/images/logo.png`,
-    "telephone": "+66-123-456-789",
-    "email": "info@d-luckproperty.com",
+    "telephone": "+66-88-899-7944",
+    "email": "info@12realestatepattaya.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "123 Pattaya Beach Road",
@@ -56,21 +56,21 @@ export const generateOrganizationSchema = (locale = 'th') => {
       "Property Management"
     ],
     "sameAs": [
-      "https://www.facebook.com/dluckproperty",
-      "https://www.instagram.com/dluckproperty",
-      "https://line.me/ti/p/dluckproperty"
+      "https://m.me/222887021193075",
+      "https://wa.me/+66888997944",
+      "https://lin.ee/dG5aGu4"
     ]
   };
 };
 
 export const generateWebsiteSchema = (locale = 'th') => {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.d-luckproperty.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.12realestatepattaya.com';
   
   const names = {
-    th: 'ดี-ลัค พร็อพเพอร์ตี้ - คอนโด บ้าน วิลล่า พัทยา',
-    en: 'D-Luck Property - Pattaya Real Estate',
-    zh: 'D-LUCK PROPERTY - 芭提雅房地产',
-    ru: 'D-LUCK PROPERTY - Недвижимость Паттайи'
+    th: 'The 12 Real Estate Pattaya - คอนโด บ้าน วิลล่า พัทยา',
+    en: 'The 12 Real Estate Pattaya - Pattaya Real Estate',
+    zh: 'The 12 Real Estate Pattaya - 芭提雅房地产',
+    ru: 'The 12 Real Estate Pattaya - Недвижимость Паттайи'
   };
 
   return {
@@ -98,7 +98,7 @@ export const generateWebsiteSchema = (locale = 'th') => {
 };
 
 export const generateBreadcrumbSchema = (breadcrumbs, locale = 'th') => {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.d-luckproperty.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.12realestatepattaya.com';
   
   return {
     "@context": "https://schema.org",
@@ -113,7 +113,7 @@ export const generateBreadcrumbSchema = (breadcrumbs, locale = 'th') => {
 };
 
 export const generatePropertySchema = (property, locale = 'th') => {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.d-luckproperty.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.12realestatepattaya.com';
   
   return {
     "@context": "https://schema.org",
@@ -152,14 +152,14 @@ export const generatePropertySchema = (property, locale = 'th') => {
       "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "RealEstateAgent",
-        "name": "D-Luck Property"
+        "name": "The 12 Real Estate Pattaya"
       }
     }
   };
 };
 
 export const generateBlogSchema = (blog, locale = 'th') => {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.d-luckproperty.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.12realestatepattaya.com';
   
   return {
     "@context": "https://schema.org",
@@ -169,11 +169,11 @@ export const generateBlogSchema = (blog, locale = 'th') => {
     "image": blog.featuredImage ? `${baseUrl}${blog.featuredImage}` : undefined,
     "author": {
       "@type": "Organization",
-      "name": "D-Luck Property"
+      "name": "The 12 Real Estate Pattaya"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "D-Luck Property",
+      "name": "The 12 Real Estate Pattaya",
       "logo": {
         "@type": "ImageObject",
         "url": `${baseUrl}/images/logo.png`
@@ -191,19 +191,19 @@ export const generateBlogSchema = (blog, locale = 'th') => {
 };
 
 export const generateContactSchema = (locale = 'th') => {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.d-luckproperty.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.12realestatepattaya.com';
   
   return {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     "name": locale === 'th' ? 'ติดต่อเรา' : 'Contact Us',
-    "description": locale === 'th' ? 'ติดต่อ D-Luck Property สำหรับคำปรึกษาด้านอสังหาริมทรัพย์' : 'Contact D-Luck Property for real estate consultation',
+    "description": locale === 'th' ? 'ติดต่อ The 12 Real Estate Pattaya สำหรับคำปรึกษาด้านอสังหาริมทรัพย์' : 'Contact The 12 Real Estate Pattaya for real estate consultation',
     "url": `${baseUrl}/${locale}/contact`,
     "mainEntity": {
       "@type": "RealEstateAgent",
-      "name": "D-Luck Property",
-      "telephone": "+66-123-456-789",
-      "email": "info@d-luckproperty.com",
+      "name": "The 12 Real Estate Pattaya",
+      "telephone": "+66-88-899-7944",
+      "email": "info@12realestatepattaya.com",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "123 Pattaya Beach Road",

@@ -258,11 +258,14 @@ const ListingPropertiesPage = ({ properties = [], pagination = {}, zones = [], s
                 <div className="col-12 text-center mt-4 mb-5">
                   <div className="results-count">
                     <p>
-                      {dynamicT('results-showing', '{start}-{end} of {total}')
-                        .replace('{start}', '1')
-                        .replace('{end}', propertyItems?.length || '0')
-                        .replace('{total}', paginationItems?.total || '0')
-                      } {dynamicT('property-available', 'property available')}
+                      {(() => {
+                        const currentPg = parseInt(paginationItems?.page || 1);
+                        const lmt = parseInt(paginationItems?.limit || 9);
+                        const total = parseInt(paginationItems?.total || 0);
+                        const start = (currentPg - 1) * lmt + 1;
+                        const end = Math.min(currentPg * lmt, total);
+                        return `${start}-${end} of ${total}`;
+                      })()} {dynamicT('property-available', 'property available')}
                     </p>
                   </div>
 

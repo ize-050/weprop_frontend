@@ -43,7 +43,7 @@ export async function generateMetadata({ params }) {
       description = property?.description || ''
     }
 
-    const baseUrl = 'https://www.d-luckproperty.com'
+    const baseUrl = 'https://www.12realestatepattaya.com'
     const localizedUrl = locale === 'th' ? baseUrl : `${baseUrl}/${locale}`
     const propertyUrl = `${localizedUrl}/property-detail-three/${id}`
 

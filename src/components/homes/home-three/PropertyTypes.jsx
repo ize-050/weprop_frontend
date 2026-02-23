@@ -111,13 +111,15 @@ const PropertyTypes = () => {
             const mappedTypes = filteredTypes.map((type, index) => {
                // Get image path with proper fallback
                const imagePath = type.p_image || type.pImage || type.z_image || '';
+               const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5001';
                const imageUrl = imagePath 
-                  ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${imagePath}`
+                  ? (imagePath.startsWith('http') ? imagePath : `${baseUrl}${imagePath}`)
                   : '/assets/images/listing/img_large_01.jpg';
                
                return {
                   id: type.id,
                   name: type[nameField] || type.nameEn || type.name,
+                  slug: type.nameEn || type.name_en || type.name,
                   image: imageUrl,
                   bgClass: bgClassMap[type.nameEn || type.name_en] || '',
                   delay: `${index * 0.1}s`
@@ -181,7 +183,7 @@ const PropertyTypes = () => {
                            }}
                         >
                            <Link 
-                              href={`/properties/list?type=${type.name}`} 
+                              href={`/properties?type=sale&propertyType=${encodeURIComponent(type.slug)}`} 
                               className="title stretched-link"
                            >
                               <h4 className="text-white tran3s">{type.name}</h4>

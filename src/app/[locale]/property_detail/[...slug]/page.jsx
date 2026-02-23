@@ -33,7 +33,7 @@ export async function generateMetadata({ params }) {
       description = property.description || '';
     }
 
-    const baseUrl = 'https://www.d-luckproperty.com';
+    const baseUrl = 'https://www.12realestatepattaya.com';
     const localizedUrl = locale === 'th' ? baseUrl : `${baseUrl}/${locale}`;
     const propertyUrl = `${localizedUrl}/property_detail/${slug.join('/')}`;
 
@@ -68,7 +68,7 @@ export async function generateMetadata({ params }) {
       openGraph: {
         title,
         url: propertyUrl,
-        siteName: 'D-Luck Property',
+        siteName: 'The 12 Real Estate Pattaya',
         images: [
           {
             url: property.featuredImage?.url || '/images/logo/logo.png',
@@ -86,8 +86,8 @@ export async function generateMetadata({ params }) {
 
     // Default metadata if property not found
     return {
-      title: 'Property Detail - D-Luck Property',
-      description: 'View property details on D-Luck Property',
+      title: 'Property Detail - The 12 Real Estate Pattaya',
+      description: 'View property details on The 12 Real Estate Pattaya',
     };
   }
 }

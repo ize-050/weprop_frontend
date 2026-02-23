@@ -12,6 +12,7 @@ import 'swiper/css/thumbs'
 
 const PropertyMediaGallery = ({ property, t }) => {
    const [thumbsSwiper, setThumbsSwiper] = useState(null)
+   const [mainSwiper, setMainSwiper] = useState(null)
    // Get images from propertyImages or images array (รองรับทั้ง 2 แบบ)
    const getImages = () => {
       const imageArray = []
@@ -98,6 +99,7 @@ const PropertyMediaGallery = ({ property, t }) => {
                            prevEl: '.property-gallery-prev',
                         }}
                         thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+                        onSwiper={setMainSwiper}
                         spaceBetween={10}
                         className="property-main-gallery"
                      >
@@ -264,7 +266,7 @@ const PropertyMediaGallery = ({ property, t }) => {
                                  width={80}
                                  height={80}
                                  style={{ objectFit: 'cover', width: '100%', height: '100%', cursor: 'pointer' }}
-                                 onClick={() => thumbsSwiper?.slideTo(i)}
+                                 onClick={() => mainSwiper?.slideTo(i)}
                               />
                            </div>
                         ))}

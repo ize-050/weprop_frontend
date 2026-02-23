@@ -166,20 +166,20 @@ const Form = ({ translations, locale }) => {
             disabled={loading}
             style={{ width: '120px', flexShrink: 0 }}
           >
-            <option value="+66">🇹🇭 +66</option>
-            <option value="+1">🇺🇸 +1</option>
-            <option value="+44">🇬🇧 +44</option>
-            <option value="+86">🇨🇳 +86</option>
-            <option value="+7">🇷🇺 +7</option>
-            <option value="+81">🇯🇵 +81</option>
-            <option value="+82">🇰🇷 +82</option>
-            <option value="+65">🇸🇬 +65</option>
-            <option value="+60">🇲🇾 +60</option>
-            <option value="+84">🇻🇳 +84</option>
-            <option value="+91">🇮🇳 +91</option>
-            <option value="+61">🇦🇺 +61</option>
-            <option value="+49">🇩🇪 +49</option>
-            <option value="+33">🇫🇷 +33</option>
+            <option value="+66">TH +66</option>
+            <option value="+1">US +1</option>
+            <option value="+44">UK +44</option>
+            <option value="+86">CN +86</option>
+            <option value="+7">RU +7</option>
+            <option value="+81">JP +81</option>
+            <option value="+82">KR +82</option>
+            <option value="+65">SG +65</option>
+            <option value="+60">MY +60</option>
+            <option value="+84">VN +84</option>
+            <option value="+91">IN +91</option>
+            <option value="+61">AU +61</option>
+            <option value="+49">DE +49</option>
+            <option value="+33">FR +33</option>
           </select>
           <input 
             type="tel" 

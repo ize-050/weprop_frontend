@@ -33,22 +33,31 @@ const PropertyDescription = ({ property, locale, t }) => {
          if (translatedDescriptions && typeof translatedDescriptions === 'object') {
             console.log('PropertyDescription - Available languages:', Object.keys(translatedDescriptions))
             
-            // Try current locale
-            if (locale && translatedDescriptions[locale]) {
+            // Try current locale (check for non-empty string)
+            if (locale && translatedDescriptions[locale] && translatedDescriptions[locale].trim()) {
                console.log(`PropertyDescription - Using ${locale} translation`)
                return translatedDescriptions[locale]
             }
             
-            // Fallback: try English
-            if (translatedDescriptions.en) {
+            // Fallback: try English (non-empty)
+            if (translatedDescriptions.en && translatedDescriptions.en.trim()) {
                console.log('PropertyDescription - Fallback to English')
                return translatedDescriptions.en
             }
             
-            // Try Thai
-            if (translatedDescriptions.th) {
+            // Try Thai (non-empty)
+            if (translatedDescriptions.th && translatedDescriptions.th.trim()) {
                console.log('PropertyDescription - Fallback to Thai')
                return translatedDescriptions.th
+            }
+            
+            // Try any available language
+            const availableLang = Object.keys(translatedDescriptions).find(
+               key => translatedDescriptions[key] && translatedDescriptions[key].trim()
+            )
+            if (availableLang) {
+               console.log(`PropertyDescription - Fallback to ${availableLang}`)
+               return translatedDescriptions[availableLang]
             }
          }
          

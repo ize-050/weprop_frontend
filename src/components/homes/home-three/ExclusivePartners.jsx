@@ -27,42 +27,28 @@ const ExclusivePartners = () => {
     {
       name: 'Laguna Beach Resort Jomtien',
       images: [
-        '/assets/images/laguna/Laguna%20Beach%201/Beach%201.jpg',
-        '/assets/images/laguna/Laguna%20Beach%201/Building%20C%20%26%20Waterpark.jpg',
-        '/assets/images/laguna/Laguna%20Beach%201/DSC07583-21.jpg',
-        '/assets/images/laguna/Laguna%20Beach%201/DSC07589-25.jpg',
-        '/assets/images/laguna/Laguna%20Beach%201/Lagoon%20Pool%20Between%20Buildings%20A%20%26%20B.jpg',
-        '/assets/images/laguna/Laguna%20Beach%201/Lagoon%20Pool%20Perspective.jpg',
+        '/assets/images/laguna/L1.jpg',
       ],
       link: 'https://www.lagunabeachpattaya.com/',
     },
     {
       name: 'Laguna Beach Resort 2',
       images: [
-        '/assets/images/laguna/Laguna%20Beach%202/Beach%202.jpg',
-        '/assets/images/laguna/Laguna%20Beach%202/view%201%20copy.jpg',
-        '/assets/images/laguna/Laguna%20Beach%202/view%205%20copy.JPG',
+        '/assets/images/laguna/L2.jpg',
       ],
       link: null,
     },
     {
       name: 'Laguna Beach Resort The Maldives',
       images: [
-        '/assets/images/laguna/Laguna%20Beach%203/Laguna%203.jpg',
-        '/assets/images/laguna/Laguna%20Beach%203/Approx%20View%20C%20730.jpg',
-        '/assets/images/laguna/Laguna%20Beach%203/C004.jpg',
-        '/assets/images/laguna/Laguna%20Beach%203/C005.jpg',
-        '/assets/images/laguna/Laguna%20Beach%203/C008.jpg',
-        '/assets/images/laguna/Laguna%20Beach%203/C009.jpg',
+        '/assets/images/laguna/L3.jpg',
       ],
       link: 'https://www.lagunamaldivespattaya.com/',
     },
     {
       name: 'The Peak Towers',
       images: [
-        '/assets/images/laguna/The%20Peak%20Towers/The%20Peak%20Towers.jpg',
-        '/assets/images/laguna/The%20Peak%20Towers/The%20Peak%20Towers%20building_s.JPG',
-        '/assets/images/laguna/The%20Peak%20Towers/building%20from%20top_s.JPG',
+        '/assets/images/laguna/L4.JPG',
       ],
       link: 'https://www.thepeaktowerpattaya.com/',
     }

@@ -7,11 +7,11 @@ const PropertyOverview = ({ property, locale, t }) => {
       if (!propertyType) return 'N/A'
       
       if (locale === 'th') {
-         return propertyType.name_th || propertyType.nameEn || propertyType.name_en || 'N/A'
+         return propertyType.nameTh || propertyType.name_th || propertyType.nameEn || propertyType.name_en || 'N/A'
       } else if (locale === 'zh') {
-         return propertyType.name_zh || propertyType.nameEn || propertyType.name_en || 'N/A'
+         return propertyType.nameCh || propertyType.name_ch || propertyType.nameEn || propertyType.name_en || 'N/A'
       } else if (locale === 'ru') {
-         return propertyType.name_ru || propertyType.nameEn || propertyType.name_en || 'N/A'
+         return propertyType.nameRu || propertyType.name_ru || propertyType.nameEn || propertyType.name_en || 'N/A'
       } else {
          return propertyType.nameEn || propertyType.name_en || 'N/A'
       }

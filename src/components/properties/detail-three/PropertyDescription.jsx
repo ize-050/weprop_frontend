@@ -28,8 +28,17 @@ const PropertyDescription = ({ property, locale: localeProp, t }) => {
             if (locale && translatedDescriptions[locale] && translatedDescriptions[locale].trim()) {
                return translatedDescriptions[locale]
             }
-            
-            // Fallback: try English (non-empty)
+         }
+
+         // EN is the default locale — EN description is stored in property.description (not translatedDescriptions.en)
+         // So for 'en' locale, use property.description directly
+         if (locale === 'en' && property?.description && property.description.trim()) {
+            return property.description
+         }
+
+         // For non-EN locales, try other fallbacks
+         if (translatedDescriptions && typeof translatedDescriptions === 'object') {
+            // Try English translation if available
             if (translatedDescriptions.en && translatedDescriptions.en.trim()) {
                return translatedDescriptions.en
             }

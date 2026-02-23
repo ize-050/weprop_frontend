@@ -586,12 +586,9 @@ const PropertiesList = ({ searchParams }) => {
       if (filters.bathrooms) params.append('bathrooms', filters.bathrooms)
       if (filters.propertyQuota) params.append('propertyQuota', filters.propertyQuota)
 
-      // Add pagination
+      // Add pagination — backend uses page (1-indexed), currentPage is 0-indexed
       params.append('limit', itemsPerPage.toString())
-      params.append('offset', (currentPage * itemsPerPage).toString())
-
-      // Add includes for related data
-      params.append('include', 'images,zone,listings,labels')
+      params.append('page', (currentPage + 1).toString())
 
       console.log('Fetching properties with params:', params.toString())
 

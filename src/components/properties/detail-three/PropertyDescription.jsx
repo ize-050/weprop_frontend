@@ -1,19 +1,14 @@
 'use client'
 
-const PropertyDescription = ({ property, locale, t }) => {
+import { useLocale } from 'next-intl'
+
+const PropertyDescription = ({ property, locale: localeProp, t }) => {
+   const localeFromHook = useLocale()
+   const locale = localeFromHook || localeProp || 'th'
+
    // Get localized description (รองรับ 4 ภาษา: th, en, zh, ru)
    const getDescription = () => {
-      if (!property) {
-         console.log('PropertyDescription: No property data')
-         return ''
-      }
-      
-      console.log('PropertyDescription - Current locale:', locale)
-      console.log('PropertyDescription - Property data:', {
-         hasTranslatedDescriptions: !!property.translatedDescriptions,
-         translatedDescriptionsType: typeof property.translatedDescriptions,
-         hasDescription: !!property.description
-      })
+      if (!property) return ''
       
       try {
          // Parse translatedDescriptions if it's a string
@@ -22,32 +17,25 @@ const PropertyDescription = ({ property, locale, t }) => {
          if (typeof translatedDescriptions === 'string') {
             try {
                translatedDescriptions = JSON.parse(translatedDescriptions)
-               console.log('PropertyDescription - Parsed translations:', Object.keys(translatedDescriptions))
             } catch (e) {
-               console.error('PropertyDescription - Error parsing JSON:', e)
                translatedDescriptions = {}
             }
          }
          
          // Check if it's an object
          if (translatedDescriptions && typeof translatedDescriptions === 'object') {
-            console.log('PropertyDescription - Available languages:', Object.keys(translatedDescriptions))
-            
             // Try current locale (check for non-empty string)
             if (locale && translatedDescriptions[locale] && translatedDescriptions[locale].trim()) {
-               console.log(`PropertyDescription - Using ${locale} translation`)
                return translatedDescriptions[locale]
             }
             
             // Fallback: try English (non-empty)
             if (translatedDescriptions.en && translatedDescriptions.en.trim()) {
-               console.log('PropertyDescription - Fallback to English')
                return translatedDescriptions.en
             }
             
             // Try Thai (non-empty)
             if (translatedDescriptions.th && translatedDescriptions.th.trim()) {
-               console.log('PropertyDescription - Fallback to Thai')
                return translatedDescriptions.th
             }
             
@@ -56,17 +44,14 @@ const PropertyDescription = ({ property, locale, t }) => {
                key => translatedDescriptions[key] && translatedDescriptions[key].trim()
             )
             if (availableLang) {
-               console.log(`PropertyDescription - Fallback to ${availableLang}`)
                return translatedDescriptions[availableLang]
             }
          }
          
          // Final fallback: original description
-         console.log('PropertyDescription - Using original description')
          return property?.description || ''
          
       } catch (error) {
-         console.error('PropertyDescription - Error:', error)
          return property?.description || ''
       }
    }

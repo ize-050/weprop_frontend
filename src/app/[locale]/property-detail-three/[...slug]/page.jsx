@@ -25,22 +25,28 @@ export async function generateMetadata({ params }) {
       }
     }
 
+    const propertyObj = property?.data || property
+
     // Get localized title
-    let propertyTitle = property?.title || ''
+    let propertyTitle = propertyObj?.title || ''
     try {
-      const translatedTitles = JSON.parse(property?.translatedTitles || '{}')
-      propertyTitle = translatedTitles[locale] || translatedTitles['en'] || property?.title || ''
+      const translatedTitles = typeof propertyObj?.translatedTitles === 'string'
+        ? JSON.parse(propertyObj.translatedTitles)
+        : (propertyObj?.translatedTitles || {})
+      propertyTitle = translatedTitles[locale] || translatedTitles['en'] || propertyObj?.title || ''
     } catch {
-      propertyTitle = property?.title || ''
+      propertyTitle = propertyObj?.title || ''
     }
 
     // Get localized description
     let description = ''
     try {
-      const translatedDescriptions = JSON.parse(property?.translatedDescriptions || '{}')
-      description = translatedDescriptions[locale] || translatedDescriptions['en'] || property?.description || ''
+      const translatedDescriptions = typeof propertyObj?.translatedDescriptions === 'string'
+        ? JSON.parse(propertyObj.translatedDescriptions)
+        : (propertyObj?.translatedDescriptions || {})
+      description = translatedDescriptions[locale] || translatedDescriptions['en'] || propertyObj?.description || ''
     } catch {
-      description = property?.description || ''
+      description = propertyObj?.description || ''
     }
 
     const baseUrl = 'https://www.12realestatepattaya.com'

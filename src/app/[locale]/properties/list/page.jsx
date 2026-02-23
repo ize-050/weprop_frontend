@@ -74,10 +74,13 @@ async function searchProperties(searchParams) {
   
 
 
-    // ตรวจสอบข้อมูลที่ได้รับจาก API
-    if (response && response.data) {
-      console.log('Search Resultspagination:', response.data);
-      return { data: response.data.data || response.data, pagination: response.data.pagination || response.pagination };
+    // serverApi interceptor returns response.data directly
+    // so response = { status, data: [...], pagination: {...} }
+    if (response) {
+      return { 
+        data: response.data || [], 
+        pagination: response.pagination || { total: 0, page: 1, limit: 9, pages: 0 } 
+      };
     }
 
     return { data: [], pagination: { total: 0, page: 1, limit: 9, pages: 0 } };

@@ -161,7 +161,7 @@ const PropertyTypes = () => {
          <div className="container container-large">
             <div className="position-relative">
                <div className="title-one text-center text-lg-start mb-60 xl-mb-40 lg-mb-20 wow fadeInUp">
-                  <h3>{t('propertyTypesTitle')}</h3>
+                  <h3 style={{ color: '#1a1a1a', fontWeight: '600', fontSize: 'clamp(24px, 5vw, 42px)', lineHeight: '1.2', fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>{t('propertyTypesTitle')}</h3>
                </div>
                
                <Slider ref={sliderRef} {...sliderSettings} className="property-types-slider">

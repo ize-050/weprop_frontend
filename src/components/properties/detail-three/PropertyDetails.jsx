@@ -122,7 +122,7 @@ const PropertyDetails = ({ property, locale, t }) => {
                <div className="col-6 col-md-3">
                   <div className="detail-item">
                      <span className="detail-label">{t('area')}</span>
-                     <span className="detail-value">{property?.district || 'N/A'}</span>
+                     <span className="detail-value">{property?.zone?.name || property?.district || 'N/A'}</span>
                   </div>
                </div>
                <div className="col-6 col-md-3">

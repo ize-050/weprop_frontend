@@ -9,6 +9,7 @@ const ContactForm = () => {
    const [formData, setFormData] = useState({
       user_name: '',
       user_email: '',
+      countryCode: '+66',
       phone: '',
       message: ''
    })
@@ -63,6 +64,7 @@ const ContactForm = () => {
          setFormData({
             user_name: '',
             user_email: '',
+            countryCode: '+66',
             phone: '',
             message: ''
          })
@@ -109,14 +111,46 @@ const ContactForm = () => {
             <div className="col-12">
                <div className="input-group-meta form-group mb-40">
                   <label htmlFor="phone">{t('phone-number', 'Phone Number')}</label>
-                  <input 
-                     type="tel" 
-                     id="phone"
-                     name="phone" 
-                     value={formData.phone}
-                     onChange={handleChange}
-                     placeholder=""
-                  />
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                     <select
+                        name="countryCode"
+                        value={formData.countryCode}
+                        onChange={handleChange}
+                        style={{
+                           width: '100px',
+                           flexShrink: 0,
+                           padding: '10px 6px',
+                           border: '1px solid #e0e0e0',
+                           borderRadius: '8px',
+                           fontSize: '14px',
+                           background: '#fff'
+                        }}
+                     >
+                        <option value="+66">TH +66</option>
+                        <option value="+1">US +1</option>
+                        <option value="+44">UK +44</option>
+                        <option value="+86">CN +86</option>
+                        <option value="+7">RU +7</option>
+                        <option value="+81">JP +81</option>
+                        <option value="+82">KR +82</option>
+                        <option value="+65">SG +65</option>
+                        <option value="+60">MY +60</option>
+                        <option value="+84">VN +84</option>
+                        <option value="+91">IN +91</option>
+                        <option value="+61">AU +61</option>
+                        <option value="+49">DE +49</option>
+                        <option value="+33">FR +33</option>
+                     </select>
+                     <input 
+                        type="tel" 
+                        id="phone"
+                        name="phone" 
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder=""
+                        style={{ flex: 1, minWidth: 0 }}
+                     />
+                  </div>
                </div>
             </div>
             <div className="col-12">

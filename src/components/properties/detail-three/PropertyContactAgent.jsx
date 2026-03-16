@@ -109,7 +109,7 @@ const PropertyContactAgent = ({ property }) => {
             </div>
             <div>
                <h5 className="mb-1" style={{ fontSize: '20px', fontWeight: '600' }}>Kwang</h5>
-               <p className="mb-0" style={{ fontSize: '16px', color: '#666' }}>+66(0) 89 253 0622</p>
+               <p className="mb-0" style={{ fontSize: '16px', color: '#666' }}>+66 89 253 0622</p>
             </div>
          </div>
 
@@ -172,9 +172,10 @@ const PropertyContactAgent = ({ property }) => {
                         padding: '12px 8px',
                         border: '1px solid #e0e0e0',
                         borderRadius: '8px',
-                        fontSize: '14px',
-                        width: '110px',
-                        minWidth: '110px'
+                        fontSize: '13px',
+                        width: '100px',
+                        minWidth: '90px',
+                        flexShrink: 0
                      }}
                   >
                      {COUNTRY_CODES.map(cc => (
@@ -254,7 +255,7 @@ const PropertyContactAgent = ({ property }) => {
          <div className="d-flex justify-content-center align-items-center gap-3 mt-4 pt-3" style={{ borderTop: '1px solid #e0e0e0' }}>
             {/* Call */}
             <a 
-               href="tel:+66888997944"
+               href="tel:+66892530622"
                className="d-inline-flex align-items-center justify-content-center"
                style={{
                   width: '50px',

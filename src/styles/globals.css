@@ -21,3 +21,8 @@ p, span, a, li, div, button, input, textarea, select, label {
   --title-font-family: var(--font-montserrat), 'Montserrat', sans-serif;
   --font-gordita: var(--font-montserrat), 'Montserrat', sans-serif;
 }
+
+/* Override homy theme EB Garamond font class */
+.font-garamond {
+  font-family: var(--font-montserrat), 'Montserrat', sans-serif !important;
+}

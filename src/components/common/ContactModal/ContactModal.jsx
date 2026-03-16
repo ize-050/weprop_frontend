@@ -1,106 +1,66 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import useDynamicTranslations from '@/hooks/useDynamicTranslations';
-import { getMessagingSettings, transformSettingsToObject, generatePlatformLink, getDefaultSettings } from '@/services/messagingSettings';
+import React, { useState } from 'react';
 import './ContactModal.css';
 
+const COUNTRY_CODES = [
+  { code: '+66', label: 'TH +66' },
+  { code: '+1',  label: 'US +1'  },
+  { code: '+44', label: 'UK +44' },
+  { code: '+86', label: 'CN +86' },
+  { code: '+7',  label: 'RU +7'  },
+  { code: '+81', label: 'JP +81' },
+  { code: '+82', label: 'KR +82' },
+  { code: '+65', label: 'SG +65' },
+  { code: '+60', label: 'MY +60' },
+  { code: '+84', label: 'VN +84' },
+  { code: '+91', label: 'IN +91' },
+  { code: '+61', label: 'AU +61' },
+  { code: '+49', label: 'DE +49' },
+  { code: '+33', label: 'FR +33' },
+];
+
 const ContactModal = ({ isOpen, onClose, property }) => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const [formData, setFormData] = useState({ name: '', email: '', countryCode: '+66', phone: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [settings, setSettings] = useState(getDefaultSettings());
-  const [isLoading, setIsLoading] = useState(true);
-  const [contactAgent, setContactAgent] = useState(null);
-  // Dynamic translations
-  const { t } = useDynamicTranslations('listing');
-
-
-  useEffect(() => {
-    if (property?.contactInfo) {
-      // ตรวจสอบว่าเป็น string หรือไม่
-      if (typeof property.contactInfo === 'string') {
-        try {
-          setContactAgent(JSON.parse(property.contactInfo));
-        } catch (error) {
-          console.error('Error parsing contactInfo:', error);
-          setContactAgent(null);
-        }
-      } else {
-        // ถ้าไม่ใช่ string ก็ใช้ค่าปกติ
-        setContactAgent(property.contactInfo);
-      }
-    } else {
-      setContactAgent(null);
-    }
-  }, [property?.contactInfo]);
-
-
- useEffect(()=>{
-  console.log("property12212",property)
- },[property])
-
-  useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        setIsLoading(true);
-        const response = await getMessagingSettings();
-        const settingsObj = transformSettingsToObject(response.data);
-
-        // Merge with defaults to ensure all platforms have values
-        const mergedSettings = { ...getDefaultSettings(), ...settingsObj };
-        setSettings(mergedSettings);
-      } catch (error) {
-        console.error('Failed to fetch messaging settings:', error);
-        // Keep default settings on error
-        setSettings(getDefaultSettings());
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchSettings();
-  }, []);
+  const [formStatus, setFormStatus] = useState(null);
 
   if (!isOpen) return null;
 
-  const onSubmit = async (data) => {
-    if (!property?.id) {
-      alert('Property information is missing');
-      return;
-    }
+  const handleChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setIsSubmitting(true);
-
+    setFormStatus(null);
     try {
-      const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/messages`;
-
-      const response = await fetch(apiUrl, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+      const response = await fetch(`${apiUrl}/contact-form`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json', 'x-api-key': process.env.NEXT_PUBLIC_API_KEY || 'dd-property-api-key-2025' },
         body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          message: data.message,
-          propertyId: property.id
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone ? `${formData.countryCode}${formData.phone}` : '',
+          message: formData.message,
+          propertyId: property?.id,
+          propertyTitle: property?.title,
+          subject: `Property Inquiry: ${property?.title || 'Property'}`,
+          to: 'info@12realestatepattaya.com',
+          cc: 'krittiyakwang@gmail.com'
         }),
       });
-
-      const result = await response.json();
-
       if (response.ok) {
-        alert('Message sent successfully!');
-        reset(); // Reset form fields
-        onClose(); // Close modal after successful submission
+        setFormStatus('success');
+        setFormData({ name: '', email: '', countryCode: '+66', phone: '', message: '' });
+        setTimeout(() => { onClose(); setFormStatus(null); }, 2000);
       } else {
-        alert(`Failed to send message: ${result.message || 'Unknown error'}`);
+        setFormStatus('error');
       }
-    } catch (error) {
-      console.error('Error sending message:', error);
-      alert('Failed to send message. Please try again.');
+    } catch (err) {
+      setFormStatus('error');
     } finally {
       setIsSubmitting(false);
     }
@@ -112,112 +72,97 @@ const ContactModal = ({ isOpen, onClose, property }) => {
         <button className="close-button" onClick={onClose}>×</button>
 
         <div className="modal-header">
-          <h3>{t('for-more-information') || 'For More Information'}</h3>
-
+          <h3>Send us a Message</h3>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <input
               type="text"
-              placeholder={t('name-placeholder') || 'Name'}
-              {...register("name", { required: t('name-required') || "Name is required" })}
+              name="name"
+              placeholder="Your Name"
+              required
+              value={formData.name}
+              onChange={handleChange}
             />
-            {errors.name && <span className="error">{errors.name.message}</span>}
           </div>
 
-          <div className="form-group phone-group">
+          <div className="form-group">
             <input
               type="email"
-              placeholder={t('email-placeholder') || 'Email'}
-              {...register("email", {
-                required: t('email-required') || "Email is required",
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: t('email-invalid') || "Please enter a valid email"
-                }
-              })}
+              name="email"
+              placeholder="Your Email"
+              required
+              value={formData.email}
+              onChange={handleChange}
             />
-            {errors.email && <span className="error">{errors.email.message}</span>}
           </div>
 
-          <div className="form-group phone-group">
-            <input
-              type="tel"
-              placeholder={t('phone-placeholder') || 'Phone Number'}
-              {...register("phone", {
-                required: t('phone-required') || "Phone number is required",
-                pattern: {
-                  value: /^[0-9]{9,10}$/,
-                  message: t('phone-invalid') || "Please enter a valid phone number"
-                }
-              })}
-            />
-            {errors.phone && <span className="error">{errors.phone.message}</span>}
+          <div className="form-group">
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <select
+                name="countryCode"
+                value={formData.countryCode}
+                onChange={handleChange}
+                style={{ width: '90px', flexShrink: 0, padding: '15px 6px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', background: '#fff', boxSizing: 'border-box' }}
+              >
+                {COUNTRY_CODES.map(cc => (
+                  <option key={cc.code} value={cc.code}>{cc.label}</option>
+                ))}
+              </select>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Your Phone"
+                value={formData.phone}
+                onChange={handleChange}
+                style={{ flex: 1, minWidth: 0 }}
+              />
+            </div>
           </div>
 
           <div className="form-group">
             <textarea
-              placeholder={t('message-placeholder') || 'Message'}
-              {...register("message", { required: t('message-required') || "Message is required" })}
+              name="message"
+              placeholder="Your Message"
+              required
               rows={4}
+              value={formData.message}
+              onChange={handleChange}
             />
-            {errors.message && <span className="error">{errors.message.message}</span>}
           </div>
 
-          <button
-            type="submit"
-            className="send-button"
-            disabled={isSubmitting}
-          >
-            <i className="far fa-comment-dots"></i> {isSubmitting ? (t('sending') || 'Sending...') : (t('send-message') || 'Send Message')}
+          {formStatus === 'success' && <div style={{ color: 'green', marginBottom: '10px', fontSize: '14px', padding: '0 0 8px' }}>Message sent successfully!</div>}
+          {formStatus === 'error' && <div style={{ color: 'red', marginBottom: '10px', fontSize: '14px', padding: '0 0 8px' }}>Failed to send. Please try again.</div>}
+
+          <button type="submit" className="send-button" disabled={isSubmitting}>
+            <i className="far fa-comment-dots"></i> {isSubmitting ? 'Sending...' : 'Send Message'}
           </button>
         </form>
 
         <div className="contact-options">
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              width: '100%',
-            }}
-          >
+          <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
             <div className="contact-option-wrapper">
-              <a href={contactAgent?.phone ? `tel:${contactAgent.phone.replace(/[^\d+]/g, '')}` : "tel:+66123456789"} className="contact-option phone">
+              <a href="tel:+66892530622" className="contact-option phone">
                 <i className="fas fa-phone"></i>
               </a>
             </div>
-
-            <span style={{ marginLeft: '10px', fontWeight: 'bold' }}>{t('call-now') || 'Call Now'}</span>
+            <span style={{ marginLeft: '10px', fontWeight: 'bold' }}>Call Now</span>
           </div>
 
-          <div style={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'flex-end',
-            gap: '15px'
-          }}>
+          <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end', gap: '15px' }}>
             <div className="contact-option-wrapper">
-              <a href={contactAgent?.lineId ? `https://line.me/ti/p/${contactAgent.lineId}` : "#"} className="" target="_blank" rel="noopener noreferrer">
+              <a href="https://lin.ee/dG5aGu4" target="_blank" rel="noopener noreferrer">
                 <img src="/images/new_icons/line.svg" alt="Line" className="social-icon" />
               </a>
             </div>
-
             <div className="contact-option-wrapper">
-              <a href={contactAgent?.wechatId ? `weixin://dl/chat?username=${contactAgent.wechatId}` : "#"} className="" target="_blank" rel="noopener noreferrer">
-                <img src="/images/new_icons/wechat.svg" alt="WeChat" className="social-icon" />
-              </a>
-            </div>
-
-            <div className="contact-option-wrapper">
-              <a href={contactAgent?.whatsapp ? `https://wa.me/${contactAgent.whatsapp.replace(/[^\d]/g, '')}` : "#"} className="" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/+66888997944" target="_blank" rel="noopener noreferrer">
                 <img src="/images/new_icons/whatapp.svg" alt="WhatsApp" className="social-icon" />
               </a>
             </div>
-
             <div className="contact-option-wrapper">
-              <a href={contactAgent?.facebookMessenger ? `https://m.me/${contactAgent.facebookMessenger}` : "#"} className="" target="_blank" rel="noopener noreferrer">
+              <a href="https://m.me/222887021193075" target="_blank" rel="noopener noreferrer">
                 <img src="/images/new_icons/message.svg" alt="Messenger" className="social-icon" />
               </a>
             </div>

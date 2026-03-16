@@ -399,6 +399,11 @@
     padding-bottom: 50px !important;
     margin-top: 40px !important;
 
+    // Remove slick slide padding so card fills full width
+    .slick-slide {
+      padding: 0 !important;
+    }
+
     .title-one {
       .featured-title {
         font-size: 22px !important;
@@ -412,7 +417,9 @@
     }
 
     .location-card-one {
-      height: 280px !important;
+      height: auto !important;
+      aspect-ratio: 1 / 1;
+      width: 100%;
 
       .content {
         padding: 14px !important;
@@ -453,7 +460,9 @@
     }
 
     .location-card-one {
-      height: 240px !important;
+      height: auto !important;
+      aspect-ratio: 1 / 1;
+      width: 100%;
 
       .content {
         padding: 12px !important;

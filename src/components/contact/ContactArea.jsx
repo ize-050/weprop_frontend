@@ -113,8 +113,12 @@ const ContactArea = () => {
                   <div className="contact-map-banner w-100">
                      <div className="gmap_canvas h-100 w-100">
                         <iframe 
-                           className="gmap_iframe h-100 w-100" 
-                           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.8!2d100.89!3d12.93!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU1JzQ4LjAiTiAxMDDCsDUzJzI0LjAiRQ!5e0!3m2!1sen!2sth!4v1234567890"
+                           className="gmap_iframe h-100 w-100"
+                           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4699.371241044465!2d100.8786619!3d12.899051199999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310297e04a328b91%3A0x2193ad061fcba40!2sAgent%20Team%20-%20The%2012%20Real%20Estate%20Co.%2C%20Ltd.!5e1!3m2!1sth!2sth!4v1773628900512!5m2!1sth!2sth"
+                           allowFullScreen=""
+                           loading="lazy"
+                           referrerPolicy="no-referrer-when-downgrade"
+                           title="The 12 Real Estate Pattaya Location"
                         ></iframe>
                      </div>
                   </div>

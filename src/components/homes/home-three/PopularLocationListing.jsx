@@ -28,13 +28,17 @@ const sliderSettings = {
     {
       breakpoint: 992,
       settings: {
-        slidesToShow: 2
+        slidesToShow: 2,
+        centerMode: false
       }
     },
     {
-      breakpoint: 500,
+      breakpoint: 576,
       settings: {
-        slidesToShow: 1
+        slidesToShow: 1,
+        centerMode: false,
+        centerPadding: '0',
+        arrows: false
       }
     }
   ]

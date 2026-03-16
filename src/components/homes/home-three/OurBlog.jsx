@@ -82,7 +82,7 @@ const OurBlog = () => {
         <div className="container">
           <div className="position-relative">
             <div className="title-one mb-35 xl-mb-20 md-mb-10 wow fadeInUp">
-              <h2 className="font-garamond">
+              <h2 style={{ color: '#1a1a1a', fontWeight: '600', fontSize: 'clamp(24px, 5vw, 42px)', lineHeight: '1.2', fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
                 {t('blogTitlePart1')}{' '}
                 <span style={{ color: '#AF1A1E' }}>
                   {t('blogTitlePart2')}

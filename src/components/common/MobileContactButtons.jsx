@@ -1,10 +1,12 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { FaPhone, FaCommentDots, FaEnvelope, FaLine, FaWeixin, FaWhatsapp, FaFacebookMessenger, FaInstagram } from 'react-icons/fa';
 import Image from 'next/image';
 import { getMessagingSettings, transformSettingsToObject, generatePlatformLink, getDefaultSettings } from '@/services/messagingSettings';
 
 const MobileContactButtons = () => {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(true);
     const [settings, setSettings] = useState(getDefaultSettings());
     const [isLoading, setIsLoading] = useState(true);
@@ -12,6 +14,13 @@ const MobileContactButtons = () => {
     const [formData, setFormData] = useState({ name: '', email: '', countryCode: '+66', phone: '', message: '' });
     const [formStatus, setFormStatus] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Extract property ID from URL if on property detail page
+    const getPropertyIdFromPath = () => {
+        const match = pathname?.match(/property-detail(?:-three)?\/(\d+)/)
+        return match ? match[1] : null
+    }
+    const propertyId = getPropertyIdFromPath()
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -27,7 +36,8 @@ const MobileContactButtons = () => {
                     email: formData.email,
                     phone: formData.phone ? `${formData.countryCode}${formData.phone}` : '',
                     message: formData.message,
-                    subject: 'Quick Message from Website',
+                    subject: propertyId ? `Property Inquiry #${propertyId}` : 'Quick Message from Website',
+                    propertyId: propertyId || undefined,
                     to: 'info@12realestatepattaya.com',
                     cc: 'krittiyakwang@gmail.com'
                 }),
@@ -104,7 +114,7 @@ const MobileContactButtons = () => {
                             <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
                                 <select value={formData.countryCode}
                                     onChange={(e) => setFormData({...formData, countryCode: e.target.value})}
-                                    style={{ width: '100px', flexShrink: 0, padding: '10px 6px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px' }}>
+                                    style={{ width: '90px', flexShrink: 0, padding: '10px 4px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '13px' }}>
                                     <option value="+66">TH +66</option>
                                     <option value="+1">US +1</option>
                                     <option value="+44">UK +44</option>
@@ -122,7 +132,7 @@ const MobileContactButtons = () => {
                                 </select>
                                 <input type="tel" placeholder="Your Phone" value={formData.phone}
                                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                                    style={{ flex: 1, padding: '10px 14px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px' }} />
+                                    style={{ flex: 1, minWidth: 0, padding: '10px 14px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px' }} />
                             </div>
                             <textarea placeholder="Your Message" required rows="3" value={formData.message}
                                 onChange={(e) => setFormData({...formData, message: e.target.value})}

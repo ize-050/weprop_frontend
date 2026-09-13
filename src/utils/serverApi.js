@@ -1,5 +1,6 @@
 
 import { AXIOS_SSR_CONFIG } from '@/config/api.config';
+import { getHttpsAgent } from '@/utils/httpsAgent';
 
 import axios from 'axios';
 
@@ -9,9 +10,14 @@ import axios from 'axios';
  */
 
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+// ⚠️ ชั่วคราว: ยอมรับ self-signed cert เฉพาะฝั่ง server (ดู src/utils/httpsAgent.js)
+const httpsAgent = getHttpsAgent();
+
 // Create axios instance with server-side config
 const serverApi = axios.create({
   baseURL: NEXT_PUBLIC_API_URL,
+  ...(httpsAgent ? { httpsAgent } : {}),
   headers: {
     'Content-Type': 'application/json',
     'x-api-key': 'dd-property-api-key-2025'
@@ -45,6 +51,22 @@ serverApi.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    // ---- DEEP LOG: ให้เห็นว่ายิงไปที่ไหนและติดอะไรจริง ๆ ----
+    const cfg = error.config || {};
+    const fullUrl = cfg.baseURL ? `${cfg.baseURL}${cfg.url || ''}` : (cfg.url || 'unknown');
+    console.error('[serverApi] ❌ request failed', {
+      method: cfg.method,
+      url: fullUrl,
+      params: cfg.params,
+      // ECONNREFUSED / ETIMEDOUT / ENOTFOUND / SELF_SIGNED_CERT_IN_CHAIN = ยิงไม่ถึง backend
+      code: error.code,
+      message: error.message,
+      responseStatus: error.response?.status,
+      responseData: error.response?.data,
+      reachedBackend: Boolean(error.response),
+    });
+    // ---------------------------------------------------------
+
     // Handle errors
     const customError = {
       status: error.response?.status || 500,

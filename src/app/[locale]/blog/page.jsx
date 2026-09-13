@@ -4,6 +4,7 @@ import { getTranslations, getLocale } from 'next-intl/server';
 import MobileMenu from '@/components/common/mobile-menu';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 import DynamicBlogContent from '@/components/blog/DynamicBlogContent';
+import serverApi from '@/utils/serverApi';
 import '@/styles/blog.scss';
 
 export const metadata = {
@@ -11,23 +12,23 @@ export const metadata = {
 };
 
 async function fetchBlogs() {
+  const target = `${process.env.NEXT_PUBLIC_API_URL}/blogs`;
+  console.log('[BLOG-LIST] ▶ fetching', { target });
+
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs`, {
-      headers: {
-        'x-api-key': process.env.NEXT_PUBLIC_API_KEY,
-      },
-      cache: 'no-store'
-    });
+    // ใช้ serverApi (axios) -> ได้ httpsAgent (self-signed cert) + error interceptor เชิงลึก
+    const data = await serverApi.get('/blogs');
+    const blogs = data?.data || [];
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch blogs: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log('Blog data:', data.data);
-    return data.data || [];
+    console.log('[BLOG-LIST] ✅ success', { count: blogs.length });
+    return blogs;
   } catch (error) {
-    console.error('Error fetching blogs:', error);
+    console.error('[BLOG-LIST] ❌ failed', {
+      target,
+      status: error?.status,
+      message: error?.message,
+      data: error?.data,
+    });
     return [];
   }
 }

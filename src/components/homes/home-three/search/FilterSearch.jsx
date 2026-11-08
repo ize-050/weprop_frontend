@@ -142,7 +142,7 @@ export default function HeroSearchBar({
     
     // เพิ่ม quota ถ้ามี
     if (quota) {
-      params.append('quota', quota);
+      params.append('propertyQuota', quota);
     }
     
     // Navigate to properties page with filters
@@ -383,8 +383,8 @@ export default function HeroSearchBar({
                   <NiceSelect
                     options={[
                       { value: "", text: t('allQuota') },
-                      { value: "thai", text: t('thaiQuota') },
-                      { value: "foreign", text: t('foreignQuota') },
+                      { value: "THAI", text: t('thaiQuota') },
+                      { value: "FOREIGN", text: t('foreignQuota') },
                     ]}
                     defaultCurrent={0}
                     onChange={(e) => setQuota(e.target.value)}

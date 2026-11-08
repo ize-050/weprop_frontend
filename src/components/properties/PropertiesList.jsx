@@ -546,7 +546,7 @@ const PropertiesList = ({ searchParams }) => {
     listingType: typeParam,
     bedrooms: urlSearchParams.get('bedrooms') || '',
     bathrooms: urlSearchParams.get('bathrooms') || '',
-    propertyQuota: urlSearchParams.get('propertyQuota') || ''
+    propertyQuota: urlSearchParams.get('quota') || urlSearchParams.get('propertyQuota') || ''
   })
 
   // Update filters when URL params change
@@ -560,7 +560,7 @@ const PropertiesList = ({ searchParams }) => {
       listingType: newTypeParam,
       bedrooms: urlSearchParams.get('bedrooms') || '',
       bathrooms: urlSearchParams.get('bathrooms') || '',
-      propertyQuota: urlSearchParams.get('propertyQuota') || ''
+      propertyQuota: urlSearchParams.get('quota') || urlSearchParams.get('propertyQuota') || ''
     }
     setFilters(newFilters)
   }, [urlSearchParams])
@@ -653,7 +653,7 @@ const PropertiesList = ({ searchParams }) => {
     if (newFilters.zoneId) params.set('zoneId', newFilters.zoneId)
     if (newFilters.minPrice) params.set('minPrice', newFilters.minPrice)
     if (newFilters.maxPrice) params.set('maxPrice', newFilters.maxPrice)
-    if (newFilters.propertyQuota) params.set('propertyQuota', newFilters.propertyQuota)
+    if (newFilters.propertyQuota) params.set('quota', newFilters.propertyQuota)
     if (newFilters.searchQuery) params.set('search', newFilters.searchQuery)
 
     router.push(`/${locale !== 'th' ? locale + '/' : ''}properties?${params.toString()}`)

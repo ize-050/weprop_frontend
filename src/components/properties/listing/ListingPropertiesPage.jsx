@@ -107,7 +107,7 @@ const ListingPropertiesPage = ({ properties = [], pagination = {}, zones = [], s
     if (filterValues.zoneId) params.set('zoneId', filterValues.zoneId);
     if (filterValues.minPrice) params.set('minPrice', filterValues.minPrice);
     if (filterValues.maxPrice) params.set('maxPrice', filterValues.maxPrice);
-    if (filterValues.propertyQuota) params.set('propertyQuota', filterValues.propertyQuota);
+    if (filterValues.propertyQuota) params.set('quota', filterValues.propertyQuota);
     if (filterValues.bedrooms) params.set('bedrooms', filterValues.bedrooms);
     if (filterValues.bathrooms) params.set('bathrooms', filterValues.bathrooms);
     

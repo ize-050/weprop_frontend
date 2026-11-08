@@ -45,6 +45,11 @@ async function searchProperties(searchParams) {
       queryParams.append('bathrooms', searchParams.bathrooms);
     }
 
+    const quota = searchParams.quota || searchParams.propertyQuota;
+    if (quota) {
+      queryParams.append('propertyQuota', quota);
+    }
+
     // เพิ่ม keyword search parameter
     if (searchParams.searchQuery) {
       queryParams.append('keyword', searchParams.searchQuery);

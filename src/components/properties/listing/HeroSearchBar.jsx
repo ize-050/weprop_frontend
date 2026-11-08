@@ -383,8 +383,8 @@ export default function HeroSearchBar({
                   <NiceSelect
                     options={[
                       { value: "", text: t('allQuotas') },
-                      { value: "THAI", text: t('thaiQuota') },
-                      { value: "FOREIGN", text: t('foreignQuota') },
+                      { value: "thai", text: t('thaiQuota') },
+                      { value: "foreign", text: t('foreignQuota') },
                     ]}
                     defaultCurrent={0}
                     onChange={(e) => setSelectedQuota(e.target.value)}
